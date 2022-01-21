@@ -25,11 +25,39 @@
 
 ## Introduction
 
+Description
+
 ## Stake Holders
+
+Personas
+
+- This is a persona
+- This is another persona
+- Example: Client, Hands-On User
 
 ## Constraints
 
+Some Constraints:
+
+- Schedule
+- Budget
+- Workplace Environment, (Working from home and online with partners)
+- Other Classes
+
 ## Overall Description
+
+Backend
+
+- Server (100% uptime)
+
+Front End
+
+- Any computer
+  - Laptop
+  - PC
+  - Phone
+  - Tablet
+  - etc.
 
 ## Use Cases
 
@@ -40,6 +68,17 @@
 ## Definitions and Acronyms
 
 ## Competitive Analysis
+
+How are we better than these 3?
+
+- Expedia
+- Delta Airlines
+- Booking.com
+
+Summary
+[Table Goes Here]
+
+Summary of what the analysis means for the project here...
 
 ## References
 

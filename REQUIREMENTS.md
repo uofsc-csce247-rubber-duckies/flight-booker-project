@@ -25,7 +25,20 @@
 
 ## Introduction
 
-Description
+Flitr is a flight-booking system that aims to be easy to use for both the end
+users and the administrators.
+
+The goal of Flitr is to make the flight booking process as simple as possible
+for all involved and to provide an alternative to the mainlne systems currently
+in use. Sites like [expedia.com](https://expedia.com) and
+[booking.com](https://booking.com) have too much clutter involved. We believe
+that a system that books flights should do just that, **book flights**. We
+want to remove the excess options that are often not used.
+
+For the administrators of Flitr, we also wanted it to be as light-weight as
+possible to make it easy to run on just about any system imaginable. The
+same is true for the end user too, you don't have to worry about it
+stealing all of your resources.
 
 ## Stake Holders
 

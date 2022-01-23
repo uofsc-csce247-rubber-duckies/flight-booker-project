@@ -13,7 +13,7 @@
 ## Table of Contents
 
 - [Introduction](#introduction)
-- [Stake Holders](#stake-holders)
+- [Stakeholders](#stakeholders)
 - [Constraints](#constraints)
 - [Overall Description](#overall-description)
 - [Use Case](#use-cases)
@@ -27,13 +27,20 @@
 
 ### Initial Draft
 
-Flytr is a light-weight and easy-to-use flight booking system. It aims to
-get rid of some of the "clutter" as seen on many other sites such as
-[expedia.com](https://expedia.com/) and [booking.com](https://booking.com/).
-The entirety of Flytr is designed to do one thing, book flights. Every
-feature of Flytr aims to make that process as easy as possible.
+This document describes the specification for Flytr, a flight booking system.
+The goal of Flytr is to be light-weight, easy to use, and the best at one
+thing: booking flights. Many flight booking sites have expanded to the point,
+where they not only handle flights, but hotel reservations, cruises, and
+rental cars. This "clutter" leads to many features not being used on the
+website and therefore wasted space.
 
-## Stake Holders
+Flytr aims to solve this problem by making every feature and part of the
+system designed to make the flight booking experience for the end user
+the best that it can be. Adminstrators and maintainers of Flytr should
+not have to worry about making a lot of mediocre systems when a single
+well-made feature can be used.
+
+## Stakeholders
 
 Personas
 
@@ -78,7 +85,7 @@ Front End
 How are we better than these 3?
 
 - Expedia
-- Delta Airlines
+- Delta Air Lines
 - Booking.com
 
 Summary

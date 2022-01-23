@@ -13,7 +13,7 @@
 ## Table of Contents
 
 - [Introduction](#introduction)
-- [Stake Holders](#stake-holders)
+- [Stakeholders](#stakeholders)
 - [Constraints](#constraints)
 - [Overall Description](#overall-description)
 - [Use Case](#use-cases)
@@ -25,9 +25,22 @@
 
 ## Introduction
 
-Description
+### Initial Draft
 
-## Stake Holders
+This document describes the specification for Flytr, a flight booking system.
+The goal of Flytr is to be light-weight, easy to use, and the best at one
+thing: booking flights. Many flight booking sites have expanded to the point,
+where they not only handle flights, but hotel reservations, cruises, and
+rental cars. This "clutter" leads to many features not being used on the
+website and therefore wasted space.
+
+Flytr aims to solve this problem by making every feature and part of the
+system designed to make the flight booking experience for the end user
+the best that it can be. Adminstrators and maintainers of Flytr should
+not have to worry about making a lot of mediocre systems when a single
+well-made feature can be used.
+
+## Stakeholders
 
 Personas
 

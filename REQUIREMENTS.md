@@ -56,19 +56,12 @@ Some Constraints:
 - Other Classes
 
 ## Overall Description
+This document contains both the conveniences and inconveniences of popular travel booking websites. It also contains a list of stakeholders for the prospective software solution.  The document emphasizes the demands and wants of each of the stakeholders for this new software. It further describes the constraints, requirements, and use cases for the new software. 
 
-Backend
+For the software portion, the team will need access to a database that consists of each airlines flights lists which contains departure and arrival times, prices for flights, etc. We will also implement other software such as email clients for account making, Apple Pay and Paypal for different purchase methods, and giving access for the user to add their ticket to the virtual phone wallet for the ease of boarding. Users will be able to make an account to check flight status and track flights. A reward point system will also be implemented. 
 
-- Server (100% uptime)
+For the hardware portion, the software will be accessible via laptop, PC, phone and tablet. It will be required to have 100% backend uptime to make sure the user can book flights at any time. A backend database will be required to store user account information.
 
-Front End
-
-- Any computer
-  - Laptop
-  - PC
-  - Phone
-  - Tablet
-  - etc.
 
 ## Use Cases
 

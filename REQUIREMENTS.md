@@ -25,8 +25,6 @@
 
 ## Introduction
 
-### Initial Draft
-
 This document describes the specification for Flytr, a flight booking system.
 The goal of Flytr is to be light-weight, easy to use, and the best at one
 thing: booking flights. Many flight booking sites have expanded to the point,

@@ -40,11 +40,45 @@ well-made feature can be used.
 
 ## Stakeholders
 
-Personas
+There are various stakeholders in our flight booking application.
 
-- This is a persona
-- This is another persona
-- Example: Client, Hands-On User
+These include:
+
+- Infrequent Flyers:
+    - Users not affiliated with a business or organization
+    who travel infrequently ( < 3 times per year). This user may be more
+    budget/discount oriented.
+- Frequent Flyers:
+    - Users not affiliated with a business or organization who travel frequently
+    and may wish to use a reward program to obtain free flights for their loyalty.
+- Business Flyers:
+    - Users affiliated with a business or organization who may or may not be the
+    individual the flight is being booked for. 
+    This is likely a high-volume customer and may wish to have a bulk/wholesale 
+    yearly discount for flights. This may include travel agents, office managers, 
+    independent contractors, or other high-volume organizations.
+- Airlines:
+    - The airlines we sell tickets for, either through partnership or by interfacing
+    with their own booking systems.
+    - They will need the information of the ticket purchaser and the ticket that we have sold.
+    There will have to be an interface between our platform and the airline to 
+    obtain the ticket and any tracking information for our customer. Airlines may additionall
+    need partner/analyst access to our application for statistics and accounting information.
+- Funding Manager:
+    - The fund manager over our flight booking startup. 
+    - They will be invested financially in the success of our application in the
+    innovation we provide through our system, a controlled and reasonable burn rate,
+    a timely product release, and a strong go-to-market strategy. 
+
+
+### Personas
+
+![](assets/personas/png/persona_bradley.png)
+
+![](assets/personas/png/persona_josh.png)
+
+![](assets/personas/png/persona_lindsey.png)
+
 
 ## Constraints
 

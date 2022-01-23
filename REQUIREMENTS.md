@@ -48,6 +48,7 @@ Personas
 
 ## Constraints
 
+The project presented comes with numerious constraints that merit addressing and bringing to light. A primary constraint the team is faced with are conflicting schedules that interfere with the time the developers can meet to discuss and collaborate on the project. Correlating to this constraint is the fact that the entire team are full time University students with other classes and assignments. Another constraint is the possibility of a finite budget available for the project. The project must support various different devices including laptops, phones, tablets, and anything else with internet access. The team is also faced with a data management constraint of being able to export info to external system (Ex. Moving ticket to apple wallet) along with importing data (Ex. Utilizing outside bank information). Usability comes as another constraint as the interface must be easy to understand and compete with those of other flight booking sites. A final constraint is the limited technology and tools that the team has access to in the workplace.   
 Some Constraints:
 
 - Schedule

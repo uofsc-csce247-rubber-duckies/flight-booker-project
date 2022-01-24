@@ -80,20 +80,23 @@ These include:
 
 ## Constraints
 
-The project presented comes with numerious constraints that merit addressing
-and bringing to light. A primary constraint the team is faced with are
-conflicting schedules that interfere with the time the developers can meet
-to discuss and collaborate on the project. Correlating to this constraint is
-the fact that the entire team are full time University students with other
-classes and assignments. Another constraint is the possibility of a finite
-budget available for the project. The project must support various different
-devices including laptops, phones, tablets, and anything else with internet
-access. The team is also faced with a data management constraint of being
-able to export info to external system (Ex. Moving ticket to apple wallet)
-along with importing data (Ex. Utilizing outside bank information). Usability
-comes as another constraint as the interface must be easy to understand and
-compete with those of other flight booking sites. A final constraint is the
-limited technology and tools that the team has access to in the workplace.
+The flight booking project comes with serveral constraints that must be
+accounted for. A primary constraint with the developer team is in conflicting
+schedules that interfere with the time the developers can meet to discuss 
+and collaborate on the project. Correlating to this constraint is that the 
+team are all full-time University students with other responsibilities,
+classes, and assignments. Additionally, the developer team works remotely,
+which introduces collaboration difficulties. Another constraint is the 
+possibility of a finite budget available for the project. If this is the 
+case, there may need to be consideration for developer salary, 
+integration/partner fees, and royalty fees for design elements. There is also
+the need for a server to handle server-side processing, storage, and
+credential validation. This is a finanicial and logistic cost. It also
+introduces a data management constraint of storing a large amount of data
+securely and being able to export that info to external systems (Ex. 
+Moving ticket to apple wallet) along with importing data (Ex. External 
+bank information).  A final constraint is the limited technology and 
+tools that the developer team has access to in their remote workspaces.
 
 ## Overall Description
 
@@ -105,19 +108,25 @@ The document emphasizes the demands and wants of each of the stakeholders for
 this new software. It further describes the constraints, requirements, and
 use cases for the new software.
 
-For the software portion, the team will need access to a database that
-consists of each airlines flights lists which contains departure and arrival
-times, prices for flights, etc. We will also implement other software such as
-email clients for account making, Apple Pay and Paypal for different purchase
-methods, and giving access for the user to add their ticket to the virtual
-phone wallet for the ease of boarding. Users will be able to make an account
-to check flight status and track flights. A reward point system will also be
-implemented.
+For the software portion, the system will need to interface with airline flight
+information to obtain all flight departure and arrival times, prices for 
+flights, etc. It will need to be able to obtain ticket information from each
+airline and handle purchasing tickets through the airline selected by the user.
+We will also implement other software such as email clients for account making, 
+integration with popular purchase methods, possibly including PayPal and Apple
+Pay, and giving access for the user to add their ticket to a virtual phone wallet 
+for the ease of boarding. The system will need to be able to interface with airline
+tracking systems to provide flight status checking and flight tracking. If the client
+wishes to include a reward system, we will need to implement that functionality or 
+interface with an existing one.
 
-For the hardware portion, the software will be accessible via laptop, PC,
-phone and tablet. A backend server with as much high availability as possible
-is required to make sure the user can book flights at any time. A backend
-database will be required to store user account information.
+For hardware requirements, the software will be accessible via laptop, PC,
+phone, and tablet. A backend server would be needed for server-side processing,
+secure storage, and credential validation. This will need to have adequate
+specifications for the scale of the market and continual uptime to ensure
+the user can book flights at any time. A backend database will be required to 
+store information. A backup server and backup storage would likely be 
+beneficial, if not necessary for product release.
 
 ## Use Cases
 

@@ -45,52 +45,79 @@ There are various stakeholders in our flight booking application.
 These include:
 
 - Infrequent Flyers:
-    - Users not affiliated with a business or organization
-    who travel infrequently ( < 3 times per year). This user may be more
-    budget/discount oriented.
+  - Users not affiliated with a business or organization who travel infrequently
+  ( < 3 times per year). This user may be more budget/discount oriented.
 - Frequent Flyers:
-    - Users not affiliated with a business or organization who travel frequently
-    and may wish to use a reward program to obtain free flights for their loyalty.
+  - Users not affiliated with a business or organization who travel frequently
+  and may wish to use a reward program to obtain free flights for their loyalty.
 - Business Flyers:
-    - Users affiliated with a business or organization who may or may not be the
-    individual the flight is being booked for. 
-    This is likely a high-volume customer and may wish to have a bulk/wholesale 
-    yearly discount for flights. This may include travel agents, office managers, 
-    independent contractors, or other high-volume organizations.
+  - Users affiliated with a business or organization who may or may not be the
+  individual the flight is being booked for. This is likely a high-volume
+  customer and may wish to have a bulk/wholesale yearly discount for flights.
+  This may include travel agents, office managers, independent contractors, or
+  other high-volume organizations.
 - Airlines:
-    - The airlines we sell tickets for, either through partnership or by interfacing
-    with their own booking systems.
-    - They will need the information of the ticket purchaser and the ticket that we have sold.
-    There will have to be an interface between our platform and the airline to 
-    obtain the ticket and any tracking information for our customer. Airlines may additionall
-    need partner/analyst access to our application for statistics and accounting information.
+  - The airlines we sell tickets for, either through partnership or by
+  interfacing with their own booking systems.
+  - They will need the information of the ticket purchaser and the ticket that
+  we have sold. There will have to be an interface between our platform and the
+  airline to obtain the ticket and any tracking information for our customer.
+  Airlines may additionall need partner/analyst access to our application for
+  statistics and accounting information.
 - Funding Manager:
-    - The fund manager over our flight booking startup. 
-    - They will be invested financially in the success of our application in the
-    innovation we provide through our system, a controlled and reasonable burn rate,
-    a timely product release, and a strong go-to-market strategy. 
-
+  - The fund manager over our flight booking startup.
+  - They will be invested financially in the success of our application in the
+  innovation we provide through our system, a controlled and reasonable burn
+  rate, a timely product release, and a strong go-to-market strategy.
 
 ### Personas
 
-![](assets/personas/png/persona_bradley.png)
+![persona_bradley](assets/personas/png/persona_bradley.png)
 
-![](assets/personas/png/persona_josh.png)
+![persona_josh](assets/personas/png/persona_josh.png)
 
-![](assets/personas/png/persona_lindsey.png)
-
+![persona_lindsey](assets/personas/png/persona_lindsey.png)
 
 ## Constraints
 
-The project presented comes with numerious constraints that merit addressing and bringing to light. A primary constraint the team is faced with are conflicting schedules that interfere with the time the developers can meet to discuss and collaborate on the project. Correlating to this constraint is the fact that the entire team are full time University students with other classes and assignments. Another constraint is the possibility of a finite budget available for the project. The project must support various different devices including laptops, phones, tablets, and anything else with internet access. The team is also faced with a data management constraint of being able to export info to external system (Ex. Moving ticket to apple wallet) along with importing data (Ex. Utilizing outside bank information). Usability comes as another constraint as the interface must be easy to understand and compete with those of other flight booking sites. A final constraint is the limited technology and tools that the team has access to in the workplace.   
+The project presented comes with numerious constraints that merit addressing
+and bringing to light. A primary constraint the team is faced with are
+conflicting schedules that interfere with the time the developers can meet
+to discuss and collaborate on the project. Correlating to this constraint is
+the fact that the entire team are full time University students with other
+classes and assignments. Another constraint is the possibility of a finite
+budget available for the project. The project must support various different
+devices including laptops, phones, tablets, and anything else with internet
+access. The team is also faced with a data management constraint of being
+able to export info to external system (Ex. Moving ticket to apple wallet)
+along with importing data (Ex. Utilizing outside bank information). Usability
+comes as another constraint as the interface must be easy to understand and
+compete with those of other flight booking sites. A final constraint is the
+limited technology and tools that the team has access to in the workplace.
 
 ## Overall Description
-This document contains both the conveniences and inconveniences of popular travel booking websites. A new travel booking software will be created to improve on competitors mishaps while creating a great user experience. It also contains a list of stakeholders for the prospective software solution.  The document emphasizes the demands and wants of each of the stakeholders for this new software. It further describes the constraints, requirements, and use cases for the new software. 
 
-For the software portion, the team will need access to a database that consists of each airlines flights lists which contains departure and arrival times, prices for flights, etc. We will also implement other software such as email clients for account making, Apple Pay and Paypal for different purchase methods, and giving access for the user to add their ticket to the virtual phone wallet for the ease of boarding. Users will be able to make an account to check flight status and track flights. A reward point system will also be implemented. 
+This document contains both the conveniences and inconveniences of popular
+travel booking websites. A new travel booking software will be created to
+improve on competitors mishaps while creating a great user experience. It
+also contains a list of stakeholders for the prospective software solution.
+The document emphasizes the demands and wants of each of the stakeholders for
+this new software. It further describes the constraints, requirements, and
+use cases for the new software.
 
-For the hardware portion, the software will be accessible via laptop, PC, phone and tablet. It will be required to have 100% backend uptime to make sure the user can book flights at any time. A backend database will be required to store user account information.
+For the software portion, the team will need access to a database that
+consists of each airlines flights lists which contains departure and arrival
+times, prices for flights, etc. We will also implement other software such as
+email clients for account making, Apple Pay and Paypal for different purchase
+methods, and giving access for the user to add their ticket to the virtual
+phone wallet for the ease of boarding. Users will be able to make an account
+to check flight status and track flights. A reward point system will also be
+implemented.
 
+For the hardware portion, the software will be accessible via laptop, PC,
+phone and tablet. A backend server with as much high availability as possible
+is required to make sure the user can book flights at any time. A backend
+database will be required to store user account information.
 
 ## Use Cases
 

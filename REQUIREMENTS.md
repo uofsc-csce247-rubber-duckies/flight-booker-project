@@ -82,13 +82,13 @@ These include:
 
 The flight booking project comes with serveral constraints that must be
 accounted for. A primary constraint with the developer team is in conflicting
-schedules that interfere with the time the developers can meet to discuss 
-and collaborate on the project. Correlating to this constraint is that the 
+schedules that interfere with the time the developers can meet to discuss
+and collaborate on the project. Correlating to this constraint is that the
 team are all full-time University students with other responsibilities,
 classes, and assignments. Additionally, the developer team works remotely,
-which introduces collaboration difficulties. Another constraint is the 
-possibility of a finite budget available for the project. If this is the 
-case, there may need to be consideration for developer salary, 
+which introduces collaboration difficulties. Another constraint is the
+possibility of a finite budget available for the project. If this is the
+case, there may need to be consideration for developer salary,
 integration/partner fees, and royalty fees for design elements. There is also
 the need for a server to handle server-side processing, storage, and
 credential validation. This is a finanicial and logistic cost. It also
@@ -109,23 +109,23 @@ this new software. It further describes the constraints, requirements, and
 use cases for the new software.
 
 For the software portion, the system will need to interface with airline flight
-information to obtain all flight departure and arrival times, prices for 
+information to obtain all flight departure and arrival times, prices for
 flights, etc. It will need to be able to obtain ticket information from each
 airline and handle purchasing tickets through the airline selected by the user.
-We will also implement other software such as email clients for account making, 
+We will also implement other software such as email clients for account making,
 integration with popular purchase methods, possibly including PayPal and Apple
-Pay, and giving access for the user to add their ticket to a virtual phone wallet 
+Pay, and giving access for the user to add their ticket to a virtual phone wallet
 for the ease of boarding. The system will need to be able to interface with airline
 tracking systems to provide flight status checking and flight tracking. If the client
-wishes to include a reward system, we will need to implement that functionality or 
+wishes to include a reward system, we will need to implement that functionality or
 interface with an existing one.
 
 For hardware requirements, the software will be accessible via laptop, PC,
 phone, and tablet. A backend server would be needed for server-side processing,
 secure storage, and credential validation. This will need to have adequate
 specifications for the scale of the market and continual uptime to ensure
-the user can book flights at any time. A backend database will be required to 
-store information. A backup server and backup storage would likely be 
+the user can book flights at any time. A backend database will be required to
+store information. A backup server and backup storage would likely be
 beneficial, if not necessary for product release.
 
 ## Use Cases
@@ -382,10 +382,9 @@ Contains: About Delta, Customer Service, Site Support, and Policies.
 
 #### Design and Usability Notes
 
-- It is not immediately clear what is clickable on the home page with everything 
+- It is not immediately clear what is clickable on the home page with everything
   being the same color.
-- You are able to select a return date before the 
-  departing date.
+- You are able to select a return date before the departing date.
 - The date selection is difficult to use as it takes the first selected date as the
   departure date and the second date chosen as the return date, but does not show
   that their will be a return date until after the first date is chosen. It
@@ -511,7 +510,6 @@ Flights Help.
   popular destinations across the app.
 - We should have selecting departing and returning flights separately. This
   cleans up the search results considerably and makes it more intuitive to use.
-
 
 ### Summary
 

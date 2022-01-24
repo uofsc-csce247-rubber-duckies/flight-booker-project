@@ -517,20 +517,20 @@ Flights Help.
 
 |            Feature            | Expedia   |  Delta    | Booking.com   |
 |:----------------------------: |:-------:  |:-------:  |:-----------:  |
-| Book Hotel                    | &#9746;   |           |   &#9746;     |
-| Book Flight                   | &#9746;   | &#9746;   |   &#9746;     |
-| Multiple Airlines             | &#9746;   |           |   &#9746;     |
-| Search Multiple Destinations  |           |           |   &#9746;     |
-| Flexible Dates                | &#9746;   | &#9746;   |               |
-| Flexible Tickets              | &#9746;   | &#9746;   |   &#9746;     |
-| Flight Preview Page           |           |           |   &#9746;     |
-| Flight Status Check           |           | &#9746;   |               |
-| Round-trip Flight             | &#9746;   | &#9746;   |   &#9746;     |
-| One-way Flight                | &#9746;   | &#9746;   |   &#9746;     |
-| Multi-city Flight             | &#9746;   | &#9746;   |   &#9746;     |
-| Main Page Promotions          | &#9746;   | &#9746;   |   &#9746;     |
-| Pay with Credit Card          | &#9746;   | &#9746;   |   &#9746;     |
-| Rewards Program               | &#9746;   | &#9746;   |   &#9746;     |
+| Book Hotel                    | &cross;   |           |   &cross;     |
+| Book Flight                   | &cross;   | &cross;   |   &cross;     |
+| Multiple Airlines             | &cross;   |           |   &cross;     |
+| Search Multiple Destinations  |           |           |   &cross;     |
+| Flexible Dates                | &cross;   | &cross;   |               |
+| Flexible Tickets              | &cross;   | &cross;   |   &cross;     |
+| Flight Preview Page           |           |           |   &cross;     |
+| Flight Status Check           |           | &cross;   |               |
+| Round-trip Flight             | &cross;   | &cross;   |   &cross;     |
+| One-way Flight                | &cross;   | &cross;   |   &cross;     |
+| Multi-city Flight             | &cross;   | &cross;   |   &cross;     |
+| Main Page Promotions          | &cross;   | &cross;   |   &cross;     |
+| Pay with Credit Card          | &cross;   | &cross;   |   &cross;     |
+| Rewards Program               | &cross;   | &cross;   |   &cross;     |
 
 #### Analysis
 

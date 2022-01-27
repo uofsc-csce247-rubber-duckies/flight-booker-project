@@ -39,6 +39,20 @@
 - must be older than 18 to make an account
 - take into account hotel age restriction
 - no "disclaimers" (or just in really small font)
-- pets are treated like infants
+- pets are treated like infants (they need to be weighed?, and they need to
+  have profiles of their own?)
+- no cruises
+- check luggage through the system
+- users can request specific seats
+- rental cars need to be implemented
+- Search by: (actually just make it simple)
+  - price
+  - duration
+  - number of stopovers
+- users can book seats and class (business, first, etc.)
+- only link to best airline
+- get all info from users, passport info, id, name, details, details, details...
+
+- ***GUI IS FRICKIN OPTIONAL DON'T BE STUPID***
 
 - i am a fucking idiot ***note to self***: figure out how to speak

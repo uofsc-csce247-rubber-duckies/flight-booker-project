@@ -130,6 +130,9 @@ beneficial, if not necessary for product release.
 
 ## Use Cases
 
+<img width="1036" alt="Screen Shot 2022-02-01 at 10 29 00 PM" src="https://user-images.githubusercontent.com/77361518/152089457-6635a02f-c847-4007-87ca-51528cc0a589.png">
+
+
 ## Functional Requirements
 
 ## Non-Functional Requirements

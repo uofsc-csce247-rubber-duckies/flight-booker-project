@@ -61,6 +61,7 @@ Front End
   - etc.
 
 ## Use Cases
+<img width="1075" alt="Screen Shot 2022-02-01 at 10 28 04 PM" src="https://user-images.githubusercontent.com/77361518/152088715-1ea490be-9b71-4e1e-bdef-1dc8416cdf3f.png">
 
 ## Functional Requirements
 

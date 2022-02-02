@@ -30,6 +30,7 @@ James Thurlow ([james-thurlow](https://github.com/james-thurlow),
 - [Use Case](#use-cases)
 - [Functional Requirements](#functional-requirements)
 - [Non-Functional Requirements](#non-functional-requirements)
+- [Definitions and Acronyms](#definitions-and-acronyms)
 - [Competitive Analysis](#competitive-analysis)
 - [References](#references)
 - [Appendices](#appendices)
@@ -150,7 +151,18 @@ beneficial, if not necessary for product release.
 
 ## Non-Functional Requirements
 
+[Non-Functional Requirements Document](https://docs.google.com/spreadsheets/d/1pySAAxS-EFAiLC-8LNY4ZvkV13Csb1hJit0mCkhEU18/edit?usp=sharing)
+
+
+
 ## Definitions and Acronyms
+
+The System - The Flyter flight booking program and all of its included classes, interfaces, databases, and other files.
+
+The User - A potential customer of the Flyter system who would book a flight through Flytr
+
+UML - Unified Modeling Language - a standardized method of describing the design of a program and the relation of all of the classes, methods and interfaces.
+
 
 ## Competitive Analysis
 
@@ -566,4 +578,24 @@ account system, this would be a good way to have returning users.
 
 ## References
 
+Expedia. Expedia.com. Accessed 2/1/2022.
+
+Travelocity. Travelocity.com. Accessed 2/1/2022.
+
+Google Java Style Guide. https://google.github.io/styleguide/javaguide.html. Accessed 2/1/2022.
+
+Airline Fares Regulations, US Department of Transportation. https://www.transportation.gov/policy/aviation-policy/airline-rules-fares Accessed 2/1/2022.
+
+Booking.com. Accessed 2/1/2022.
+
+Delta Airlines. Delta.com. Accessed 2/1/2022.
+
+
+
 ## Appendices
+
+Google Java Style Guide. https://google.github.io/styleguide/javaguide.html
+
+UML Class Diagram Tutorial. https://www.visual-paradigm.com/guide/uml-unified-modeling-language/uml-class-diagram-tutorial/
+
+

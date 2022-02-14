@@ -15,8 +15,8 @@ public class Flight extends Booking {
     private LocalDateTime arrivalTime;
     private boolean allowsDogs;
 
-    public Flight(String airport, Location from, Location to, boolean[][] seats) {
-        super("id", BookingType.FLIGHT);
+    public Flight(String id, String airport, Location from, Location to, boolean[][] seats) {
+        super(id, BookingType.FLIGHT);
         this.airport = airport;
         this.from = from;
         this.to = to;

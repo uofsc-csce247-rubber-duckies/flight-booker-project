@@ -10,6 +10,21 @@ public class Location {
         this.state = state;
     }
 
+    public Location(String locString) {
+        String[] locSplit = locString.trim().split(",");
+        if (locSplit.length == 0) {
+            city = "NULL";
+            state = "NULL";
+            return;
+        }
+        city = locSplit[0].trim();
+        if (locSplit.length == 1) {
+            state = "NULL";
+            return;
+        }
+        state = locSplit[1].trim();
+    }
+
     public String getCity() {
         return city;
     }

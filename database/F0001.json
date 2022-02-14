@@ -1,0 +1,19 @@
+{
+    "airport": "Charlotte-Douglass International Airport",
+    "from": "Charlotte, NC",
+    "to": "Seattle, WA",
+    "departureTime": "2022-02-14T16:00:00",
+    "arrivalTime": "2022-02-14T18:00:00",
+    "seats": [
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true]
+    ],
+    "allowsDogs": true
+}

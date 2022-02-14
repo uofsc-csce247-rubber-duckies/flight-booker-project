@@ -1,9 +1,21 @@
 package com.rubberduckies.flytr;
 
-public class Booking {
+public abstract class Booking {
 
-    public Booking() {
+    private String id;
+    private BookingType type;
 
+    public Booking(String id, BookingType type) {
+        this.id = id;
+        this.type = type;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public BookingType getType() {
+        return type;
     }
 
 }

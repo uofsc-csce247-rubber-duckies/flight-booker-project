@@ -23,6 +23,8 @@ public class BookingController extends Controller {
     }
 
     // TODO TESTING 
+    // This is purely a testing method
+    // delete when pushing to productions
     public void displayBookings() {
         for (Booking b : bookings) {
             System.out.println(b.toString());

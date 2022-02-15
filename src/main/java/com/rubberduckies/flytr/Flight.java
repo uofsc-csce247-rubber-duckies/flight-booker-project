@@ -38,6 +38,18 @@ public class Flight extends Booking {
         }
     }
 
+    public String seatDisplayString() {
+        String ret = "";
+        for (boolean[] arr : seats) {
+            for (boolean seat : arr) {
+                char c = seat ? AVAILABLE : TAKEN;
+                ret += c + " ";
+            }
+            ret += "\n\n";
+        }
+        return ret;
+    }
+
     public String toString() {
         return "id: " + getId() +
                "\nairport: " + airport +
@@ -46,7 +58,7 @@ public class Flight extends Booking {
                "\ndepartureTime: " + departureTime.toString() +
                "\narribalTime: " + arrivalTime.toString() +
                "\nallowsDogs: " + allowsDogs +
-               "\nseats: " + seats.toString();
+               "\nseats:\n" + seatDisplayString();
     }
 
     public String getAirport() {

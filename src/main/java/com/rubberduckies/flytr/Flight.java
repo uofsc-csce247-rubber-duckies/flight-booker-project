@@ -39,7 +39,14 @@ public class Flight extends Booking {
     }
 
     public String toString() {
-        return "";
+        return "id: " + getId() +
+               "\nairport: " + airport +
+               "\nfrom: " + from.toString() +
+               "\nto: " + to.toString() +
+               "\ndepartureTime: " + departureTime.toString() +
+               "\narribalTime: " + arrivalTime.toString() +
+               "\nallowsDogs: " + allowsDogs +
+               "\nseats: " + seats.toString();
     }
 
     public String getAirport() {
@@ -54,8 +61,16 @@ public class Flight extends Booking {
         return to;
     }
 
+    public void setDepartureTime(LocalDateTime departureTime) {
+        this.departureTime = departureTime;
+    }
+
     public LocalDateTime getDepartureTime() {
         return departureTime;
+    }
+
+    public void setArrivalTime(LocalDateTime arrivalTime) {
+        this.arrivalTime = arrivalTime;
     }
 
     public LocalDateTime getArrivalTime() {
@@ -69,5 +84,4 @@ public class Flight extends Booking {
     public void allowsDogs(boolean allowsDogs) {
         this.allowsDogs = allowsDogs;
     }
-
 }

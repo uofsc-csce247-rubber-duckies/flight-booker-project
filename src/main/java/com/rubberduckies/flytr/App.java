@@ -7,8 +7,7 @@ public class App {
     public void run() {
         UserController userController = new UserController();
         BookingController bookingController = new BookingController();
-
-        userController.
+        bookingController.displayBookings();
     }
 
     public static void main( String[] args ) {

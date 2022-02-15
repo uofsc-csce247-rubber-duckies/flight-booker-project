@@ -10,14 +10,6 @@ public class UserController extends Controller {
     private ArrayList<User> users;
 
     public UserController() {
-        users = new ArrayList<User>();
-        File file = new File("./database/");
-        File[] files = file.listFiles();
-        ArrayList<JSONObject> jsonObjects = new ArrayList<JSONObject>();
-        for (File f : files) {
-            jsonObjects.add(readJson(f.getPath()));
-        }
-        parse(jsonObjects);
     }
 
     public User login(String username, String password) {
@@ -41,11 +33,6 @@ public class UserController extends Controller {
     }
 
     protected void parse(ArrayList<JSONObject> jsonObjects) {
-        for (JSONObject json : jsonObjects) {
-            String airport = json.get("airport").toString();
-            Location from = new Location(json.get("from").toString());
-            Location to = new Location(json.get("to").toString());
-        }
     }
 
 }

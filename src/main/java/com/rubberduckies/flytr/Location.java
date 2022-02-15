@@ -33,4 +33,8 @@ public class Location {
         return state;
     }
 
+    public String toString() {
+        return city + ", " + state;
+    }
+
 }

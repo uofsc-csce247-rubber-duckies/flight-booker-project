@@ -1,4 +1,6 @@
 {
+    "id": "F0001",
+    "type": "FLIGHT",
     "airport": "Charlotte-Douglass International Airport",
     "from": "Charlotte, NC",
     "to": "Seattle, WA",

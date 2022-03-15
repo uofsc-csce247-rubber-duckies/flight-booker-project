@@ -11,6 +11,8 @@ The ***only*** flight booking system your company needs.
 
 To compile and run flytr:
 
+*note*: Must have the Java JDK and JRE installed at least version 11 as well as Maven
+
 ```text
 # Navigate to the flytr directory where the source code of the project is.
 cd flytr

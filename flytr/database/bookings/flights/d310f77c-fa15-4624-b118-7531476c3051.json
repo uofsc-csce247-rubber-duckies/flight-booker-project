@@ -1,0 +1,21 @@
+{
+    "id": "flight_d310f77c-fa15-4624-b118-7531476c3051",
+    "airport": "Charlotte-Douglas International Airport",
+    "from": "Charlotte, NC",
+    "to": "Atlanta, GA",
+    "departure": "2022-04-02T13:00:00",
+    "arrival": "2022-04-02T14:00:00",
+    "seats": [
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true]
+    ],
+    "allowsDogs": true
+}

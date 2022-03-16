@@ -31,7 +31,7 @@ public class Flight extends Booking {
      * @param allowsDogs Boolean if flight allows dogs
      */
     public Flight(String id, String airport, Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime, boolean[][] seats, boolean allowsDogs) {
-        super(id, BookingType.FLIGHT);
+        //super(id, BookingType.FLIGHT);
         this.airport = airport;
         this.from = from;
         this.to = to;

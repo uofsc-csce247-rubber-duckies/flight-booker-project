@@ -2,24 +2,23 @@
  * @author tyler beetle
  * @author joe comiskey
  */
+package org.rubberduckies;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class BookingReceipt{
+public class BookingReceipt {
+    
     private Booking booking;
     private User bookedBy;
     private LocalDateTime bookedOn;
     private ArrayList<UserData> users;
 
-    public BookingReceipt(Booking booking, User bookedBy)
+    public BookingReceipt(Booking booking, User bookedBy, LocalDateTime bookedOn, UserData users)
     {
         this.booking = booking;
         this.bookedBy = bookedBy;
-    }
-    public BookingReceipt(Booking booking, User bookedBy, UserData users)
-    {
-        this.booking = booking;
-        this.bookedBy = bookedBy;
+        this.bookedOn = bookedOn;
         this.users = users;
     }
     public Booking getBooking()
@@ -28,7 +27,7 @@ public class BookingReceipt{
     }
     public User getBookedBy()
     {
-        return bookedBy;
+        return this.bookedBy;
     }
     public LocalDateTime getBookedOn()
     {
@@ -38,19 +37,19 @@ public class BookingReceipt{
     {
         return users; 
     }
-    public void setBooking(Booking booking)
+    public setBooking(Booking booking)
     {
         this.booking = booking;
     }
-    public void setBookedBy(User booking)
+    public setBookedBy(User user)
     {
-        this.bookedBy = bookedBy;
+        this.bookedBy = user;
     }
-    public void setBookedOn(LocalDateTime b)
+    public setBookedOn(LocalDateTime time)
     {
-        this.bookedOn = bookedOn;
+        this.bookedOn = time;
     }
-    public void setUsers(ArrayList<UserData> b)
+    public setUsers(ArrayList<UserData> users)
     {
         this.users = users;
     }

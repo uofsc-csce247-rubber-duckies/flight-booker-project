@@ -1,8 +1,9 @@
 /**
  * @author james-thurlow
+ * @author tyler beetle 
  */
 
-package test.java.org.rubberduckies;
+package org.rubberduckies;
 
 public class Location {
     
@@ -12,18 +13,30 @@ public class Location {
     public Location(String city, String state){
         city = this.city;
         state = this.state;
-
         System.out.println("Location Constructor");
     }
 
+    public void setCity(String city){
+        this.city = city;
+        System.out.println("Location.setCity");
+    }
+
+    public void setState(String state){
+        this.state = state;System.out.println("Location.setState");
+    }
+
     public String getCity(){
-        System.out.println("Location.getCity");
         return city;
     }
 
+    public void setCity(String city) {
+        this.city = city;
+    }
     public String getState(){
-        System.out.println("Location.getState");
-        return state;
+        return this.state;
+    }
+    public void setState(String state) {
+        this.state = state;
     }
     
 }

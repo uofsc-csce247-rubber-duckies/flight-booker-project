@@ -1,5 +1,8 @@
 package org.rubberduckies;
-
+/**
+ * Creates a class to store the Users Preferances
+ * @author Tyler Beetle
+ */
 import java.util.ArrayList;
 
 public class UserPreferences {

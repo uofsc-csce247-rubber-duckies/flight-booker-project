@@ -7,7 +7,8 @@ package org.rubberduckies;
 import java.util.ArrayList;
 import org.json.simple.JSONObject;
 
-public class UserController implements Controller {
+public class UserController extends Controller {
+    
     private ArrayList<User> users;
 
 
@@ -37,7 +38,7 @@ public class UserController implements Controller {
      * @param filename file to read
      * @return JSONObject loaded JSON object
      */
-    private JSONObject readJSON(String filename) {
+    protected JSONObject readJSON(String filename) {
         System.out.println("UserController.readJSON");
         return null;
     }
@@ -49,7 +50,7 @@ public class UserController implements Controller {
      * @param json JSONObject to save
      * @return boolean if save is success
      */
-    private boolean writeJSON(String filename, JSONObject json) {
+    protected boolean writeJSON(String filename, JSONObject json) {
         System.out.println("UserController.writeJSON");
         return false;
     }

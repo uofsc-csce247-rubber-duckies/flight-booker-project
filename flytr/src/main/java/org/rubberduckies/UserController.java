@@ -1,7 +1,3 @@
-/**
- * @author james-thurlow
- */
-
 package org.rubberduckies;
 
 import java.util.ArrayList;
@@ -53,6 +49,14 @@ public class UserController extends Controller {
     protected boolean writeJSON(String filename, JSONObject json) {
         System.out.println("UserController.writeJSON");
         return false;
+    }
+
+    /**
+     * Parses JSON object
+     * @param jsonObjects arraylist of json objects to parse
+     */
+    protected void parse(ArrayList<JSONObject> jsonObjects) {
+        //TODO: implement
     }
 
     

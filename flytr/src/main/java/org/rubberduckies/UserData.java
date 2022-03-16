@@ -12,7 +12,12 @@ public class UserData {
     private LocalDateTime birthDate;
     private String passport;
     private String address;
+
     
+    public UserData() {
+
+    }
+
 
     public UserData(String id, String firstName, String lastName, String email, String phoneNumber, LocalDateTime birthDate, String passport, String address) {
         this.id = id;

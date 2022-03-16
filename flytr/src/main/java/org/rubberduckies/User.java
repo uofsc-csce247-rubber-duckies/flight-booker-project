@@ -1,7 +1,3 @@
-/**
- *
- * @author Daniel Gleaves
- */
 package org.rubberduckies;
 
 import java.util.ArrayList;
@@ -32,11 +28,11 @@ public class User {
         this.role = role;
         this.data = new UserData();
         this.preferences = new UserPreferences();
-        this.card = new ArrayList<Booking>();
+        this.cart = new ArrayList<Booking>();
         this.history = new ArrayList<BookingReceipt>();
         this.linkedAccounts = new ArrayList<User>();
         this.savedPeople = new ArrayList<UserData>();
-        this.dogs = new ArrayList<Dogs>();
+        this.dogs = new ArrayList<Dog>();
         this.isFrequentFlyer = false;
     }
 
@@ -62,11 +58,11 @@ public class User {
         this.role = role;
         this.data = data;
         this.preferences = new UserPreferences();
-        this.card = new ArrayList<Booking>();
+        this.cart = new ArrayList<Booking>();
         this.history = new ArrayList<BookingReceipt>();
         this.linkedAccounts = new ArrayList<User>();
         this.savedPeople = new ArrayList<UserData>();
-        this.dogs = new ArrayList<Dogs>();
+        this.dogs = new ArrayList<Dog>();
         this.isFrequentFlyer = false;
     }
 

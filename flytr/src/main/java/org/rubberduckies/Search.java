@@ -6,8 +6,6 @@
 package org.rubberduckies;
 
 import java.util.ArrayList;
-import javax.naming.ldap.SortKey;
-import javax.naming.ldap.FilterKey;
 
 public class Search{
  

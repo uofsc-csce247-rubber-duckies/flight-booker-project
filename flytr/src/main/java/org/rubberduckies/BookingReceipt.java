@@ -1,7 +1,9 @@
-@author Joe
+package org.rubberduckies;
+
 import java.time.LocalDateTime;
 
-public class BookingReceipt{
+public class BookingReceipt {
+    
     private Booking booking;
     private User bookedBy;
     private LocalDateTime bookedOn;
@@ -9,7 +11,8 @@ public class BookingReceipt{
 
     public BookingReceipt(Booking booking, User user)
     {
-        return BookingReceipt;
+        this.booking = booking;
+        this.user = user;
     }
     public BookingReceipt(Booking booking, User user, UserData users)
     {
@@ -19,9 +22,9 @@ public class BookingReceipt{
     {
         return booking;
     }
-    public getBookedBy()
+    public User getBookedBy()
     {
-        return bookedBy;
+        return this.bookedBy;
     }
     public getBookedOn()
     {
@@ -31,21 +34,21 @@ public class BookingReceipt{
     {
         return users; 
     }
-    public setBooking(Booking b)
+    public setBooking(Booking booking)
     {
-        this.booking = b;
+        this.booking = booking;
     }
-    public setBookedBy(User b)
+    public setBookedBy(User user)
     {
-        this.bookedBy = b;
+        this.bookedBy = user;
     }
-    public setBookedOn(LocalDateTime b)
+    public setBookedOn(LocalDateTime time)
     {
-        this.bookedOn = b;
+        this.bookedOn = time;
     }
-    public setUsers(ArrayList<UserData> b)
+    public setUsers(ArrayList<UserData> users)
     {
-        this.users = b;
+        this.users = users;
     }
 
 }

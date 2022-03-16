@@ -6,8 +6,10 @@
 package org.rubberduckies;
 
 import java.util.ArrayList;
+import javax.naming.ldap.SortKey;
+import javax.naming.ldap.FilterKey;
 
-public class Search {
+public class Search{
  
     private ArrayList<SortKey> sortKeys;
     private ArrayList<FilterKey> filterKeys;
@@ -32,5 +34,4 @@ public class Search {
     public void setFilterKeys(ArrayList<FilterKey> filterKeys) {
         this.filterKeys = filterKeys;
     }
-
 }

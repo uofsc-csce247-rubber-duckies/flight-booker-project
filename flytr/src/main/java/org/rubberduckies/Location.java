@@ -11,8 +11,18 @@ public class Location {
     private String state;
     
     public Location(String city, String state){
-        this.city = city ;
-        this.state = state;
+        city = this.city;
+        state = this.state;
+        System.out.println("Location Constructor");
+    }
+
+    public void setCity(String city){
+        this.city = city;
+        System.out.println("Location.setCity");
+    }
+
+    public void setState(String state){
+        this.state = state;System.out.println("Location.setState");
     }
 
     public String getCity(){

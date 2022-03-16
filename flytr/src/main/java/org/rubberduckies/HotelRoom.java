@@ -1,8 +1,8 @@
 /**
  * @author james-thurlow
+ * @author tyler beetle
  */
-
-package test.java.org.rubberduckies;
+package org.rubberduckies;
 
 public class HotelRoom {
     private int capacity;
@@ -10,7 +10,8 @@ public class HotelRoom {
     private boolean available;
 
     public HotelRoom(int capacity, int number){
-        System.out.println("HotelRoom constructor");     
+        this.capacity = capacity;
+        this.number = number;    
     }
 
     public void book(int number){
@@ -18,17 +19,20 @@ public class HotelRoom {
     }
 
     public int getCapacity(){
-        System.out.println("HotelRoom.getCapacity");
-        return null;
+        return capacity;
     }
-
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
     public int getNumber(){
-        System.out.println("HotelRoom.getNumber");
-        return null;
+        return number;
+    }
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public boolean isAvailable(){
-        System.out.println("HotelRoom.isAvailable");
-        return null;
+        //TODO
+        return false; 
     }
 }

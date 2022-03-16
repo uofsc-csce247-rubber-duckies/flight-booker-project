@@ -22,33 +22,11 @@ public class BookingController extends Controller {
         return null;
     }
 
-    /** 
-     * Reads a JSON file
-     * @param filename file to read
-     * @return JSONObject loaded JSON object
-     */
-    protected JSONObject readJSON(String filename) {
-        System.out.println("UserController.readJSON");
-        return null;
-    }
-
-    
-    /** 
-     * Writes the users to the user database
-     * @param filename filename to save to
-     * @param json JSONObject to save
-     * @return boolean if save is success
-     */
-    protected boolean writeJSON(String filename, JSONObject json) {
-        System.out.println("UserController.writeJSON");
-        return false;
-    }
-
     /**
      * Parses JSON object
      * @param jsonObjects arraylist of json objects to parse
      */
-    protected void parse(ArrayList<JSONObject> jsonObjects) {
+    protected void parse(JSONObject jsonObject) {
         //TODO: implement
     }
 

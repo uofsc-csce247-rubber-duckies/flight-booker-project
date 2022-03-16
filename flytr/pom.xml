@@ -25,11 +25,12 @@
             <artifactId>json-simple</artifactId>
             <version>1.1.1</version>
         </dependency>
-        <!-- Bcrypt port for Java -->
+        <!-- Java springframework BCrypt -->
+<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>4.1.6.RELEASE</version>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>5.6.2</version>
         </dependency>
     </dependencies>
     <build>
@@ -48,7 +49,7 @@
                                 <transformers>
                                     <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                        <mainClass>org.rubberduckies.App</mainClass>
+                                        <mainClass>org.rubberduckies.Flytr</mainClass>
                                     </transformer>
                                 </transformers>
                             </configuration>

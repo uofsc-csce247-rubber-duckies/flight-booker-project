@@ -2,41 +2,27 @@ package org.rubberduckies;
 
 import java.util.ArrayList;
 import org.json.simple.JSONObject;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 public class UserController extends Controller {
+
+    private final String USER_DATABASE = "database/userdata";
     
+    private static UserController instance;
     private ArrayList<User> users;
 
 
     /**
      * Creates a new user controller
      */
-    public UserController(){
-        System.out.println("UserController constructor");
-        System.out.println("Load users");
+    private UserController(){
+        // TODO
 
-        this.users = loadUsers();
     }
 
-    
-    /** 
-     * Loads users from the database
-     * @return ArrayList<User> arraylist of users
-     */
-    private ArrayList<User> loadUsers() {
-        System.out.println("UserController.loadUsers");
-        return null;
-    }
-
-    
-    /**
-     * Ran after the readJson() method is called, parses
-     * that result and assigns the member variables accordingly.
-     *
-     * @param jsonObject The JSONObject to parse.
-     */
-    protected void parse(JSONObject jsonObject) {
-        //TODO: implement
+    public static UserController createController() {
+        if (instance == null) instance = new UserController();
+        return instance;
     }
 
     
@@ -51,7 +37,9 @@ public class UserController extends Controller {
      * @return The authenticated User or null.
      */
     public User login(String username, String password){
-        // TODO
+        for (User user : users) {
+            if (BCrypt.checkpw(password, user.getPassword())) return user;
+        }
         return null;
     }
 
@@ -66,36 +54,45 @@ public class UserController extends Controller {
         // TODO
     }
 
-    
-    /** 
-     * Get user's user data
-     * @param username user to get data for
-     * @return UserData user data
-     */
-    public UserData getData(String username){
-        System.out.println("UserController.getData");
+    public UserData getData(String username) {
+        // TODO
         return null;
     }
 
-    
-    /** 
-     * Get user's preferences
-     * @param username
-     * @return UserPreferences
-     */
-    public UserPreferences getPreferences(String username){
-        System.out.println("UserController.getPreferences");
+    public UserPreferences getPreferences(String username) {
+        // TODO
         return null;
     }
 
+    /**
+     * Ran after the readJson() method is called, parses
+     * that result and creates the corresponding User objects.
+     *
+     * @param jsonObject The JSONObject to parse.
+     */
+    protected void parse(JSONObject jsonObject) {
+        // TODO
+
+        
+    }
+
+    private ArrayList<JSONObject> readUserDirectory(String userFile) {
+        // TODO
+        ArrayList<JSONObject> jsonObjects = new ArrayList<JSONObject>();
+        return jsonObjects;
+    }
     
-    /** 
-     * Honestly no idea what this method is for currently, but it's in UML
-     * @param plainText
-     * @return String
+    /**
+     * Reference: https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/crypto/bcrypt/BCrypt.html
+     *
+     * Helper method that hashes a plain text password
+     * and returns the message digest using Bcrypt.
+     *
+     * @param plainText The plain text to hash.
+     *
+     * @return The message digest.
      */
     private String hash(String plainText){
-        System.out.println("UserController.hash");
-        return null;
+        return BCrypt.hashpw(plainText, BCrypt.gensalt());
     }
 }

@@ -7,8 +7,7 @@ public class Flytr {
     private UserController userController;
 
     public Flytr() {
-        this.userController = new UserController();
-        this.bookingController = new BookingController();
+        userController = UserController.createController();
     }
 
     
@@ -82,6 +81,11 @@ public class Flytr {
      */
     private boolean cancelBooking() {
         return false;
+    }
+
+    public static void main(String[] args) {
+        Flytr flytr = new Flytr();
+        flytr.run();
     }
 
 }

@@ -1,5 +1,8 @@
 package org.rubberduckies;
 
+import java.util.ArrayList;
+
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 
@@ -61,6 +64,20 @@ public abstract class Controller {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Returns all filenames in the given directory,
+     * usefule for finding all user directories in the
+     * database or anything similar.
+     *
+     * @param directory The directory name to list.
+     *
+     * @return The list of files/directories in the given one.
+     */
+    protected String[] getFilesFromDirectory(String directory) {
+        File file = new File(directory);
+        return file.list();
     }
 
 

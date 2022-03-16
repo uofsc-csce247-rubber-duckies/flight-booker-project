@@ -1,5 +1,9 @@
-@author Joe
+/**
+ * @author tyler beetle
+ * @author joe comiskey
+ */
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class BookingReceipt{
     private Booking booking;
@@ -7,45 +11,48 @@ public class BookingReceipt{
     private LocalDateTime bookedOn;
     private ArrayList<UserData> users;
 
-    public BookingReceipt(Booking booking, User user)
+    public BookingReceipt(Booking booking, User bookedBy)
     {
-        return BookingReceipt;
+        this.booking = booking;
+        this.bookedBy = bookedBy;
     }
-    public BookingReceipt(Booking booking, User user, UserData users)
+    public BookingReceipt(Booking booking, User bookedBy, UserData users)
     {
-        return BookingReceipt;
+        this.booking = booking;
+        this.bookedBy = bookedBy;
+        this.users = users;
     }
-    public getBooking()
+    public Booking getBooking()
     {
         return booking;
     }
-    public getBookedBy()
+    public User getBookedBy()
     {
         return bookedBy;
     }
-    public getBookedOn()
+    public LocalDateTime getBookedOn()
     {
         return bookedOn;
     }
-    public getUsers()
+    public ArrayList<UserData> getUsers()
     {
         return users; 
     }
-    public setBooking(Booking b)
+    public void setBooking(Booking booking)
     {
-        this.booking = b;
+        this.booking = booking;
     }
-    public setBookedBy(User b)
+    public void setBookedBy(User booking)
     {
-        this.bookedBy = b;
+        this.bookedBy = bookedBy;
     }
-    public setBookedOn(LocalDateTime b)
+    public void setBookedOn(LocalDateTime b)
     {
-        this.bookedOn = b;
+        this.bookedOn = bookedOn;
     }
-    public setUsers(ArrayList<UserData> b)
+    public void setUsers(ArrayList<UserData> b)
     {
-        this.users = b;
+        this.users = users;
     }
 
 }

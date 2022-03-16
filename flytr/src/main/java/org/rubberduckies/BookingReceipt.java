@@ -14,7 +14,7 @@ public class BookingReceipt {
     private LocalDateTime bookedOn;
     private ArrayList<UserData> users;
 
-    public BookingReceipt(Booking booking, User bookedBy, LocalDateTime bookedOn, UserData users)
+    public BookingReceipt(Booking booking, User bookedBy, LocalDateTime bookedOn, ArrayList<UserData> users)
     {
         this.booking = booking;
         this.bookedBy = bookedBy;
@@ -37,19 +37,19 @@ public class BookingReceipt {
     {
         return users; 
     }
-    public setBooking(Booking booking)
+    public void setBooking(Booking booking)
     {
         this.booking = booking;
     }
-    public setBookedBy(User user)
+    public void setBookedBy(User user)
     {
         this.bookedBy = user;
     }
-    public setBookedOn(LocalDateTime time)
+    public void setBookedOn(LocalDateTime time)
     {
         this.bookedOn = time;
     }
-    public setUsers(ArrayList<UserData> users)
+    public void setUsers(ArrayList<UserData> users)
     {
         this.users = users;
     }

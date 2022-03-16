@@ -14,6 +14,18 @@ import org.json.simple.parser.JSONParser;
  */
 public abstract class Controller {
 
+    // TODO 
+    // Possibly implement a singleton in the base class.
+    // Putting in each child for now and will refactor later.
+
+    /**
+     * Returns the basic JSONObject that was read
+     * from the given file.
+     *
+     * @param filename The file to read from.
+     *
+     * @return The JSONObject parsed from the file.
+     */
     protected JSONObject readJson(String filename) {
         try {
             JSONParser parser = new JSONParser();
@@ -25,6 +37,13 @@ public abstract class Controller {
         }
     }
 
+    /**
+     * Takes the given JSONObject and writes it as a
+     * JSON string to the given file.
+     *
+     * @param filename The file to write to.
+     * @param json The JSONObject to write.
+     */
     protected void writeJson(String filename, JSONObject json) {
         try {
             FileWriter file = new FileWriter(filename);
@@ -45,5 +64,12 @@ public abstract class Controller {
     }
 
 
+    /**
+     * Implemented by individual controllers to parse their
+     * JSON data once it is read.
+     *
+     * @param jsonObject The JSONObject that is read from the
+     *                   readJson() method.
+     */
     protected abstract void parse(JSONObject jsonObject);
 }

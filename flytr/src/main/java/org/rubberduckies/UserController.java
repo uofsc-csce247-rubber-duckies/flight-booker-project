@@ -29,55 +29,41 @@ public class UserController extends Controller {
     }
 
     
-    /** 
-     * Reads a JSON file
-     * @param filename file to read
-     * @return JSONObject loaded JSON object
-     */
-    protected JSONObject readJSON(String filename) {
-        System.out.println("UserController.readJSON");
-        return null;
-    }
-
-    
-    /** 
-     * Writes the users to the user database
-     * @param filename filename to save to
-     * @param json JSONObject to save
-     * @return boolean if save is success
-     */
-    protected boolean writeJSON(String filename, JSONObject json) {
-        System.out.println("UserController.writeJSON");
-        return false;
-    }
-
     /**
-     * Parses JSON object
-     * @param jsonObjects arraylist of json objects to parse
+     * Ran after the readJson() method is called, parses
+     * that result and assigns the member variables accordingly.
+     *
+     * @param jsonObject The JSONObject to parse.
      */
-    protected void parse(ArrayList<JSONObject> jsonObjects) {
+    protected void parse(JSONObject jsonObject) {
         //TODO: implement
     }
 
     
     /** 
-     * Log in a user
-     * @param username
-     * @param password
-     * @return User
+     * Takes in User credentials and returns the User
+     * object they correspond to if authenticated, null
+     * otherwise.
+     *
+     * @param username The User's username.
+     * @param password The User's password.
+     *
+     * @return The authenticated User or null.
      */
     public User login(String username, String password){
-        System.out.println("UserController.login");
+        // TODO
         return null;
     }
 
     
     /** 
-     * Saves a single user
-     * @param user user to save to database
+     * Updates the User's information to the JSON file.
+     *
+     * @param user Writes the updated User object to the
+     *             User's JSON file.
      */
     public void save(User user){
-        System.out.println("UserController.save");
+        // TODO
     }
 
     

@@ -46,10 +46,11 @@ public class BookingController extends Controller {
 
     /**
      * Parses JSON object
-     * @param jsonObjects arraylist of json objects to parse
+     * @param jsonObject json object to parse
      */
-    protected void parse(ArrayList<JSONObject> jsonObjects) {
+    protected void parse(JSONObject jsonObject) {
         //TODO: implement
+        return;
     }
 
     /**

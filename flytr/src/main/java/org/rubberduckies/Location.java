@@ -29,14 +29,8 @@ public class Location {
         return city;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
     public String getState(){
         return this.state;
-    }
-    public void setState(String state) {
-        this.state = state;
     }
     
 }

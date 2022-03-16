@@ -2,7 +2,7 @@
  * @author james-thurlow
  */
 
-package test.java.org.rubberduckies;
+package org.rubberduckies;
 
 public class Dog {
 

@@ -1,13 +1,11 @@
 /** 
  * @author james-thurlow
  */
-package test.java.org.rubberduckies;
+package org.rubberduckies;
 
 import java.util.ArrayList;
 
-import javax.naming.ldap.SortKey;
-
-public class Search{
+public class Search {
  
     private ArrayList<SortKey> sortKeys;
     private ArrayList<FilterKey> filterKeys;

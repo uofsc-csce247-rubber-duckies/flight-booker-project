@@ -9,7 +9,8 @@ public class BookingReceipt{
 
     public BookingReceipt(Booking booking, User user)
     {
-        return BookingReceipt;
+        this.booking = booking;
+        this.user = user;
     }
     public BookingReceipt(Booking booking, User user, UserData users)
     {
@@ -19,9 +20,9 @@ public class BookingReceipt{
     {
         return booking;
     }
-    public getBookedBy()
+    public User getBookedBy()
     {
-        return bookedBy;
+        return this.bookedBy;
     }
     public getBookedOn()
     {

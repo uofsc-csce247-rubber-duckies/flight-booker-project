@@ -46,5 +46,4 @@ public abstract class Controller {
 
 
     protected abstract void parse(JSONObject jsonObject);
-
 }

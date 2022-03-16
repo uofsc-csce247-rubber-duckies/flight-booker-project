@@ -1,4 +1,5 @@
 /**
+ * @author tyler beetle
  * @author james-thurlow
  */
 
@@ -14,36 +15,25 @@ public class Dog {
         this.name = name;
         this.breed = breed;
         this.weight = weight;
-        System.out.println("Dog Constructor");
     } 
 
-    public void setName(String name){
-        this.name = name;
-        System.out.println("Dog.setName");
-    }
-
-    public void setBreed(String breed){
-        this.breed = breed;
-        System.out.println("Dog.setBreed");
-    }
-
-    public void setWeight(int weight){
-        this.weight = weight;
-        System.out.println("Dog.setWeight");
-    }
-
     public String getName(){
-        System.out.println("Dog.getName");
         return name;
     }
-
+    public void setName(String name) {
+        this.name = name;
+    }
     public String getBreed(){
-        System.out.println("Dog.getBreed");
         return breed;
-    }   
-
+    }
+    public void setBreed(String breed) {
+        this.breed = breed;
+    }
     public int getWeight(){
-        System.out.println("Dog.getWeight");
         return weight;
     }
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+    
 }

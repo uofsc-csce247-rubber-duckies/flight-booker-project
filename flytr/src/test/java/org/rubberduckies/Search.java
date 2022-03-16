@@ -4,8 +4,8 @@
 package test.java.org.rubberduckies;
 
 import java.util.ArrayList;
-
 import javax.naming.ldap.SortKey;
+import javax.naming.ldap.FilterKey;
 
 public class Search{
  
@@ -25,5 +25,4 @@ public class Search{
         System.out.println("Search.getFilterKey");
         return null;
     }
-
 }

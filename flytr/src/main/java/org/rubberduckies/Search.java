@@ -1,7 +1,7 @@
 /** 
  * @author james-thurlow
  */
-package test.java.org.rubberduckies;
+package org.rubberduckies;
 
 import java.util.ArrayList;
 import javax.naming.ldap.SortKey;

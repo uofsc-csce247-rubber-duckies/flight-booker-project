@@ -12,27 +12,38 @@ public class HotelRoom {
     public HotelRoom(int capacity, int number){
         this.capacity = capacity;
         this.number = number;    
+        this.available = true;
+        System.out.println("HotelRoom constructor");     
+
+    }
+
+    public void setCapacity(int capacity){
+        this.capacity = capacity;
+        System.out.println("HotelRoom.setCapacity");
+    }
+
+    public void setNumber(int number){
+        this.number = number;
+        System.out.println("HotelRoom.setNumber");
     }
 
     public void book(int number){
+        available = false;
         System.out.println("HotelRoom.Book");
     }
 
     public int getCapacity(){
+        System.out.println("HotelRoom.getCapacity");
         return capacity;
-    }
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
+
     }
     public int getNumber(){
-        return number;
-    }
-    public void setNumber(int number) {
-        this.number = number;
+      System.out.println("HotelRoom.getNumber");
+      return number;      
     }
 
     public boolean isAvailable(){
-        //TODO
-        return false; 
+        System.out.println("HotelRoom.isAvailable");
+        return true;
     }
 }

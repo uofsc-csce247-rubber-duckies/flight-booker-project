@@ -1,6 +1,11 @@
+/**
+ * @author tyler beetle
+ * @author joe comiskey
+ */
 package org.rubberduckies;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class BookingReceipt {
     
@@ -9,16 +14,14 @@ public class BookingReceipt {
     private LocalDateTime bookedOn;
     private ArrayList<UserData> users;
 
-    public BookingReceipt(Booking booking, User user)
+    public BookingReceipt(Booking booking, User bookedBy, LocalDateTime bookedOn, UserData users)
     {
         this.booking = booking;
-        this.user = user;
+        this.bookedBy = bookedBy;
+        this.bookedOn = bookedOn;
+        this.users = users;
     }
-    public BookingReceipt(Booking booking, User user, UserData users)
-    {
-        return BookingReceipt;
-    }
-    public getBooking()
+    public Booking getBooking()
     {
         return booking;
     }
@@ -26,11 +29,11 @@ public class BookingReceipt {
     {
         return this.bookedBy;
     }
-    public getBookedOn()
+    public LocalDateTime getBookedOn()
     {
         return bookedOn;
     }
-    public getUsers()
+    public ArrayList<UserData> getUsers()
     {
         return users; 
     }

@@ -72,9 +72,7 @@ public class UserController extends Controller {
      */
     protected void parse(JSONObject jsonObject) {
         // TODO
-
-        
-    }
+    }       
 
     private ArrayList<JSONObject> readUserDirectory(String userFile) {
         // TODO

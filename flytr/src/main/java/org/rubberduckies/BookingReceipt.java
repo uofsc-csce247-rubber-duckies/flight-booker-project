@@ -1,51 +1,57 @@
-@author Joe
-import java.time.LocalDateTime;
+/**
+ * @author tyler beetle
+ * @author joe comiskey
+ */
+package org.rubberduckies;
 
-public class BookingReceipt{
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
+public class BookingReceipt {
+    
     private Booking booking;
     private User bookedBy;
     private LocalDateTime bookedOn;
     private ArrayList<UserData> users;
 
-    public BookingReceipt(Booking booking, User user)
+    public BookingReceipt(Booking booking, User bookedBy, LocalDateTime bookedOn, ArrayList<UserData> users)
     {
-        return BookingReceipt;
+        this.booking = booking;
+        this.bookedBy = bookedBy;
+        this.bookedOn = bookedOn;
+        this.users = users;
     }
-    public BookingReceipt(Booking booking, User user, UserData users)
-    {
-        return BookingReceipt;
-    }
-    public getBooking()
+    public Booking getBooking()
     {
         return booking;
     }
-    public getBookedBy()
+    public User getBookedBy()
     {
-        return bookedBy;
+        return this.bookedBy;
     }
-    public getBookedOn()
+    public LocalDateTime getBookedOn()
     {
         return bookedOn;
     }
-    public getUsers()
+    public ArrayList<UserData> getUsers()
     {
         return users; 
     }
-    public setBooking(Booking b)
+    public void setBooking(Booking booking)
     {
-        this.booking = b;
+        this.booking = booking;
     }
-    public setBookedBy(User b)
+    public void setBookedBy(User user)
     {
-        this.bookedBy = b;
+        this.bookedBy = user;
     }
-    public setBookedOn(LocalDateTime b)
+    public void setBookedOn(LocalDateTime time)
     {
-        this.bookedOn = b;
+        this.bookedOn = time;
     }
-    public setUsers(ArrayList<UserData> b)
+    public void setUsers(ArrayList<UserData> users)
     {
-        this.users = b;
+        this.users = users;
     }
 
 }

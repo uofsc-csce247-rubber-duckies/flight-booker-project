@@ -1,25 +1,39 @@
 /**
+ * @author tyler beetle
  * @author james-thurlow
  */
 
-package test.java.org.rubberduckies;
+package org.rubberduckies;
 
 public class Dog {
 
-    private string name;
-    private string age;
+    private String name;
+    private String breed;
     private int weight;
 
-    public Dog(string name, string breed, int weight){
-        name = this.name;
-        breed = this.breed;
-        weight = this.weight;
-
-        System.out.println("Dog Constructor");
+    public Dog(String name, String breed, int weight){
+        this.name = name;
+        this.breed = breed;
+        this.weight = weight;
     } 
 
+    public String getName(){
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getBreed(){
+        return breed;
+    }
+    public void setBreed(String breed) {
+        this.breed = breed;
+    }
     public int getWeight(){
-        System.out.println("Dog.getWeight");
         return weight;
     }
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+    
 }

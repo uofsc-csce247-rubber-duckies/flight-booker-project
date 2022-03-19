@@ -70,7 +70,7 @@ public class UserController extends Controller {
      *
      * @param jsonObject The JSONObject to parse.
      */
-    protected void parse(JSONObject jsonObject) {
+    protected void parse(ArrayList<JSONObject> jsonObjects) {
         // TODO
     }       
 

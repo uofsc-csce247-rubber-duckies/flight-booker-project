@@ -85,8 +85,8 @@ public abstract class Controller {
      * Implemented by individual controllers to parse their
      * JSON data once it is read.
      *
-     * @param jsonObject The JSONObject that is read from the
-     *                   readJson() method.
+     * @param jsonObjects The user JSONObjects that is read from the
+     *                    readJson() method.
      */
-    protected abstract void parse(JSONObject jsonObject);
+    protected abstract void parse(ArrayList<JSONObject> jsonObjects);
 }

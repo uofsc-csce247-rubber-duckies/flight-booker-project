@@ -2,6 +2,8 @@ package org.rubberduckies;
 
 import java.util.ArrayList;
 
+import org.json.simple.JSONObject;
+
 public class User {
     
     private String username;
@@ -18,6 +20,7 @@ public class User {
     
     /**
      * Creates a new starting user from only username, password, and role
+     *
      * @param username
      * @param password
      * @param role 
@@ -37,56 +40,36 @@ public class User {
     }
 
     /**
-     * Creates a new user from saved information
-     * @param username string
-     * @param password string
-     * @param role UserRole
-     * @param data UserData
-     * @param preferences UserPreferences
-     * @param cart arraylist of bookings
-     * @param history arraylist of booking receipts
-     * @param linkedAccounts arraylist of users
-     * @param savedPeople arraylist of userdata
-     * @param dogs arraylist of dogs
-     * @param isFrequentFlyer boolean
+     * Creates a user from a JSONObject read from the UserController.
+     *
+     * @param userJson The JSONObject containing all of the user data.
      */
-    public User(String username, String password, UserRole role, UserData data, UserPreferences preferences, 
-            ArrayList<Booking> cart, ArrayList<BookingReceipt> history, ArrayList<User> linkedAccounts, 
-            ArrayList<UserData> savedPeople, ArrayList<Dog> dogs, boolean isFrequentFlyer) {
-        this.username = username;
-        this.password = password;
-        this.role = role;
-        this.data = data;
-        this.preferences = new UserPreferences();
-        this.cart = new ArrayList<Booking>();
-        this.history = new ArrayList<BookingReceipt>();
-        this.linkedAccounts = new ArrayList<User>();
-        this.savedPeople = new ArrayList<UserData>();
-        this.dogs = new ArrayList<Dog>();
-        this.isFrequentFlyer = false;
+    public User(JSONObject userJson) {
+        // TODO
+        // Parse userJson to populate user vars
     }
 
-    
     /** 
      * Gets username
+     *
      * @return String username
      */
     public String getUsername() {
         return this.username;
     }
 
-    
     /** 
      * Sets username
+     *  
      * @param username username
      */
     public void setUsername(String username) {
         this.username = username;
     }
 
-    
     /** 
      * Gets password
+     *
      * @return String password
      */
     public String getPassword() {

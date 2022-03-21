@@ -20,7 +20,7 @@ public class HotelRoom {
 
     public HotelRoom(JSONObject room) {
         this.number = (String)room.get("number");
-        this.capacity = (int)room.get("capacity");
+        this.capacity = (Integer)room.get("capacity");
         this.takenDates = (LocalDateTime[])room.get("takenDates");
     }
 

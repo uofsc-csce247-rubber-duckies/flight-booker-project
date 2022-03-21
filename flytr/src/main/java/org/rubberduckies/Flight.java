@@ -54,7 +54,7 @@ public class Flight extends Booking {
         this.departureTime = LocalDateTime.parse(flight.get("departure").toString());
         this.arrivalTime = LocalDateTime.parse(flight.get("arrival").toString());
         this.seats = (boolean[][])flight.get("seats");
-        this.allowsDogs = (boolean)flight.get("allowsDogs");
+        this.allowsDogs = (Boolean) flight.get("allowsDogs");
     }
 
     

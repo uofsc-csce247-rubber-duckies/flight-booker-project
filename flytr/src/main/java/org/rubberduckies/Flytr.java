@@ -1,10 +1,15 @@
 package org.rubberduckies;
 
+import java.util.Scanner;
+
+import javax.swing.plaf.basic.BasicSplitPaneUI.KeyboardUpLeftHandler;
+
 public class Flytr {
   
     private Flytr instance;
     private BookingController bookingController;
     private UserController userController;
+    public static Scanner keyboard = new Scanner(System.in);
 
     public Flytr() {
         this.userController = new UserController();
@@ -32,13 +37,52 @@ public class Flytr {
 
     
     /** 
-     * Search for flight
-     * @return boolean successful search
+     * Search for flight by choosing a type of flight
+     * 
      */
-    private boolean searchFlights() {
-        return false;
+    public static searchFlights() {
+        System.out.println("----- Search Flights -----");
+        System.out.println("Select Flight Type: \n 1. One Way Flight \n 2. Round-Trip Flight");
+        int flightType = keyboard.nextInt();
+        if (flightType == 1) {
+            oneWay();
+        }        
+        else if (flightType == 2) {
+            roundTrip();
+        } 
+        else if (flightType != 1 || flightType != 2) {
+            System.out.println("Please select a type of Flight");
+            searchFlights();
+        } 
     }
 
+    /**
+     * Created a class to book a one way Flight
+     */
+    public static oneWay() {
+        System.out.println("----- Departure Information -----");
+        System.out.println("\n Enter your Departure Location: ");
+        String loc1 = keyboard.nextLine();     //make variable names consistent throughout program
+        //TODO Connect to Database and Display Available Results 
+        System.out.println("\n Enter your Destination Location: ");
+        String loc2 = keyboard.nextLine();     //make variable names consistent throughout program
+
+        //TODO Connect to Database and Display Available Results 
+
+    } 
+ /**
+     * Created a class to book a round Trip Flight
+     */
+    public static roundTrip() {
+        System.out.println("----- Departure Information -----");
+        System.out.println("\n Enter your Departure Location: ");
+        String loc1 = keyboard.nextLine();     //make variable names consistent throughout program
+        //TODO Connect to Database and Display Available Results 
+        System.out.println("\n Enter your Destination Location: ");
+        String loc2 = keyboard.nextLine();     //make variable names consistent throughout program
+        //TODO Connect to Database and Display Available Results 
+
+    } 
     
     /** 
      * Search for hotel

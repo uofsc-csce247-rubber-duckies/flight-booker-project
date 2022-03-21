@@ -11,8 +11,7 @@ public class User {
     private String password;
     private UserRole role;
     private UserData data;
-    private UserPreferences preferences;
-    private ArrayList<Booking> cart;
+    private UserPreferences preferences; private ArrayList<Booking> cart;
     private ArrayList<BookingReceipt> history;
     private ArrayList<User> linkedAccounts;
     private ArrayList<UserData> savedPeople;
@@ -134,6 +133,10 @@ public class User {
      */
     public void setRole(UserRole role) {
         this.role = role;
+    }
+
+    public void addLinkedAccount(User user) {
+        this.linkedAccounts.add(user);
     }
 
     

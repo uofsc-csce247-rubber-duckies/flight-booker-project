@@ -4,22 +4,71 @@ import java.util.ArrayList;
 import org.json.simple.JSONObject;
 
 public class BookingController extends Controller {
+
+    private final String BOOKING_DATABASE = "database/bookings";
+
     private ArrayList<Booking> bookings;
+
+    //TODO: Do we separate bookings into separate arraylists? they are stored separately in database. might make sense
 
     /**
      * Creates booking controller and loads bookings from database
      */
     public BookingController() {
-        this.bookings = loadBookings();
+        System.out.println("CREATING BOOKING CONTROLLER");
+        System.out.println("------------------------");
+        System.out.println("Creating list of Flights");
+        
+        System.out.println("Loading Flights into memory");
+        loadBookings();
     }
 
     /**
      * Loads bookings from database
      * @return bookings
      */
-    private ArrayList<Booking> loadBookings() {
-        //TODO: Load bookings from JSON
-        return null;
+    private void loadBookings() {
+
+        String[] flightFiles = getFilesFromDirectory(BOOKING_DATABASE + "/flights");
+        for (String flight : flightFiles) {
+            System.out.println("  Flight Found: " + flight);
+        }
+
+        String[] hotelFiles = getFilesFromDirectory(BOOKING_DATABASE + "/hotels");
+        for (String hotel : hotelFiles) {
+            System.out.println("  Hotel Found: " + hotel);
+        }
+
+        ArrayList<Flight> flights = loadFlights(flightFiles);
+        ArrayList<Hotel> hotels = loadHotels(hotelFiles);
+
+    }
+
+    private ArrayList<Flight> loadFlights(String[] flightFiles) {
+        ArrayList<Flight> flights = new ArrayList<Flight>();
+        for (String flight : flightFiles) {
+            flights.add(new Flight(readJson(flight)));
+        }
+        return flights;
+    }
+
+    private ArrayList<Hotel> loadHotels(String[] hotelFiles) {
+        ArrayList<Hotel> hotels = new ArrayList<Hotel>();
+        for (String hotel : hotelFiles) {
+            JSONObject hotelData = readJson(hotel + "/data.json");
+            String[] roomFiles = getFilesFromDirectory(hotelData.get("id").toString().substring(6));
+            ArrayList<HotelRoom> hotelRooms = loadHotelRooms(roomFiles);
+            hotels.add(new Hotel(hotelData, hotelRooms));
+        }
+        return hotels;
+    }
+
+    private ArrayList<HotelRoom> loadHotelRooms(String[] roomFiles) {
+        ArrayList<HotelRoom> hotelRooms = new ArrayList<HotelRoom>();
+        for (String fileName : roomFiles) {
+            hotelRooms.add(new HotelRoom(readJson(fileName)));
+        }
+        return hotelRooms;
     }
 
     /**

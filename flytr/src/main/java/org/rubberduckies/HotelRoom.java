@@ -1,15 +1,16 @@
-/**
- * @author james-thurlow
- * @author tyler beetle
- */
 package org.rubberduckies;
+
+import java.time.LocalDateTime;
+import org.json.simple.JSONObject;
 
 public class HotelRoom {
     private int capacity;
-    private int number;
+    private String number;
     private boolean available;
+    private LocalDateTime[] takenDates;
+    //TODO: Make get available check a specific date if is taken
 
-    public HotelRoom(int capacity, int number){
+    public HotelRoom(int capacity, String number){
         this.capacity = capacity;
         this.number = number;    
         this.available = true;
@@ -17,12 +18,18 @@ public class HotelRoom {
 
     }
 
+    public HotelRoom(JSONObject room) {
+        this.number = (String)room.get("number");
+        this.capacity = (int)room.get("capacity");
+        this.takenDates = (LocalDateTime[])room.get("takenDates");
+    }
+
     public void setCapacity(int capacity){
         this.capacity = capacity;
         System.out.println("HotelRoom.setCapacity");
     }
 
-    public void setNumber(int number){
+    public void setNumber(String number){
         this.number = number;
         System.out.println("HotelRoom.setNumber");
     }
@@ -37,7 +44,7 @@ public class HotelRoom {
         return capacity;
 
     }
-    public int getNumber(){
+    public String getNumber(){
       System.out.println("HotelRoom.getNumber");
       return number;      
     }

@@ -86,10 +86,30 @@ public class Flytr {
     
     /** 
      * Search for hotel
+     * @return 
      * @return boolean successful search
      */
-    private boolean searchHotels() {
-        return false;
+    public void searchHotels() {
+        
+            String city;
+            String state;
+            int numOfRooms;
+            int numOfOccupants;
+
+            System.out.println("----- Search Hotels -----");
+            System.out.println("Please search a location. \n City:");
+            city = keyboard.nextLine();
+
+            System.out.println("State");
+            state = keyboard.nextLine();
+
+            System.out.println("Enter the number of rooms you wish to book: ");
+            numOfRooms = keyboard.nextInt();
+            
+            System.out.println("Enter the number of occupants per room:");
+            numOfOccupants = keyboard.nextInt();
+
+            //TODO search database with criteria given.
     }
 
     

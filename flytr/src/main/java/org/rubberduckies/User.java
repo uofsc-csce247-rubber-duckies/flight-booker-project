@@ -1,5 +1,6 @@
 package org.rubberduckies;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import org.json.simple.JSONObject;
@@ -40,13 +41,45 @@ public class User {
     }
 
     /**
-     * Creates a user from a JSONObject read from the UserController.
+     * Creates a User from existing information.
      *
-     * @param userJson The JSONObject containing all of the user data.
-     */
-    public User(JSONObject userJson) {
-        // TODO
-        // Parse userJson to populate user vars
+     * @param username
+     * @param password
+     * @param role
+     * @param data
+     * @param preferences
+     * @param history
+     * @param linkedAccounts
+     * @param savedPeople
+     * @param dogs
+     * @param isFrequentFlyer
+    */
+    // FIXME
+    // clean this up, maybe pass an array with specific
+    // indecies corresponding to specific object or just
+    // one big object the user class can parse.
+    // It gets tricky when passing in a JSONObject because
+    // of circular dependencies
+    public User(
+            String username, 
+            String password, 
+            UserRole role, 
+            UserData data, 
+            UserPreferences preferences, 
+            ArrayList<BookingReceipt> history, 
+            ArrayList<UserData> savedPeople, 
+            ArrayList<Dog> dogs, 
+            boolean isFrequentFlyer) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.data = data;
+        this.preferences = preferences;
+        this.cart = new ArrayList<Booking>();
+        this.history = history;
+        this.savedPeople = savedPeople;
+        this.dogs = dogs;
+        this.isFrequentFlyer = isFrequentFlyer;
     }
 
     /** 

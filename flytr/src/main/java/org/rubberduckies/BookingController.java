@@ -26,7 +26,7 @@ public class BookingController extends Controller {
      * Parses JSON object
      * @param jsonObject json object to parse
      */
-    protected void parse(JSONObject jsonObject) {
+    protected void parse(ArrayList<JSONObject> jsonObjects) {
         //TODO: implement
         return;
     }

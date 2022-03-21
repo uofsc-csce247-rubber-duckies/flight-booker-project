@@ -9,10 +9,10 @@ public class Flytr {
     public Flytr() {
         userController = UserController.createController();
     }
-
     
     /** 
      * Gets instance of application
+     *
      * @return Flytr application
      */
     public Flytr getInstance() {
@@ -26,7 +26,7 @@ public class Flytr {
      * Runs application
      */
     public void run() {
-        //TODO: run
+        UserController userController = UserController.createController();
     }
 
     

@@ -7,7 +7,7 @@ public class Flytr {
     private UserController userController;
 
     public Flytr() {
-        // userController = UserController.createController();
+        userController = UserController.createController();
         this.bookingController = new BookingController();
     }
     
@@ -27,7 +27,7 @@ public class Flytr {
      * Runs application
      */
     public void run() {
-        // UserController userController = UserController.createController();
+        UserController userController = UserController.createController();
     }
 
     

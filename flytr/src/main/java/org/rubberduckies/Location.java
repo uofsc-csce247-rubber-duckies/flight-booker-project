@@ -1,8 +1,3 @@
-/**
- * @author james-thurlow
- * @author tyler beetle 
- */
-
 package org.rubberduckies;
 
 public class Location {

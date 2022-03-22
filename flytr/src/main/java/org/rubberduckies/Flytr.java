@@ -32,7 +32,15 @@ public class Flytr {
      * Runs application
      */
     public void run() {
+        welcome();
         //TODO: run
+        
+    
+    }
+    public void welcome(){
+        mainMenu();
+       
+
     }
 
     
@@ -127,8 +135,62 @@ public class Flytr {
      * @return boolean successful login
      */
     private boolean login() {
-        return false;
+        boolean x = true;
+        Scanner in = new Scanner(System.in);
+        System.out.println("-----Account login-----\nUsername:");
+        String username = in.nextLine();
+        while(x == true)
+        {
+        System.out.println("Password:");
+        String password = in.nextLine();
+        //Connect to database
+        // if(password == )
+        // {
+        //     x = false;
+        //     mainMenu();
+        // }
+        // if(password != )
+        // {
+        //     System.out.println("Wrong password, try again!");
+
+        // }
     }
+
+
+
+
+    }
+    private void mainMenu()
+    {
+        System.out.println("-----Flytr Main Menu-----\n1. Search for Flights\n2. Search for Hotels\n3. User Account\n4. Settings\n5. Exit\n6. View Bookings\nWhat would you like to do?");
+        int choice = 0;
+        Scanner in = new Scanner(System.in);
+        choice = in.nextInt();
+        switch(choice)
+        {
+            case 1:
+            searchFlights();
+            break;
+            case 2:
+            searchHotels();
+            break;
+            case 3:
+            //
+            break;
+            case 4:
+            //
+            break;
+            case 5:
+            System.out.println("Thank you for choosing Flytr!");
+            System.exit(0);
+            break;
+            case 6:
+            //viewBookings();
+            break;
+            
+        }
+    }
+    private void manageAccount
 
     
     /** 

@@ -27,7 +27,7 @@ public class Flytr {
      * Runs application
      */
     public void run() {
-        UserController userController = UserController.createController();
+        // UserController userController = UserController.createController();
     }
 
     

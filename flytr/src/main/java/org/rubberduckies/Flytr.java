@@ -1,7 +1,6 @@
 package org.rubberduckies;
 
 import java.util.Scanner;
-
 import javax.swing.plaf.basic.BasicSplitPaneUI.KeyboardUpLeftHandler;
 
 public class Flytr {
@@ -36,6 +35,8 @@ public class Flytr {
     }
 
     
+
+
     /** 
      * Search for flight by choosing a type of flight
      * 
@@ -59,31 +60,149 @@ public class Flytr {
     /**
      * Created a class to book a one way Flight
      */
-    public static oneWay() {
-        System.out.println("----- Departure Information -----");
+    public void  oneWay() {
+        System.out.println("-----Departure Information-----");
         System.out.println("\n Enter your Departure Location: ");
         String loc1 = keyboard.nextLine();     //make variable names consistent throughout program
+        System.out.println("-----Results-----");
+
         //TODO Connect to Database and Display Available Results 
+
+        System.out.println("----- Destination Information -----");
         System.out.println("\n Enter your Destination Location: ");
         String loc2 = keyboard.nextLine();     //make variable names consistent throughout program
+        System.out.println("----- Results -----");
 
-        //TODO Connect to Database and Display Available Results 
+        //TODO Connect to Database and Display Available Results
 
+        System.out.println("Enter your departure date(YYYY-MM-DD): ");
+        String userDate = keyboard.nextLine();
+
+        //TODO store as Date and Time Object and move to controller
+
+        System.out.println("Enter number of Travelers:");
+        int travelers = keyboard.nextLine();
+
+        //TODO move to database
+
+        System.out.println("Enter number of Pets:");
+        int pets = keyboard.nextLine();
+
+        //TODO move to database 
+
+        System.out.println("----- Flight Options -----");
+
+        //TODO return out the flight options
+
+        System.out.println(" Enter your Flight Choice: ");
+        int flightDecision = keyboard.nextInt();
+
+        if(travelers = 1) {
+            System.out.println("Choose your seat: ");
+            String seat = keyboard.nextLine();
+            //TODO If seats dont exist and pull through database
+        }
+        else {
+            System.out.println("Choose your seats: ");
+            String seat = keyboard.nextLine();
+            //TODO If seats dont exist and pull through database
+        }
+        System.out.println("Confirm your flight?");
+        String confirmation = keyboard.nextLine();
+        if(confirmation.equalsIgnoreCase("yes")) {
+            System.out.println("----- Your Ticket -----");
+            //Return Ticket
+        }
+        else {
+            System.out.println("What would you like to change?:");
+            String changes = keyboard.nextLine();
+            //TODO go back to instances of the ticket 
+        }
+            //TODO return back to the intial prompt class 
     } 
  /**
      * Created a class to book a round Trip Flight
      */
-    public static roundTrip() {
-        System.out.println("----- Departure Information -----");
+    public void roundTrip() {
+        System.out.println("-----Departure Information-----");
         System.out.println("\n Enter your Departure Location: ");
         String loc1 = keyboard.nextLine();     //make variable names consistent throughout program
-        //TODO Connect to Database and Display Available Results 
-        System.out.println("\n Enter your Destination Location: ");
-        String loc2 = keyboard.nextLine();     //make variable names consistent throughout program
+        System.out.println("-----Results-----");
+
         //TODO Connect to Database and Display Available Results 
 
+        System.out.println("----- Destination Information -----");
+        System.out.println("\n Enter your Destination Location: ");
+        String loc2 = keyboard.nextLine();     //make variable names consistent throughout program
+        System.out.println("----- Results -----");
+
+        //TODO Connect to Database and Display Available Results
+
+        System.out.println("Enter your departure date(YYYY-MM-DD): ");
+        String userDate = keyboard.nextLine();
+
+        //TODO store as Date and Time Object and move to controller
+
+        System.out.println("Enter your return date(YYYY-MM-DD): ");
+        String userreturnDate = keyboard.nextLine();
+
+        //TODO store as Date and Time Object and move to controller
+
+
+        System.out.println("Enter number of Travelers:");
+        int travelers = keyboard.nextLine();
+
+        //TODO move to database
+
+        System.out.println("Enter number of Pets:");
+        int pets = keyboard.nextLine();
+
+        //TODO move to database 
+
+        System.out.println("----- Flight Options -----");
+
+        //TODO return out the flight options
+
+        System.out.println(" Enter your Flight Choice: ");
+        int flightDecision = keyboard.nextInt();
+
+        if(travelers = 1) {
+            System.out.println("Choose your seat: ");
+            String seat = keyboard.nextLine();
+            //TODO If seats dont exist and pull through database
+        }
+        else {
+            System.out.println("Choose your seats: ");
+            String seat = keyboard.nextLine();
+            //TODO If seats dont exist and pull through database
+        }
+        System.out.println("Confirm your flight?");
+        String confirmation = keyboard.nextLine();
+        if(confirmation.equalsIgnoreCase("yes")) {
+            System.out.println("----- Your Ticket -----");
+            //Return Ticket
+            System.out.println("\n Would you like to share your ticket?");
+            if(confirmation.equalsIgnoreCase("yes")) {
+                System.out.println("Who would you like to share your ticket with?");
+                String shareTicket = keyboard.nextLine();
+                //TODO share to account
+                System.out.println("Your account was shared with"+shareTicket);
+            }
+        }
+        else {
+            System.out.println("What would you like to change?:");
+            String changes = keyboard.nextLine();
+            //TODO go back to instances of the ticket 
+        }
+            //TODO return back to the intial prompt class 
+         
     } 
     
+
+
+
+
+
     /** 
      * Search for hotel
      * @return 

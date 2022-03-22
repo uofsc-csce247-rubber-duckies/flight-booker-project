@@ -47,6 +47,7 @@ public class BookingController extends Controller {
     private ArrayList<Flight> loadFlights(String[] flightFiles) {
         ArrayList<Flight> flights = new ArrayList<Flight>();
         for (String flight : flightFiles) {
+            flight = BOOKING_DATABASE + "/flights/" + flight;
             flights.add(new Flight(readJson(flight)));
         }
         return flights;
@@ -55,17 +56,19 @@ public class BookingController extends Controller {
     private ArrayList<Hotel> loadHotels(String[] hotelFiles) {
         ArrayList<Hotel> hotels = new ArrayList<Hotel>();
         for (String hotel : hotelFiles) {
+            hotel = BOOKING_DATABASE + "/hotels/" + hotel;
             JSONObject hotelData = readJson(hotel + "/data.json");
-            String[] roomFiles = getFilesFromDirectory(hotelData.get("id").toString().substring(6));
-            ArrayList<HotelRoom> hotelRooms = loadHotelRooms(roomFiles);
+            String[] roomFiles = getFilesFromDirectory(hotel + "/rooms");
+            ArrayList<HotelRoom> hotelRooms = loadHotelRooms(hotel, roomFiles);
             hotels.add(new Hotel(hotelData, hotelRooms));
         }
         return hotels;
     }
 
-    private ArrayList<HotelRoom> loadHotelRooms(String[] roomFiles) {
+    private ArrayList<HotelRoom> loadHotelRooms(String rootDir, String[] roomFiles) {
         ArrayList<HotelRoom> hotelRooms = new ArrayList<HotelRoom>();
         for (String fileName : roomFiles) {
+            fileName = rootDir + "/rooms/" + fileName;
             hotelRooms.add(new HotelRoom(readJson(fileName)));
         }
         return hotelRooms;

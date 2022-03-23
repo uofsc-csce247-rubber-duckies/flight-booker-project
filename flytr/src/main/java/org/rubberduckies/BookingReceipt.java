@@ -1,7 +1,3 @@
-/**
- * @author tyler beetle
- * @author joe comiskey
- */
 package org.rubberduckies;
 
 import java.time.LocalDateTime;

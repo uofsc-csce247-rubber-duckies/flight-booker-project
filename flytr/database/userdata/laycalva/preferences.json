@@ -1,5 +1,11 @@
 {
     "nickname": "Allex",
-    "sortKeys": [],
-    "filterKeys": []
+
+    "_comment": "Implementing this later",
+    "searches": [
+        {
+            "sortKeys": [],
+            "filterKeys": []
+        }
+    ]
 }

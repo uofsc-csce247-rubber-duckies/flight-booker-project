@@ -1,8 +1,3 @@
-/** 
- * A class that accounts for the user search by sort and filter
- * @author james-thurlow
- * @author tyler beetle
- */
 package org.rubberduckies;
 
 import java.util.ArrayList;

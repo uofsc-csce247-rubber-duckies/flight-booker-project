@@ -2,6 +2,10 @@ package org.rubberduckies;
 
 import java.time.LocalDateTime;
 
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
+import java.util.ArrayList;
+
 /**
  * Flight class
  * @author Daniel Gleaves
@@ -11,8 +15,9 @@ public class Flight extends Booking {
     private final static char AVAILABLE = '_';
     private final static char TAKEN = 'X';
 
+    private String id;
     private String airport;
-    private boolean[][] seats;
+    private ArrayList<ArrayList<Boolean>> seats;
     private Location from;
     private Location to;
     private LocalDateTime departureTime;
@@ -30,8 +35,9 @@ public class Flight extends Booking {
      * @param seats 2D array of seat booleans for seat availability
      * @param allowsDogs Boolean if flight allows dogs
      */
-    public Flight(String id, String airport, Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime, boolean[][] seats, boolean allowsDogs) {
+    public Flight(String id, String airport, Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime, ArrayList<ArrayList<Boolean>> seats, boolean allowsDogs) {
         //super(id, BookingType.FLIGHT);
+        this.id = id;
         this.airport = airport;
         this.from = from;
         this.to = to;
@@ -39,6 +45,29 @@ public class Flight extends Booking {
         this.arrivalTime = arrivalTime;
         this.seats = seats;
         this.allowsDogs = allowsDogs;
+    }
+
+    public Flight(JSONObject flight) {
+        this.id = flight.get("id").toString();
+        this.airport = flight.get("airport").toString();
+        this.from = new Location(flight.get("from").toString());
+        this.to = new Location(flight.get("to").toString());
+        this.departureTime = LocalDateTime.parse(flight.get("departure").toString());
+        this.arrivalTime = LocalDateTime.parse(flight.get("arrival").toString());
+        this.seats = convertJSONArraytoBooleanArray((JSONArray)flight.get("seats"));
+        this.allowsDogs = (Boolean) flight.get("allowsDogs");
+    }
+
+    private ArrayList<ArrayList<Boolean>> convertJSONArraytoBooleanArray(JSONArray array) {
+        ArrayList<ArrayList<Boolean>> seatsArrayList = new ArrayList<ArrayList<Boolean>>();
+        for (Object row : array) {
+            ArrayList<Boolean> rowArrayList = new ArrayList<Boolean>();
+            for (Object value : (JSONArray)row) {
+                rowArrayList.add((Boolean)value);
+            }
+            seatsArrayList.add(rowArrayList);
+        }
+        return seatsArrayList;
     }
 
     
@@ -56,7 +85,7 @@ public class Flight extends Booking {
      * NOTE: For debugging
      */
     public void displaySeats() {
-        for (boolean[] arr : seats) {
+        for (ArrayList<Boolean> arr : seats) {
             for (boolean seat : arr) {
                 char c = seat ? AVAILABLE : TAKEN;
                 System.out.print(c + " ");
@@ -73,7 +102,7 @@ public class Flight extends Booking {
      */
     public String seatDisplayString() {
         String ret = "";
-        for (boolean[] arr : seats) {
+        for (ArrayList<Boolean> arr : seats) {
             for (boolean seat : arr) {
                 char c = seat ? AVAILABLE : TAKEN;
                 ret += c + " ";
@@ -97,6 +126,15 @@ public class Flight extends Booking {
                "\narribalTime: " + arrivalTime.toString() +
                "\nallowsDogs: " + allowsDogs +
                "\nseats:\n" + seatDisplayString();
+    }
+
+
+    /**
+     * Returns the flight id
+     * @return String flight id
+     */
+    public String getID() {
+        return this.id;
     }
 
     

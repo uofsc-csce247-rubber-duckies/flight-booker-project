@@ -5,6 +5,12 @@ public class Location {
     private String city;
     private String state;
     
+    public Location(String location) {
+        String[] split = location.split(", ");
+        this.city = split[0];
+        this.state = split[1];
+    }
+
     public Location(String city, String state){
         city = this.city;
         state = this.state;

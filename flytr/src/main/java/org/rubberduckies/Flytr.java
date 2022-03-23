@@ -7,13 +7,13 @@ public class Flytr {
     private UserController userController;
 
     public Flytr() {
-        this.userController = new UserController();
-        this.bookingController = new BookingController();
+        bookingController = BookingController.getController();
+        userController = UserController.getController();
     }
-
     
     /** 
      * Gets instance of application
+     *
      * @return Flytr application
      */
     public Flytr getInstance() {
@@ -27,7 +27,7 @@ public class Flytr {
      * Runs application
      */
     public void run() {
-        //TODO: run
+        // TODO
     }
 
     
@@ -82,6 +82,11 @@ public class Flytr {
      */
     private boolean cancelBooking() {
         return false;
+    }
+
+    public static void main(String[] args) {
+        Flytr flytr = new Flytr();
+        flytr.run();
     }
 
 }

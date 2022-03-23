@@ -20,7 +20,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>org.rubberduckies.App</mainClass>
+                  <mainClass>org.rubberduckies.Flytr</mainClass>
                 </transformer>
               </transformers>
             </configuration>

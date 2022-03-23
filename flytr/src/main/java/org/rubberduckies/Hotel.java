@@ -2,8 +2,11 @@ package org.rubberduckies;
 
 import java.util.ArrayList;
 
+import org.json.simple.JSONObject;
+
 public class Hotel {
     
+    private String id;
     private String name;
     private Location location;
     private ArrayList<HotelRoom> rooms;
@@ -19,6 +22,14 @@ public class Hotel {
         this.name = name;
         this.location = location;
         this.rooms = rooms;
+    }
+
+
+    public Hotel(JSONObject hotelData, ArrayList<HotelRoom> hotelRooms) {
+        this.id = hotelData.get("id").toString();
+        this.name = hotelData.get("name").toString();
+        this.location = new Location(hotelData.get("location").toString());
+        this.rooms = hotelRooms;
     }
 
     

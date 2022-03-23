@@ -1,5 +1,8 @@
 package org.rubberduckies;
 
+import java.util.ArrayList;
+
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 
@@ -14,6 +17,18 @@ import org.json.simple.parser.JSONParser;
  */
 public abstract class Controller {
 
+    // TODO 
+    // Possibly implement a singleton in the base class.
+    // Putting in each child for now and will refactor later.
+
+    /**
+     * Returns the basic JSONObject that was read
+     * from the given file.
+     *
+     * @param filename The file to read from.
+     *
+     * @return The JSONObject parsed from the file.
+     */
     protected JSONObject readJson(String filename) {
         try {
             JSONParser parser = new JSONParser();
@@ -25,6 +40,13 @@ public abstract class Controller {
         }
     }
 
+    /**
+     * Takes the given JSONObject and writes it as a
+     * JSON string to the given file.
+     *
+     * @param filename The file to write to.
+     * @param json The JSONObject to write.
+     */
     protected void writeJson(String filename, JSONObject json) {
         try {
             FileWriter file = new FileWriter(filename);
@@ -44,6 +66,27 @@ public abstract class Controller {
         }
     }
 
+    /**
+     * Returns all filenames in the given directory,
+     * usefule for finding all user directories in the
+     * database or anything similar.
+     *
+     * @param directory The directory name to list.
+     *
+     * @return The list of files/directories in the given one.
+     */
+    protected String[] getFilesFromDirectory(String directory) {
+        File file = new File(directory);
+        return file.list();
+    }
 
-    protected abstract void parse(JSONObject jsonObject);
+
+    /**
+     * Implemented by individual controllers to parse their
+     * JSON data once it is read.
+     *
+     * @param jsonObjects The user JSONObjects that is read from the
+     *                    readJson() method.
+     */
+    protected abstract void parse(ArrayList<JSONObject> jsonObjects);
 }

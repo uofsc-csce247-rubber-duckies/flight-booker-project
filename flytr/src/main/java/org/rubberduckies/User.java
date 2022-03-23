@@ -32,7 +32,6 @@ public class User {
      * @param role
      * @param data
      * @param preferences
-     * @param linkedAccounts
      * @param savedPeople
      * @param dogs
      * @param isFrequentFlyer
@@ -58,6 +57,7 @@ public class User {
         this.data = data;
         this.preferences = preferences;
         this.cart = new ArrayList<Booking>();
+        this.linkedAccounts = new ArrayList<User>();
         this.history = new ArrayList<BookingReceipt>();
         this.savedPeople = savedPeople;
         this.dogs = dogs;
@@ -73,11 +73,11 @@ public class User {
         return this.username;
     }
 
-    /** 
-     * Sets username
-     *  
-     * @param username username
-     */
-    public void setUsername(String username) {
+    public ArrayList<UserData> getSavedPeople() {
+        return savedPeople;
     }
+
+    public void addLinkedAccount(User user) {
+        this.linkedAccounts.add(user);
+    } 
 }

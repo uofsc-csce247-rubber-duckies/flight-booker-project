@@ -324,7 +324,7 @@ public class Flytr {
 
 
 
-    }
+    
     private void mainMenu()
     {
         System.out.println("-----Flytr Main Menu-----\n1. Search for Flights\n2. Search for Hotels\n3. User Account\n4. Settings\n5. Exit\n6. View Bookings\nWhat would you like to do?");

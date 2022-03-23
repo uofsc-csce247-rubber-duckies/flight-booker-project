@@ -23,4 +23,61 @@ public class User {
 
         //TODO: default construct variables
     }
+  
+    /**
+     * Creates a User from existing information.
+     *
+     * @param username
+     * @param password
+     * @param role
+     * @param data
+     * @param preferences
+     * @param linkedAccounts
+     * @param savedPeople
+     * @param dogs
+     * @param isFrequentFlyer
+    */
+    // FIXME
+    // clean this up, maybe pass an array with specific
+    // indecies corresponding to specific object or just
+    // one big object the user class can parse.
+    // It gets tricky when passing in a JSONObject because
+    // of circular dependencies
+    public User(
+            String username, 
+            String password, 
+            UserRole role, 
+            UserData data, 
+            UserPreferences preferences, 
+            ArrayList<UserData> savedPeople, 
+            ArrayList<Dog> dogs, 
+            boolean isFrequentFlyer) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.data = data;
+        this.preferences = preferences;
+        this.cart = new ArrayList<Booking>();
+        this.history = new ArrayList<BookingReceipt>();
+        this.savedPeople = savedPeople;
+        this.dogs = dogs;
+        this.isFrequentFlyer = isFrequentFlyer;
+    }
+
+    /** 
+     * Gets username
+     *
+     * @return String username
+     */
+    public String getUsername() {
+        return this.username;
+    }
+
+    /** 
+     * Sets username
+     *  
+     * @param username username
+     */
+    public void setUsername(String username) {
+    }
 }

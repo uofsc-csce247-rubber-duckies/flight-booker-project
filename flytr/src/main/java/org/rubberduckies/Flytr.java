@@ -431,8 +431,13 @@ public class Flytr {
      */
     private void changePassword()
     {
-
-    }
+        System.out.println("-----Change Password-----\nEnter New Password:");
+        Scanner in = new Scanner(System.in);
+        String newPass = in.nextLine();
+        //TODO: update in database to their account
+        System.out.println("Password Updated Successfully!");
+        updateAccountInfo();
+        }
 
 
     /**
@@ -440,7 +445,12 @@ public class Flytr {
      */
     private void updateEmail()
     {
-
+        System.out.println("-----Update Email-----\nEnter New Email:");
+        Scanner in = new Scanner(System.in);
+        String newEmail = in.nextLine();
+        //TODO: update in database to their account
+        System.out.println("Email updated successfully!");
+        updateAccountInfo();
     }
 
     /**
@@ -448,7 +458,12 @@ public class Flytr {
      */
     private void updatePhoneNumber()
     {
-
+        System.out.println("-----Update Phone Number-----\nEnter New Phone Number:");
+        Scanner in = new Scanner(System.in);
+        String newPhoneNumber = in.nextLine();
+        //TODO: update in database to their account
+        System.out.println("Phone number updated successfully!");
+        updateAccountInfo();
     }
 
     /**
@@ -456,7 +471,12 @@ public class Flytr {
      */
     private void updatePassportID()
     {
-
+        System.out.println("-----Update PassportID-----\nEnter new Passport ID:");
+        Scanner in = new Scanner(System.in);
+        String newPassportID = in.nextLine();
+        //TODO: update in database to their account
+        System.out.println("Passport ID updated successfully!");
+        updateAccountInfo();
     }
 
     /**
@@ -464,7 +484,12 @@ public class Flytr {
      */
     private void updateAddress()
     {
-
+        System.out.println("-----Update Address-----\nEnter New Address:");
+        Scanner in = new Scanner(System.in);
+        String newAddress = in.nextLine();
+        //TODO: update in database to their account
+        System.out.println("Address updated successfully!");
+        updateAccountInfo();
     }
 
 

@@ -34,28 +34,18 @@ public class Flytr {
      * Runs application
      */
     public void run() {
-        welcome();
+        manageAccount();
         //TODO: run
         
     
     }
-    /**
-     * Welcomes the user by calling to mainMenu method
-     */
-    public void welcome(){
-        mainMenu();
-       
-
-    }
-
     
-
 
     /** 
      * Search for flight by choosing a type of flight
      * 
      */
-    public static searchFlights() {
+    public void searchFlights() {
         System.out.println("----- Search Flights -----");
         System.out.println("Select Flight Type: \n 1. One Way Flight \n 2. Round-Trip Flight");
         int flightType = keyboard.nextInt();
@@ -514,7 +504,7 @@ public class Flytr {
             manageAccount();
             break;
             case 4:
-            settings();
+            //settings(); IDK what this is
             break;
             case 5:
             System.out.println("Thank you for choosing Flytr!");
@@ -531,22 +521,22 @@ public class Flytr {
      */
     private void manageAccount()
     {
-        System.out.println("-----Manage Account-----\n1.Create Account\n2.Login\n3.Booking History\n4.Update Account Information\n5.Return to Main Menu\nWhat would you like to do?");
+        System.out.println("-----Welcome to Flytr!-----\n1.Create Account\n2.Login\n3.Booking History\n4.Update Account Information\n5.Return to Main Menu\nWhat would you like to do?");
         Scanner in = new Scanner(System.in);
         int choice = in.nextInt();
         switch(choice)
         {
             case 1:
-            createAccount(); //TODO JOE (in progress)
+            createAccount(); 
             break;
             case 2:
             login();
             break;
             case 3:
-            //booking history - TODO TYLER 
+            viewBookingHistory(); //- TODO TYLER - connect to database?
             break;
             case 4:
-            //update account information - TODO JOE/TYLER 
+            updateAccountInfo();
             break;
             case 5:
             mainMenu();
@@ -558,7 +548,7 @@ public class Flytr {
     /**
      * User can view their bookings
      */
-    private void viewBookings()
+    private void viewBookingHistory()
     {
         //TODO viewbookings
     }

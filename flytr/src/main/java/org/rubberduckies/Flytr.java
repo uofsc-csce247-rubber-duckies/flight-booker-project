@@ -383,10 +383,6 @@ public class Flytr {
         return true;
     }
 
-    private void bookingHistory() {
-        //TODO TYLER
-    }
-
     private void updateAccountInfo() {
         System.out.println("-----Update Account Information-----");
         System.out.println("1.Change Password\n2.Update Email\n3.Update Phone Number\n4.Update Passport ID\n5.Update Address\n6.Return to Manage Account\nWhat would you like to do?");
@@ -519,7 +515,7 @@ public class Flytr {
      */
     private void manageAccount()
     {
-        System.out.println("-----Welcome to Flytr!-----\n1.Create Account\n2.Login\n3.Booking History\n4.Update Account Information\n5.Return to Main Menu\nWhat would you like to do?");
+        System.out.println("-----Welcome to Flytr!-----\n1.Create Account\n2.Login\n3.Update Account Information\n4.Return to Main Menu\nWhat would you like to do?");
         Scanner in = new Scanner(System.in);
         int choice = in.nextInt();
         switch(choice)
@@ -531,12 +527,9 @@ public class Flytr {
             login();
             break;
             case 3:
-            viewBookingHistory(); //- TODO TYLER - connect to database?
-            break;
-            case 4:
             updateAccountInfo();
             break;
-            case 5:
+            case 4:
             mainMenu();
             break;
         }

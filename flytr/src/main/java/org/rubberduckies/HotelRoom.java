@@ -2,6 +2,7 @@ package org.rubberduckies;
 
 import java.time.LocalDateTime;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
 
 public class HotelRoom {
     private int capacity;
@@ -20,8 +21,12 @@ public class HotelRoom {
 
     public HotelRoom(JSONObject room) {
         this.number = (String)room.get("number");
-        this.capacity = (Integer)room.get("capacity");
-        this.takenDates = (LocalDateTime[])room.get("takenDates");
+        this.capacity = ((Long)room.get("capacity")).intValue();
+        JSONArray takenDatesJson = (JSONArray)room.get("takenDates");
+        this.takenDates = new LocalDateTime[takenDatesJson.size()];
+        for (int i = 0; i < takenDatesJson.size(); i++) {
+            this.takenDates[i] = LocalDateTime.parse(takenDatesJson.get(i).toString());
+        }
     }
 
     public void setCapacity(int capacity){

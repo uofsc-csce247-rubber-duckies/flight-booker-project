@@ -47,7 +47,6 @@ public class User {
      * @param role
      * @param data
      * @param preferences
-     * @param history
      * @param linkedAccounts
      * @param savedPeople
      * @param dogs
@@ -65,7 +64,6 @@ public class User {
             UserRole role, 
             UserData data, 
             UserPreferences preferences, 
-            ArrayList<BookingReceipt> history, 
             ArrayList<UserData> savedPeople, 
             ArrayList<Dog> dogs, 
             boolean isFrequentFlyer) {
@@ -75,7 +73,7 @@ public class User {
         this.data = data;
         this.preferences = preferences;
         this.cart = new ArrayList<Booking>();
-        this.history = history;
+        this.history = new ArrayList<BookingReceipt>();
         this.savedPeople = savedPeople;
         this.dogs = dogs;
         this.isFrequentFlyer = isFrequentFlyer;

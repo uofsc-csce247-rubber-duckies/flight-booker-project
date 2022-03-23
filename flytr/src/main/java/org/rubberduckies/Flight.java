@@ -3,7 +3,7 @@ package org.rubberduckies;
 import java.time.LocalDateTime;
 
 import org.json.simple.JSONObject;
-import org.springframework.cglib.core.Local;
+import org.json.simple.JSONArray;
 
 /**
  * Flight class
@@ -53,8 +53,21 @@ public class Flight extends Booking {
         this.to = new Location(flight.get("to").toString());
         this.departureTime = LocalDateTime.parse(flight.get("departure").toString());
         this.arrivalTime = LocalDateTime.parse(flight.get("arrival").toString());
-        this.seats = (boolean[][])flight.get("seats");
-        this.allowsDogs = (Boolean) flight.get("allowsDogs");
+        this.allowsDogs = (boolean) flight.get("allowsDogs");
+
+        JSONArray seatsJson = (JSONArray)flight.get("seats");
+        int seatRows = seatsJson.size();
+        if (seatRows <= 0) return;
+        int seatCols = ((JSONArray)seatsJson.get(0)).size();
+        if (seatCols <= 0) return;
+        this.seats = new boolean[seatRows][seatCols];
+        for (int i = 0; i < seatsJson.size(); i++) {
+            JSONArray rowJson = (JSONArray)seatsJson.get(i);
+            for (int j = 0; j < rowJson.size(); j++) {
+                this.seats[i][j] = (boolean)rowJson.get(j);
+            }
+        }
+
     }
 
     

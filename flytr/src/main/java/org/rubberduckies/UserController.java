@@ -14,15 +14,17 @@ public class UserController extends Controller {
     private final String USER_DATABASE = "database/userdata";
     
     private static UserController instance;
+    private BookingController bookingController;
     private ArrayList<User> users;
-
 
     /**
      * Creates a new user controller
      */
     private UserController() {
+        System.out.println("----------------------------");
         System.out.println("INITIALIZING USER CONTROLLER");
-        System.out.println("------------------------");
+        System.out.println("----------------------------");
+        bookingController = BookingController.getController();
         System.out.println("Creating list of Users");
         String[] userDirs = getFilesFromDirectory(USER_DATABASE);
         for (String userDir : userDirs) {
@@ -30,8 +32,7 @@ public class UserController extends Controller {
         }
         System.out.println("Verifying User directories");
         ArrayList<JSONObject> userJsonObjects = new ArrayList<JSONObject>();
-        for (String userDir : userDirs) {
-            System.out.print("  " + userDir + ": ");
+        for (String userDir : userDirs) { System.out.print("  " + userDir + ": ");
             if (verifyUserDir(USER_DATABASE + "/" + userDir)) {
                 System.out.println("OK");
                 userJsonObjects.add(parseUserDir(USER_DATABASE + "/" + userDir));
@@ -45,10 +46,14 @@ public class UserController extends Controller {
         for (int i = 0; i < users.size(); i++) {
             linkUserAccounts(users.get(i), userJsonObjects.get(i));
         }
-        System.out.println("User Controller Initialized");
+        System.out.println("Loading User Histories");
+        for (int i = 0; i < users.size(); i++) {
+            addUserHistory(users.get(i), userJsonObjects.get(i));
+        }
+        System.out.println("User Controller Initialized\n");
     }
 
-    public static UserController createController() {
+    public static UserController getController() {
         if (instance == null) instance = new UserController();
         return instance;
     }
@@ -70,7 +75,6 @@ public class UserController extends Controller {
         }
         return null;
     }
-
     
     /** 
      * Updates the User's information to the JSON file.
@@ -86,6 +90,15 @@ public class UserController extends Controller {
         for (User user : users) {
             if (user.getUsername().equals(username)) {
                 return user.getData();
+            }
+        }
+        return null;
+    }
+
+    public UserData dataFor(User user, String fullName) {
+        for (UserData userData : user.getSavedPeople()) {
+            if (fullName.equals(userData.getFirstName() + " " + userData.getLastName())) {
+                return userData;
             }
         }
         return null;
@@ -121,13 +134,17 @@ public class UserController extends Controller {
                     dataJson.get("address").toString()
                     );
             JSONObject preferencesJson = (JSONObject)json.get("preferences");
-            ArrayList<Search> userSearches = new ArrayList<Search>();
+
             // TODO
             // implement loading saved searches for users
+            // pri 4.5
+            ArrayList<Search> userSearches = new ArrayList<Search>();
+
             UserPreferences userPreferences = new UserPreferences(
                     userSearches,
                     preferencesJson.get("nickname").toString()
                     );
+
             UserRole role;
             switch (dataJson.get("role").toString()) {
                 case "REGULAR":
@@ -140,18 +157,17 @@ public class UserController extends Controller {
                     role = UserRole.REGULAR;
                     break;
             }
-            // TODO
-            // implement setting history for users
-            ArrayList<BookingReceipt> userHistory = new ArrayList<BookingReceipt>();
+
             // TODO
             // implement setting saved people for users
             ArrayList<UserData> userSavedPeople = new ArrayList<UserData>();
+
             ArrayList<Dog> userDogs = new ArrayList<Dog>();
             for (JSONObject dogJson : (ArrayList<JSONObject>)json.get("dogs")) {
                 userDogs.add(new Dog(
                             dogJson.get("name").toString(),
                             dogJson.get("breed").toString(),
-                            (int)dogJson.get("weight")
+                            ((Long)dogJson.get("weight")).intValue()
                             ));
             }
             users.add(new User(
@@ -160,13 +176,12 @@ public class UserController extends Controller {
                         role,
                         userData,
                         userPreferences,
-                        userHistory,
                         userSavedPeople,
                         userDogs,
-                        (boolean)dataJson.get("isFrequentFlyer")
+                        (boolean)dataJson.get("frequentFlyer")
                         ));
         }
-    }       
+    } 
 
     // FIXME
     // IDE giving me grief over raw use of these methods,
@@ -215,13 +230,41 @@ public class UserController extends Controller {
         JSONArray linkedUserArray = (JSONArray)data.get("linkedAccounts");
         for (Object linkedUserObject : linkedUserArray) {
             String linkedUsername = linkedUserObject.toString();
-            for (User u : users) {
-                if (u == user) continue;
-                if (u.getUsername().equals(linkedUsername)) {
-                    user.addLinkedAccount(u);
-                }
+            User linkedUser = getUser(linkedUsername);
+            if (linkedUser != null && linkedUser != user) {
+                user.addLinkedAccount(linkedUser);
             }
         }
+    }
+
+    private void addUserHistory(User user, JSONObject userJson) {
+        ArrayList<BookingReceipt> userHistory = new ArrayList<BookingReceipt>();
+        Object[] historyJsonArray = (Object[])userJson.get("history");
+        for (Object historyObject : historyJsonArray) {
+            ArrayList<UserData> receiptUsers = new ArrayList<UserData>();
+            JSONObject historyJson = (JSONObject)historyObject;
+            JSONArray historyUsers = (JSONArray)historyJson.get("users");
+            for (Object historyUserObject : historyUsers) {
+                UserData historyUserData = dataFor(user, historyUserObject.toString());
+                if (historyUserData != null) {
+                    receiptUsers.add(historyUserData);
+                }
+            }
+            // FIXME
+            // This can't be changed until the BookingController loads all bookings into memory.
+            // Booking booking = bookingController.getBookingById(historyJson.get("booking").toString());
+            // userHistory.add(new BookingReceipt(booking, user, LocalDateTime.parse(historyJson.get("bookedAt").toString()), receiptUsers));
+            userHistory.add(new BookingReceipt(null, user, LocalDateTime.parse(historyJson.get("bookedAt").toString()), receiptUsers));
+        }
+    }
+
+    private User getUser(String username) {
+        for (User user : users) {
+            if (user.getUsername().equals(username)) {
+                return user;
+            }
+        }
+        return null;
     }
     
     /**

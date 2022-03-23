@@ -19,6 +19,7 @@ public class BookingController extends Controller {
     private BookingController() {
         System.out.println("---------------------------");
         System.out.println("CREATING BOOKING CONTROLLER");
+        System.out.println("------------------------");
         System.out.println("---------------------------");
         System.out.println("Creating list of Flights");
         System.out.println("Loading Flights into memory");
@@ -37,10 +38,14 @@ public class BookingController extends Controller {
      */
     private void loadBookings() {
 
+        System.out.println("Loading Flights into memory");
+
         String[] flightFiles = getFilesFromDirectory(BOOKING_DATABASE + "/flights");
         for (String flight : flightFiles) {
             System.out.println("  Flight Found: " + flight);
         }
+
+        System.out.println("Loading Hotels into memory");
 
         String[] hotelFiles = getFilesFromDirectory(BOOKING_DATABASE + "/hotels");
         for (String hotel : hotelFiles) {

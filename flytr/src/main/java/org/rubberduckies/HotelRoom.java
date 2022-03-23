@@ -1,6 +1,9 @@
 package org.rubberduckies;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 
@@ -8,7 +11,7 @@ public class HotelRoom {
     private int capacity;
     private String number;
     private boolean available;
-    private LocalDateTime[] takenDates;
+    private ArrayList<LocalDateTime> takenDates;
     //TODO: Make get available check a specific date if is taken
 
     public HotelRoom(int capacity, String number){
@@ -22,12 +25,18 @@ public class HotelRoom {
     public HotelRoom(JSONObject room) {
         this.number = (String)room.get("number");
         this.capacity = ((Long)room.get("capacity")).intValue();
-        JSONArray takenDatesJson = (JSONArray)room.get("takenDates");
-        this.takenDates = new LocalDateTime[takenDatesJson.size()];
-        for (int i = 0; i < takenDatesJson.size(); i++) {
-            this.takenDates[i] = LocalDateTime.parse(takenDatesJson.get(i).toString());
-        }
+        this.takenDates = convertTakenDates((JSONArray)room.get("takenDates"));
     }
+
+
+    private ArrayList<LocalDateTime> convertTakenDates(JSONArray times) {
+        ArrayList<LocalDateTime> timesList = new ArrayList<LocalDateTime>();
+        for (Object time : times) {
+            timesList.add(LocalDateTime.parse((String)time));
+        }
+        return timesList;
+    }
+
 
     public void setCapacity(int capacity){
         this.capacity = capacity;

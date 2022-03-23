@@ -277,11 +277,86 @@ public class Flytr {
                 x = false;
              } 
         }
-        System.out.println("Would you like to add a child?");
-        
-
-
-
+        System.out.println("Enter Password:");
+        String password = in.nextLine();
+        //CREATE USER OBJECT
+        boolean y = true;
+        while(y)
+        {
+        System.out.println("Would you like to add a child?(y/n)");
+        String choice = in.nextLine();
+        if(choice.equalsIgnoreCase("y"))
+        {
+            System.out.println("-----Adding Child---");
+            System.out.println("Enter First Name:");
+            String cFirstName = in.nextLine();
+            System.out.println("Enter Last Name:");
+            String cLastName = in.nextLine();
+            System.out.println("Enter Birthday:");
+            //LocalDateTime cBirthday = TODO
+            System.out.println("Enter PassportID:");
+            String cPassportID = in.nextLine();
+            System.out.println("Enter Address:");
+            String cAddress = in.nextLine();
+            //CREATE CHILD OBJECT
+            System.out.println("Child added!");
+        }
+        else
+        {
+            y = false;
+        }
+    }
+        boolean z = true;
+        while(z)
+        {
+        System.out.println("Would you like to add a dog?(y/n)");
+        String choice = in.nextLine();
+        if(choice.equalsIgnoreCase("y"))
+        {
+            System.out.println("-----Adding Dog-----");
+            System.out.println("Enter Name:");
+            String name = in.nextLine();
+            System.out.println("Enter Breed:");
+            String breed = in.nextLine();
+            System.out.println("Enter Weight:");
+            int weight = in.nextInt();
+            //CREATE DOG OBJECT
+            System.out.println("Dog Added!")
+        }
+        else
+        {
+            z = false;
+        }
+        boolean b = true;
+        while(b)
+        {
+        System.out.println("Would you like to link an account?(y/n)");
+        String choice2 = in.nextLine();
+        if(choice2.equalsIgnoreCase("y"))
+        {
+        boolean a = true;
+        while(a)
+        {
+            System.out.println("Enter username:");
+            String username = in.nextLine();
+            System.out.println("Enter password:");
+            String pw = in.nextLine();
+            /*
+            if username doesnt exist
+            System.out.println("ERROR: Account with username " + username + " does not exist.\nTry Again?(y/n)");
+            else
+            System.out.println("Account " + username + " linked successfully!");
+            a = false;
+            */
+        }
+        }
+        else
+        {
+            b = false;
+        }
+        }
+        System.out.println("Account Created Successfully!");
+        manageAccount();
         return true;
     }
     
@@ -292,21 +367,21 @@ public class Flytr {
      * @return boolean successful login
      */
     private boolean login() {
-        boolean x = true;
-        Scanner in = new Scanner(System.in);
+        boolean d = true;
+        Scanner keyboard = new Scanner(System.in);
         System.out.println("-----Account login-----\nUsername:");
-        String username = in.nextLine();
+        String username = keyboard.nextLine();
         while(x == true)
         {
         System.out.println("Password:");
-        String password = in.nextLine();
+        String pw = in.nextLine();
         //TODO Connect to database
-        // if(password == )
+        // if(pw == )
         // {
         //     x = false;
         //     mainMenu();
         // }
-        // if(password != )
+        // if(pw != )
         // {
         //     System.out.println("Wrong password, try again!");
 

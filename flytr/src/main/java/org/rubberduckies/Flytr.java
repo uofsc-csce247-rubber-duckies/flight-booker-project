@@ -258,7 +258,7 @@ public class Flytr {
         System.out.println("Enter Phone Number:");
         String phoneNum = in.nextLine();
         System.out.println("Enter Birthday (MM/DD/YYYY):");
-        //LocalDateTime birthday = help
+        //LocalDateTime birthday = TODO 
         System.out.println("Enter Address:");
         String address = in.nextLine();
         System.out.println("Enter Passport ID:");
@@ -314,6 +314,13 @@ public class Flytr {
         
     }
 
+    private void bookingHistory() {
+        //TODO TYLER
+    }
+
+    private void accountInfo() {
+        //TODO JOE/TYLER 
+    }
 
 
 
@@ -356,16 +363,16 @@ public class Flytr {
         switch(choice)
         {
             case 1:
-            createAccount();
+            createAccount(); //TODO JOE (in progress)
             break;
             case 2:
             login();
             break;
             case 3:
-            //booking history
+            //booking history - TODO TYLER 
             break;
             case 4:
-            //update account information
+            //update account information - TODO JOE/TYLER 
             break;
             case 5:
             mainMenu();

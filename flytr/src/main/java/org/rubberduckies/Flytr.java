@@ -399,10 +399,73 @@ public class Flytr {
         //TODO TYLER
     }
 
-    private void accountInfo() {
-        //TODO JOE/TYLER 
+    private void updateAccountInfo() {
+        System.out.println("-----Update Account Information-----");
+        System.out.println("1.Change Password\n2.Update Email\n3.Update Phone Number\n4.Update Passport ID\n5.Update Address\n6.Return to Manage Account\nWhat would you like to do?");
+        Scanner in = new Scanner(System.in);
+        int choice = in.nextInt();
+        switch(choice)
+        {
+            case 1:
+            changePassword();
+            break;
+            case 2:
+            updateEmail();
+            break;
+            case 3:
+            updatePhoneNumber();
+            break;
+            case 4:
+            updatePassportID();
+            break;
+            case 5: 
+            updateAddress();
+            break;
+            case 6:
+            manageAccount();
+            break;
+        }
+    }
+    /**
+     * changes user's password
+     */
+    private void changePassword()
+    {
+
     }
 
+
+    /**
+     * updates user's email address
+     */
+    private void updateEmail()
+    {
+
+    }
+
+    /**
+     * updates user's phone number
+     */
+    private void updatePhoneNumber()
+    {
+
+    }
+
+    /**
+     * updates user's passport ID 
+     */
+    private void updatePassportID()
+    {
+
+    }
+
+    /**
+     * updates user's address
+     */
+    private void updateAddress()
+    {
+
+    }
 
 
     /**
@@ -466,10 +529,7 @@ public class Flytr {
         }
     }
 
-    private void settings()
-    {
-
-    }
+  
     /**
      * User can view their bookings
      */

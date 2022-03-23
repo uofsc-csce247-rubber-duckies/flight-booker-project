@@ -39,6 +39,9 @@ public class Flytr {
         
     
     }
+    /**
+     * Welcomes the user by calling to mainMenu method
+     */
     public void welcome(){
         mainMenu();
        
@@ -71,7 +74,7 @@ public class Flytr {
     /**
      * Created a class to book a one way Flight
      */
-    public void  oneWay() {
+    public void oneWay() {
         System.out.println("-----Departure Information-----");
         System.out.println("\n Enter your Departure Location: ");
         String loc1 = keyboard.nextLine();     //make variable names consistent throughout program
@@ -258,7 +261,7 @@ public class Flytr {
         System.out.println("Enter Phone Number:");
         String phoneNum = in.nextLine();
         System.out.println("Enter Birthday (MM/DD/YYYY):");
-        //LocalDateTime birthday = help
+        //LocalDateTime birthday = TODO 
         System.out.println("Enter Address:");
         String address = in.nextLine();
         System.out.println("Enter Passport ID:");
@@ -321,12 +324,14 @@ public class Flytr {
             System.out.println("Enter Weight:");
             int weight = in.nextInt();
             //CREATE DOG OBJECT
-            System.out.println("Dog Added!")
+            System.out.println("Dog Added!");
         }
+        
         else
         {
             z = false;
         }
+    }
         boolean b = true;
         while(b)
         {
@@ -358,6 +363,7 @@ public class Flytr {
         System.out.println("Account Created Successfully!");
         manageAccount();
         return true;
+    
     }
     
     
@@ -369,12 +375,12 @@ public class Flytr {
     private boolean login() {
         boolean d = true;
         Scanner keyboard = new Scanner(System.in);
-        System.out.println("-----Account login-----\nUsername:");
+        System.out.println("-----Account login-----\nEnter Username:");
         String username = keyboard.nextLine();
-        while(x == true)
+        while(d == true)
         {
-        System.out.println("Password:");
-        String pw = in.nextLine();
+        System.out.println("Enter Password:");
+        String pw = keyboard.nextLine();
         //TODO Connect to database
         // if(pw == )
         // {
@@ -384,15 +390,24 @@ public class Flytr {
         // if(pw != )
         // {
         //     System.out.println("Wrong password, try again!");
-
-        }
         
+        }
+        return true;
+    }
+
+    private void bookingHistory() {
+        //TODO TYLER
+    }
+
+    private void accountInfo() {
+        //TODO JOE/TYLER 
     }
 
 
 
-
-    }
+    /**
+     * Main menu with 6 options 
+     */
     private void mainMenu()
     {
         System.out.println("-----Flytr Main Menu-----\n1. Search for Flights\n2. Search for Hotels\n3. User Account\n4. Settings\n5. Exit\n6. View Bookings\nWhat would you like to do?");
@@ -423,6 +438,9 @@ public class Flytr {
             
         }
     }
+    /**
+     * User can make changes to their account information
+     */
     private void manageAccount()
     {
         System.out.println("-----Manage Account-----\n1.Create Account\n2.Login\n3.Booking History\n4.Update Account Information\n5.Return to Main Menu\nWhat would you like to do?");
@@ -431,16 +449,16 @@ public class Flytr {
         switch(choice)
         {
             case 1:
-            createAccount();
+            createAccount(); //TODO JOE (in progress)
             break;
             case 2:
             login();
             break;
             case 3:
-            //booking history
+            //booking history - TODO TYLER 
             break;
             case 4:
-            //update account information
+            //update account information - TODO JOE/TYLER 
             break;
             case 5:
             mainMenu();
@@ -452,6 +470,9 @@ public class Flytr {
     {
 
     }
+    /**
+     * User can view their bookings
+     */
     private void viewBookings()
     {
         //TODO viewbookings

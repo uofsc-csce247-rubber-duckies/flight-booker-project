@@ -2,9 +2,7 @@ package org.rubberduckies;
 
 import java.time.LocalDateTime;
 import java.util.Scanner;
-import javax.swing.plaf.basic.BasicSplitPaneUI.KeyboardUpLeftHandler;
 
-import org.springframework.util.xml.TransformerUtils;
 
 public class Flytr {
   

@@ -1,7 +1,10 @@
 package org.rubberduckies;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
+import org.springframework.format.datetime.joda.LocalDateTimeParser;
 
 public class Flytr {
   
@@ -43,6 +46,7 @@ public class Flytr {
         System.out.println("----- Search Flights -----");
         System.out.println("Select Flight Type: \n 1. One Way Flight \n 2. Round-Trip Flight");
         int flightType = keyboard.nextInt();
+        keyboard.nextLine();
         if (flightType == 1) {
             oneWay();
         }        
@@ -592,6 +596,29 @@ public class Flytr {
      */
     private boolean cancelBooking() {
         return false;
+    }
+
+    /**
+     * Converts a formatted date string to a localdatetime object
+     * @param formattedDate date YYYY/MM/DD
+     * @return local date time object
+     */
+    private LocalDateTime convertStringToTime(String formattedDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY/MM/DD");
+        LocalDateTime timeObject = LocalDateTime.parse(formattedDate, formatter);
+        return timeObject;
+    }
+
+    /**
+     * Converts a date into a localdatetime object
+     * @param year
+     * @param month
+     * @param day
+     * @return local date time object
+     */
+    private LocalDateTime convertStringToTime(String year, String month, String day) {
+        LocalDateTime timeObject = LocalDateTime.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day), 0, 0, 0);
+        return timeObject;
     }
 
     public static void main(String[] args) {

@@ -5,17 +5,18 @@ import java.time.LocalDateTime;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Flight class
  * @author Daniel Gleaves
  */
-public class Flight extends Booking {
+public class Flight  {
 
     private final static char AVAILABLE = '_';
     private final static char TAKEN = 'X';
 
-    private String id;
+    private UUID id;
     private String airport;
     private ArrayList<ArrayList<Boolean>> seats;
     private Location from;
@@ -35,7 +36,7 @@ public class Flight extends Booking {
      * @param seats 2D array of seat booleans for seat availability
      * @param allowsDogs Boolean if flight allows dogs
      */
-    public Flight(String id, String airport, Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime, ArrayList<ArrayList<Boolean>> seats, boolean allowsDogs) {
+    public Flight(UUID id, String airport, Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime, ArrayList<ArrayList<Boolean>> seats, boolean allowsDogs) {
         //super(id, BookingType.FLIGHT);
         this.id = id;
         this.airport = airport;
@@ -48,7 +49,7 @@ public class Flight extends Booking {
     }
 
     public Flight(JSONObject flight) {
-        this.id = flight.get("id").toString();
+        this.id = UUID.fromString(flight.get("id").toString());
         this.airport = flight.get("airport").toString();
         this.from = new Location(flight.get("from").toString());
         this.to = new Location(flight.get("to").toString());
@@ -118,7 +119,7 @@ public class Flight extends Booking {
      * @return String of flight information
      */
     public String toString() {
-        return "id: " + getId() +
+        return "id: " + getID() +
                "\nairport: " + airport +
                "\nfrom: " + from.toString() +
                "\nto: " + to.toString() +
@@ -133,7 +134,7 @@ public class Flight extends Booking {
      * Returns the flight id
      * @return String flight id
      */
-    public String getID() {
+    public UUID getID() {
         return this.id;
     }
 

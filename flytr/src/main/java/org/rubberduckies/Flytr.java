@@ -69,7 +69,7 @@ public class Flytr {
         System.out.println("----- Destination Information -----");
         System.out.println("\n Enter your Destination Location: ");
         String loc2 = keyboard.nextLine();     //make variable names consistent throughout program
-        System.out.println("----- Results -----");
+        System.out.println("-----Results-----");
 
         //TODO Connect to Database and Display Available Results
 
@@ -88,7 +88,7 @@ public class Flytr {
 
         //TODO move to database 
 
-        System.out.println("----- Flight Options -----");
+        System.out.println("-----Flight Options-----");
 
         //TODO return out the flight options
 
@@ -108,7 +108,7 @@ public class Flytr {
         System.out.println("Confirm your flight?");
         String confirmation = keyboard.nextLine();
         if(confirmation.equalsIgnoreCase("yes")) {
-            System.out.println("----- Your Ticket -----");
+            System.out.println("-----Your Ticket-----");
             //Return Ticket
         }
         else {
@@ -132,7 +132,7 @@ public class Flytr {
         System.out.println("----- Destination Information -----");
         System.out.println("\n Enter your Destination Location: ");
         String loc2 = keyboard.nextLine();     //make variable names consistent throughout program
-        System.out.println("----- Results -----");
+        System.out.println("-----Results-----");
 
         //TODO Connect to Database and Display Available Results
 
@@ -157,7 +157,7 @@ public class Flytr {
 
         //TODO move to database 
 
-        System.out.println("----- Flight Options -----");
+        System.out.println("-----Flight Options-----");
 
         //TODO return out the flight options
 
@@ -177,7 +177,7 @@ public class Flytr {
         System.out.println("Confirm your flight?");
         String confirmation = keyboard.nextLine();
         if(confirmation.equalsIgnoreCase("yes")) {
-            System.out.println("----- Your Ticket -----");
+            System.out.println("-----Your Ticket-----");
             //Return Ticket
             System.out.println("\n Would you like to share your ticket?");
             if(confirmation.equalsIgnoreCase("yes")) {
@@ -221,7 +221,7 @@ public class Flytr {
         String smokingChoice;
 
         System.out.println("");
-        System.out.println("*************  Search Hotels   ****************");
+        System.out.println("-----Search Hotels-----");
         
         while(searchAgain == true){
             System.out.println("Please enter your desired destination. \n City:");
@@ -237,7 +237,7 @@ public class Flytr {
 
             switch(userChoice){
                 case 0:
-                System.out.println("********** Searching Again **********");
+                System.out.println("-----Searching Again-----");
                 break;
                 case 1:
                 searchAgain = false;

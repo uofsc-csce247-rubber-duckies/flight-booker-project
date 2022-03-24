@@ -11,17 +11,17 @@ public class HotelRoom {
     private int capacity;
     private String number;
     private boolean available;
+    private boolean smoking;
     private ArrayList<LocalDateTime> takenDates;
     //TODO: Make get available check a specific date if is taken
 
     public HotelRoom(int capacity, String number){
         this.capacity = capacity;
-        this.number = number;    
-        this.available = true;
-        System.out.println("HotelRoom constructor");     
-
+        this.number = number;
+        smoking = true;
     }
 
+    //TODO: add smoking to JSON
     public HotelRoom(JSONObject room) {
         this.number = (String)room.get("number");
         this.capacity = ((Long)room.get("capacity")).intValue();
@@ -40,31 +40,48 @@ public class HotelRoom {
 
     public void setCapacity(int capacity){
         this.capacity = capacity;
-        System.out.println("HotelRoom.setCapacity");
     }
 
     public void setNumber(String number){
         this.number = number;
-        System.out.println("HotelRoom.setNumber");
     }
 
-    public void book(int number){
-        available = false;
-        System.out.println("HotelRoom.Book");
+    public void setSmoking(boolean smoking){
+        this.smoking = smoking;
     }
 
     public int getCapacity(){
-        System.out.println("HotelRoom.getCapacity");
         return capacity;
-
     }
+
     public String getNumber(){
-      System.out.println("HotelRoom.getNumber");
       return number;      
     }
 
+    public boolean getSmoking(){
+        return smoking;
+    }
+
     public boolean isAvailable(){
-        System.out.println("HotelRoom.isAvailable");
         return true;
+    }
+
+    public void book(LocalDateTime date){
+        if(takenDates.contains(date)){
+            System.out.println("The date "+ date.toString() + " is not available to book.");
+        }
+        else{
+            takenDates.add(date);
+            //TODO: Book receipt
+        }
+    }
+
+    public void unBook(LocalDateTime date) {
+        if(takenDates.contains(date)) {
+            takenDates.remove(date);
+        }
+        else{
+            System.out.println("Warning: The date "+ date.toString() + " was already available.");
+        } 
     }
 }

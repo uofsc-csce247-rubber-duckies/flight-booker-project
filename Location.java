@@ -1,3 +1,8 @@
+/**
+ * @author james-thurlow
+ * @author tyler beetle 
+ */
+
 package org.rubberduckies;
 
 public class Location {
@@ -10,12 +15,6 @@ public class Location {
         state = "State: None";
     }
     
-    public Location(String location) {
-        String[] split = location.split(", ");
-        this.city = split[0];
-        this.state = split[1];
-    }
-
     public Location(String city, String state){
         city = this.city;
         state = this.state;

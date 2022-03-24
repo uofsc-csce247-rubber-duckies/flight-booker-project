@@ -16,10 +16,9 @@ public class User {
     private ArrayList<Dog> dogs;
     private boolean isFrequentFlyer;
 
-    public User(String username, String password, UserRole role) {
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
-        this.role = role;
 
         //TODO: default construct variables
     }

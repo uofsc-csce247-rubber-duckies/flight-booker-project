@@ -3,6 +3,7 @@ package org.rubberduckies;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -100,14 +101,14 @@ public class BookingController extends Controller {
 
     public Flight getFlightByID(String id) {
         for (Flight flight : flights) {
-            if (flight.getId().equals(id)) return flight; 
+            if (flight.getID().equals(UUID.fromString(id))) return flight; 
         }
         return null;
     }
 
     public Hotel getHotelByID(String id) {
         for (Hotel hotel : hotels) {
-            if (hotel.getID().equals(id)) return hotel; 
+            if (hotel.getID().equals(UUID.fromString(id))) return hotel; 
         }
         return null;
     }
@@ -148,7 +149,7 @@ public class BookingController extends Controller {
         System.out.println("Writing Flight JSON to Database");
         for (Flight flight : flights) {
             JSONObject jsonFlight = new JSONObject();
-            jsonFlight.put("id", flight.getID());
+            jsonFlight.put("id", flight.getID().toString());
             jsonFlight.put("airport", flight.getAirport());
             jsonFlight.put("from", flight.getFrom().toString());
             jsonFlight.put("to", flight.getTo().toString());
@@ -175,7 +176,7 @@ public class BookingController extends Controller {
     private void writeHotelJSON() {
         System.out.println("Writing Hotel JSON to Database");
         for (Hotel hotel : hotels) {
-            String hotelID = hotel.getID();
+            String hotelID = hotel.getID().toString();
             String hotelFolder = BOOKING_DATABASE + "/hotels/" + hotelID;
 
             JSONObject hotelData = new JSONObject();

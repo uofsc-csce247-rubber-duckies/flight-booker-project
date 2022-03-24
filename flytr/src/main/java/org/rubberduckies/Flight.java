@@ -11,7 +11,7 @@ import java.util.UUID;
  * Flight class
  * @author Daniel Gleaves
  */
-public class Flight  {
+public class Flight extends Booking {
 
     private final static char AVAILABLE = '_';
     private final static char TAKEN = 'X';

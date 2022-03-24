@@ -71,19 +71,10 @@ public class UserController extends Controller {
      */
     public User login(String username, String password){
         for (User user : users) {
-            if (BCrypt.checkpw(password, user.getPassword())) return user;
+            // if (BCrypt.checkpw(password, user.getPassword())) return user;
+            if (password.equals(user.getPassword())) return user;
         }
         return null;
-    }
-    
-    /** 
-     * Updates the User's information to the JSON file.
-     *
-     * @param user Writes the updated User object to the
-     *             User's JSON file.
-     */
-    public void save(User user){
-        // TODO
     }
 
     public UserData dataFor(String username) {
@@ -183,9 +174,6 @@ public class UserController extends Controller {
         }
     } 
 
-    // FIXME
-    // IDE giving me grief over raw use of these methods,
-    // might fix later but right now it just needs to work
     /**
      * Gives a massive JSONObject representing all of the User's properties
      * from their JSON files.
@@ -252,9 +240,9 @@ public class UserController extends Controller {
             }
             // FIXME
             // This can't be changed until the BookingController loads all bookings into memory.
-            // Booking booking = bookingController.getBookingById(historyJson.get("booking").toString());
-            // userHistory.add(new BookingReceipt(booking, user, LocalDateTime.parse(historyJson.get("bookedAt").toString()), receiptUsers));
-            userHistory.add(new BookingReceipt(null, user, LocalDateTime.parse(historyJson.get("bookedAt").toString()), receiptUsers));
+            Booking booking = bookingController.getBookingByID(historyJson.get("bookingType").toString(), historyJson.get("booking").toString());
+            userHistory.add(new BookingReceipt(booking, user, LocalDateTime.parse(historyJson.get("bookedAt").toString()), receiptUsers));
+            // userHistory.add(new BookingReceipt(null, user, LocalDateTime.parse(historyJson.get("bookedAt").toString()), receiptUsers));
         }
     }
 

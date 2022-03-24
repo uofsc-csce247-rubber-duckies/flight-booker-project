@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 import org.json.simple.JSONObject;
 
-public class Hotel {
+public class Hotel extends Booking {
     
     private UUID id;
     private String name;

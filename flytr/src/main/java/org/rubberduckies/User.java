@@ -63,17 +63,97 @@ public class User {
         this.isFrequentFlyer = isFrequentFlyer;
     }
 
-    /** 
-     * Gets username
-     *
-     * @return String username
-     */
+
     public String getUsername() {
         return this.username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public UserRole getRole() {
+        return this.role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
+
+    public UserData getData() {
+        return this.data;
+    }
+
+    public void setData(UserData data) {
+        this.data = data;
+    }
+
+    public UserPreferences getPreferences() {
+        return this.preferences;
+    }
+
+    public void setPreferences(UserPreferences preferences) {
+        this.preferences = preferences;
+    }
+
+    public ArrayList<Booking> getCart() {
+        return this.cart;
+    }
+
+    public void setCart(ArrayList<Booking> cart) {
+        this.cart = cart;
+    }
+
+    public ArrayList<BookingReceipt> getHistory() {
+        return this.history;
+    }
+
+    public void setHistory(ArrayList<BookingReceipt> history) {
+        this.history = history;
+    }
+
+    public ArrayList<User> getLinkedAccounts() {
+        return this.linkedAccounts;
+    }
+
+    public void setLinkedAccounts(ArrayList<User> linkedAccounts) {
+        this.linkedAccounts = linkedAccounts;
+    }
+
     public ArrayList<UserData> getSavedPeople() {
-        return savedPeople;
+        return this.savedPeople;
+    }
+
+    public void setSavedPeople(ArrayList<UserData> savedPeople) {
+        this.savedPeople = savedPeople;
+    }
+
+    public ArrayList<Dog> getDogs() {
+        return this.dogs;
+    }
+
+    public void setDogs(ArrayList<Dog> dogs) {
+        this.dogs = dogs;
+    }
+
+    public boolean isIsFrequentFlyer() {
+        return this.isFrequentFlyer;
+    }
+
+    public boolean getIsFrequentFlyer() {
+        return this.isFrequentFlyer;
+    }
+
+    public void setIsFrequentFlyer(boolean isFrequentFlyer) {
+        this.isFrequentFlyer = isFrequentFlyer;
     }
 
     public void addLinkedAccount(User user) {

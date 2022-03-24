@@ -228,4 +228,17 @@ public class BookingController extends Controller {
         return results;
     }
 
+    public Booking getBookingByID(String bookingType, String id) {
+        BookingType type = BookingType.valueOf(bookingType);
+        switch(type) {
+            case FLIGHT:
+                return getFlightByID(id);
+            case HOTEL:
+                return getHotelByID(id);
+            default:
+                return null;
+        }
+        
+    }
+
 }

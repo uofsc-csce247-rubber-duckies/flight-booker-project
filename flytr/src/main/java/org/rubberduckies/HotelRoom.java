@@ -1,35 +1,48 @@
-/**
- * @author james-thurlow
- * @author tyler beetle
- */
 package org.rubberduckies;
 
-import java.util.ArrayList;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
 
 public class HotelRoom {
     private int capacity;
-    private int number;
+    private String number;
+    private boolean available;
     private boolean smoking;
-    private ArrayList<LocalDateTime> bookedNights;
+    private ArrayList<LocalDateTime> takenDates;
+    //TODO: Make get available check a specific date if is taken
 
-    public HotelRoom(){
-        this.capacity = 0;
-        this.number = 0;
-        this.smoking = true;
-    }
-
-    public HotelRoom(int capacity, int number){
+    public HotelRoom(int capacity, String number){
         this.capacity = capacity;
         this.number = number;
         smoking = true;
     }
 
+    //TODO: add smoking to JSON
+    public HotelRoom(JSONObject room) {
+        this.number = (String)room.get("number");
+        this.capacity = ((Long)room.get("capacity")).intValue();
+        this.takenDates = convertTakenDates((JSONArray)room.get("takenDates"));
+    }
+
+
+    private ArrayList<LocalDateTime> convertTakenDates(JSONArray times) {
+        ArrayList<LocalDateTime> timesList = new ArrayList<LocalDateTime>();
+        for (Object time : times) {
+            timesList.add(LocalDateTime.parse((String)time));
+        }
+        return timesList;
+    }
+
+
     public void setCapacity(int capacity){
         this.capacity = capacity;
     }
 
-    public void setNumber(int number){
+    public void setNumber(String number){
         this.number = number;
     }
 
@@ -40,8 +53,8 @@ public class HotelRoom {
     public int getCapacity(){
         return capacity;
     }
-    
-    public int getNumber(){
+
+    public String getNumber(){
       return number;      
     }
 
@@ -54,18 +67,18 @@ public class HotelRoom {
     }
 
     public void book(LocalDateTime date){
-        if(bookedNights.contains(date)){
+        if(takenDates.contains(date)){
             System.out.println("The date "+ date.toString() + " is not available to book.");
         }
         else{
-            bookedNights.add(date);
+            takenDates.add(date);
+            //TODO: Book receipt
         }
     }
 
-    public void unBook(LocalDateTime date){
-        
-        if(bookedNights.contains(date)){
-            bookedNights.remove(date);
+    public void unBook(LocalDateTime date) {
+        if(takenDates.contains(date)) {
+            takenDates.remove(date);
         }
         else{
             System.out.println("Warning: The date "+ date.toString() + " was already available.");

@@ -1,9 +1,5 @@
 package org.rubberduckies;
 
-/**
- * A class that accounts for the Booking type and ID 
- * @author Tyler Beetle 
- */
 public abstract class Booking {
     private String id;
     private BookingType type;

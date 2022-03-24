@@ -11,12 +11,13 @@ public class Flytr {
     public static Scanner keyboard = new Scanner(System.in);
 
     public Flytr() {
-        this.userController = new UserController();
-        this.bookingController = new BookingController();
+        bookingController = BookingController.getController();
+        userController = UserController.getController();
     }
 
     /** 
      * Gets instance of application
+     *
      * @return Flytr application
      */
     public Flytr getInstance() {
@@ -32,7 +33,6 @@ public class Flytr {
     public void run() {
         manageAccount();
         //TODO: run
-         
     }
     
     /** 
@@ -592,6 +592,11 @@ public class Flytr {
      */
     private boolean cancelBooking() {
         return false;
+    }
+
+    public static void main(String[] args) {
+        Flytr flytr = new Flytr();
+        flytr.run();
     }
 
 }

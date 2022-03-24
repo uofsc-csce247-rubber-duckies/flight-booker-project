@@ -202,6 +202,7 @@ public class BookingController extends Controller {
             takenDatesArray.add(date.toString());
         }
         dataMap.put("takenDates", takenDatesArray);
+        dataMap.put("bedType", room.getBedType().toString());
         JSONObject roomData = new JSONObject(dataMap);
 
         writeJson(folder + room.getNumber() + ".json", roomData);

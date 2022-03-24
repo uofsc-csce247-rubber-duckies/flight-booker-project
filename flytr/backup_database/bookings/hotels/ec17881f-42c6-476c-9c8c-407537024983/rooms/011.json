@@ -1,5 +1,6 @@
 {
     "number": "011",
     "capacity": 2,
-    "takenDates": []
+    "takenDates": [],
+    "bedType": "DOUBLES"
 }

@@ -1,5 +1,6 @@
 {
-  "number": "002",
-  "takenDates": [],
-  "capacity": 3
+    "number": "002",
+    "capacity": 3,
+    "takenDates": [],
+    "bedType": "QUEEN"
 }

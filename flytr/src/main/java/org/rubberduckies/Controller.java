@@ -8,6 +8,7 @@ import java.io.FileWriter;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import com.google.gson.*;
 
 /**
  * Used to create controllers that act as the API
@@ -58,7 +59,13 @@ public abstract class Controller {
             //              writing to the file, the catch
             //              block catches the exception and
             //              never closes the file.
-            file.write(json.toJSONString());
+            // json.writeJSONString(file);
+
+            // Reference https://stackoverflow.com/questions/4105795/pretty-print-json-in-java
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            JsonElement je = JsonParser.parseString(json.toJSONString());
+            gson.toJson(je, file);
+            // file.write(prettyString);
             file.flush();
             file.close();
         } catch (Exception e) {

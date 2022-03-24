@@ -1,0 +1,19 @@
+{
+    "id": "f52545d1-080c-4dc5-8616-57ed4f781809",
+    "airport": "Columbia Metropolitan Airport",
+    "from": "Columbia, SC",
+    "to": "Atlanta, GA",
+    "departure": "2022-04-03T08:10:00",
+    "arrival": "2022-04-03T09:00:00",
+    "seats": [
+        [true, true, true, true],
+        [true, true, true, true],
+        [true, true, true, true],
+        [true, true, true, true],
+        [true, true, true, true],
+        [true, true, true, true],
+        [true, true, true, true],
+        [true, true, true, true]
+    ],
+    "allowsDogs": false
+}

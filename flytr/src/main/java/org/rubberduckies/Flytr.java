@@ -3,7 +3,6 @@ package org.rubberduckies;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
-
 public class Flytr {
   
     private Flytr instance;
@@ -16,7 +15,6 @@ public class Flytr {
         this.bookingController = new BookingController();
     }
 
-    
     /** 
      * Gets instance of application
      * @return Flytr application
@@ -34,11 +32,9 @@ public class Flytr {
     public void run() {
         manageAccount();
         //TODO: run
-        
-    
+         
     }
     
-
     /** 
      * Search for flight by choosing a type of flight
      * 
@@ -210,28 +206,66 @@ public class Flytr {
      * @return 
      * @return boolean successful search
      */
-    public void searchHotels() {
+    public static void searchHotels() {
         
-            String city;
-            String state;
-            int numOfRooms;
-            int numOfOccupants;
+        String city;
+        String state;
+        String checkIn;
+        String checkOut;
+        boolean smoking;
+        int numOfRooms;
+        int numOfOccupants;
+        boolean searchAgain = true;
+        Location cityResult;
+        int userChoice;
+        String smokingChoice;
 
-            System.out.println("----- Search Hotels -----");
-            System.out.println("Please search a location. \n City:");
+        System.out.println("");
+        System.out.println("*************  Search Hotels   ****************");
+        
+        while(searchAgain == true){
+            System.out.println("Please enter your desired destination. \n City:");
             city = keyboard.nextLine();
 
-            System.out.println("State");
+            System.out.println("State: ");
             state = keyboard.nextLine();
+            //TODO Search locations
 
-            System.out.println("Enter the number of rooms you wish to book: ");
-            numOfRooms = keyboard.nextInt();
-            
-            System.out.println("Enter the number of occupants per room:");
-            numOfOccupants = keyboard.nextInt();
+            System.out.println("Please select a Location: \n`-0: Search Again \n -1: " /* TODO fix this -- + searchResult.getLocation()*/);
+            System.out.println("Selected Option: ");
+            userChoice = keyboard.nextInt();
 
-            //TODO search database with criteria given.
-    }
+            switch(userChoice){
+                case 0:
+                System.out.println("********** Searching Again **********");
+                break;
+                case 1:
+                searchAgain = false;
+                break;
+            }
+        }
+
+        System.out.println("Enter your Check-In Date (MM/DD): ");        //TODO Check Date Format
+        checkIn = keyboard.nextLine();
+        System.out.println("Enter your Check-In Date (MM/DD): ");
+        checkOut = keyboard.nextLine();
+        System.out.println("Enter the number of rooms you wish to book: ");
+        numOfRooms = keyboard.nextInt();
+        System.out.println("Do you prefer a non smoking room? \n Y/n: ");
+         userChoice = keyboad.nextLine();
+        if(smokingChoice.equalsIgnoreCase("y")){
+            smoking = false;
+        }
+        else if(smokingChoice.equalsIgnoreCase("n")){
+            smoking = true;
+        }
+        else{
+            System.out.println("Invalid Choice.");//TODO loop until correct input is given
+        }
+
+
+        //TODO search database
+}
 
     
     /** 

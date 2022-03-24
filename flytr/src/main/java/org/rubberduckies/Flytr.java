@@ -77,7 +77,7 @@ public class Flytr {
         //TODO Connect to Database and Display Available Results
 
         System.out.println("Enter your departure date(YYYY-MM-DD): ");
-        LocalDateTime userDate = keyboard.nextLine();
+        LocalDateTime userDate = convertStringToTime(keyboard.nextLine());
 
         //TODO store as Date and Time Object and move to controller
 
@@ -255,7 +255,7 @@ public class Flytr {
         System.out.println("Enter the number of rooms you wish to book: ");
         numOfRooms = keyboard.nextInt();
         System.out.println("Do you prefer a non smoking room? \n Y/n: ");
-         userChoice = keyboad.nextLine();
+         smokingChoice = keyboard.nextLine();
         if(smokingChoice.equalsIgnoreCase("y")){
             smoking = false;
         }

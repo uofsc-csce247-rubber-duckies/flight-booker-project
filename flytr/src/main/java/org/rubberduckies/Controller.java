@@ -80,13 +80,4 @@ public abstract class Controller {
         return file.list();
     }
 
-
-    /**
-     * Implemented by individual controllers to parse their
-     * JSON data once it is read.
-     *
-     * @param jsonObjects The user JSONObjects that is read from the
-     *                    readJson() method.
-     */
-    protected abstract void parse(ArrayList<JSONObject> jsonObjects);
 }

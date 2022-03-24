@@ -37,7 +37,7 @@ public class Location {
         return this.state;
     }
 
-    public String getLocation(){
+    public String toString() {
         String location = city +", "+ state;
         return location;
     }

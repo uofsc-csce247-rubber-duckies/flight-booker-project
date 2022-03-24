@@ -244,4 +244,9 @@ public class Flight extends Booking {
     public void setAllowsDogs(boolean allowsDogs) {
         this.allowsDogs = allowsDogs;
     }
+
+    public ArrayList<ArrayList<Boolean>> getSeats() {
+        return this.seats;
+    }
+
 }

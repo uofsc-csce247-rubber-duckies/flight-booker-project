@@ -1,6 +1,9 @@
 package org.rubberduckies;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class BookingController extends Controller {
@@ -8,7 +11,8 @@ public class BookingController extends Controller {
     private final String BOOKING_DATABASE = "database/bookings";
 
     private static BookingController instance;
-    private ArrayList<Booking> bookings;
+    private ArrayList<Flight> flights;
+    private ArrayList<Hotel> hotels;
 
     //TODO: Do we separate bookings into separate arraylists? they are stored separately in database. might make sense
     // note from alex: probably
@@ -52,8 +56,8 @@ public class BookingController extends Controller {
             System.out.println("  Hotel Found: " + hotel);
         }
 
-        ArrayList<Flight> flights = loadFlights(flightFiles);
-        ArrayList<Hotel> hotels = loadHotels(hotelFiles);
+        this.flights = loadFlights(flightFiles);
+        this.hotels = loadHotels(hotelFiles);
 
     }
 
@@ -93,9 +97,16 @@ public class BookingController extends Controller {
         return;
     }
 
-    public Booking getBookingById(String id) {
-        for (Booking booking : bookings) {
-            if (booking.getId().equals(id)) return booking; 
+    public Flight getFlightByID(String id) {
+        for (Flight flight : flights) {
+            if (flight.getId().equals(id)) return flight; 
+        }
+        return null;
+    }
+
+    public Hotel getHotelByID(String id) {
+        for (Hotel hotel : hotels) {
+            if (hotel.getID().equals(id)) return hotel; 
         }
         return null;
     }
@@ -130,5 +141,35 @@ public class BookingController extends Controller {
         return null;
     }
 
+    private void writeJSON() {
+        writeFlightJSON();
+    }
+
+    private void writeFlightJSON() {
+
+        for (Flight flight : flights) {
+            HashMap<String, Object> hashmapFlight = new HashMap<String, Object>();
+            hashmapFlight.put("id", flight.getID());
+            hashmapFlight.put("airport", flight.getAirport());
+            hashmapFlight.put("from", flight.getFrom().toString());
+            hashmapFlight.put("to", flight.getTo().toString());
+            hashmapFlight.put("departure", flight.getDepartureTime().toString());
+            hashmapFlight.put("arrival", flight.getArrivalTime().toString());
+
+            JSONArray seatsArray = new JSONArray();
+            for (ArrayList<Boolean> seatRow : flight.getSeats()) {
+                JSONArray rowArray = new JSONArray();
+                for (Boolean available : seatRow) {
+                    rowArray.add(available);
+                }
+                seatsArray.add(rowArray);
+            }
+            hashmapFlight.put("seats", seatsArray);
+            hashmapFlight.put("allowsDogs", flight.getAllowsDogs());
+
+            JSONObject jsonFlight = new JSONObject(hashmapFlight);
+            writeJson(BOOKING_DATABASE + "/flights/" + flight.getID().substring(7) + ".json", jsonFlight);
+        }
+    }
 
 }

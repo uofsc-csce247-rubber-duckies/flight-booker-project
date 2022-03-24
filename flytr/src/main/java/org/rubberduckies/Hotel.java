@@ -32,7 +32,15 @@ public class Hotel {
         this.rooms = hotelRooms;
     }
 
-    
+    public String getID() {
+        return this.id;
+    }
+
+    public void setID(String id) {
+        this.id = id;
+    }
+
+
     /** 
      * Get hotel name
      * @return String hotel name
@@ -103,4 +111,5 @@ public class Hotel {
     private void readdRoom(int roomNumber) {
         //TODO: implement
     }
+
 }

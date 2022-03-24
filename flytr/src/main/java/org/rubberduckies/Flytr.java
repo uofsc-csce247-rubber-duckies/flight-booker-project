@@ -74,7 +74,7 @@ public class Flytr {
         //TODO Connect to Database and Display Available Results
 
         System.out.println("Enter your departure date(YYYY-MM-DD): ");
-        String userDate = keyboard.nextLine();
+        LocalDateTime userDate = keyboard.nextLine();
 
         //TODO store as Date and Time Object and move to controller
 
@@ -137,12 +137,12 @@ public class Flytr {
         //TODO Connect to Database and Display Available Results
 
         System.out.println("Enter your departure date(YYYY-MM-DD): ");
-        String userDate = keyboard.nextLine();
+        LocalDateTime userDate = keyboard.nextLine();
 
         //TODO store as Date and Time Object and move to controller
 
         System.out.println("Enter your return date(YYYY-MM-DD): ");
-        String userreturnDate = keyboard.nextLine();
+        LocalDateTime returnDate = keyboard.nextLine();
 
         //TODO store as Date and Time Object and move to controller
 
@@ -152,8 +152,8 @@ public class Flytr {
 
         //TODO move to database
 
-        System.out.println("Enter number of Pets:");
-        int pets = keyboard.nextInt();
+       // System.out.println("Enter number of Pets:");
+        //int pets = keyboard.nextInt();
 
         //TODO move to database 
 

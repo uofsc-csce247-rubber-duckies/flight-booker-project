@@ -126,9 +126,23 @@ public class BookingController extends Controller {
      * @param search keyword
      * @return bookings results of search
      */
-    public ArrayList<Booking> search(Search search) {
-        return null;
+    public ArrayList<Booking> search( Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime ) {
+        ArrayList<Flight> results = new ArrayList<Flight>();      
+        for (Flight flight : flights) {
+            if (!(from == flight.getFrom())) {
+                continue; 
+            }
+            if (!(to == flight.getTo())) {
+                continue; 
+            }
+            if (!(departureTime == flight.getDepartureTime())) {
+                continue; 
+            }
+            if (!(arrivalTime == flight.getArrivalTime())) {
+                continue; 
+            }
+        return results;
+
+        }
     }
-
-
 }

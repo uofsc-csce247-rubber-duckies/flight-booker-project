@@ -12,12 +12,13 @@ public class HotelRoom {
     private boolean available;
     private boolean smoking;
     private ArrayList<LocalDateTime> takenDates;
+    private BedType bedType;
     //TODO: Make get available check a specific date if is taken
 
-    public HotelRoom(int capacity, String number){
+    public HotelRoom(int capacity, String number, BedType bedType){
         this.capacity = capacity;
         this.number = number;
-        smoking = true;
+        this.bedType = bedType;
     }
 
     //TODO: add smoking to JSON
@@ -25,6 +26,7 @@ public class HotelRoom {
         this.number = (String)room.get("number");
         this.capacity = ((Long)room.get("capacity")).intValue();
         this.takenDates = convertTakenDates((JSONArray)room.get("takenDates"));
+        this.bedType = BedType.valueOf(room.get("bedType").toString());
     }
 
 
@@ -71,6 +73,10 @@ public class HotelRoom {
 
     public void setTakenDates(ArrayList<LocalDateTime> takenDates) {
         this.takenDates = takenDates;
+    }
+
+    public BedType getBedType() {
+        return this.bedType;
     }
 
     public void book(LocalDateTime date){

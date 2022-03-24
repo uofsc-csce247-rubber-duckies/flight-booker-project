@@ -137,9 +137,6 @@ public class BookingController extends Controller {
      * @param search keyword
      * @return bookings results of search
      */
-    public ArrayList<Booking> search(Search search) {
-        return null;
-    }
 
     private void writeJSON() {
         writeFlightJSON();
@@ -169,6 +166,26 @@ public class BookingController extends Controller {
 
             JSONObject jsonFlight = new JSONObject(hashmapFlight);
             writeJson(BOOKING_DATABASE + "/flights/" + flight.getID().substring(7) + ".json", jsonFlight);
+        }
+    }
+
+    public ArrayList<Booking> search( Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime ) {
+        ArrayList<Flight> results = new ArrayList<Flight>();      
+        for (Flight flight : flights) {
+            if (!(from == flight.getFrom())) {
+                continue; 
+            }
+            if (!(to == flight.getTo())) {
+                continue; 
+            }
+            if (!(departureTime == flight.getDepartureTime())) {
+                continue; 
+            }
+            if (!(arrivalTime == flight.getArrivalTime())) {
+                continue; 
+            }
+        return results;
+
         }
     }
 

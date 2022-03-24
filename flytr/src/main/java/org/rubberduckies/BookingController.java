@@ -1,5 +1,6 @@
 package org.rubberduckies;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -169,7 +170,7 @@ public class BookingController extends Controller {
         }
     }
 
-    public ArrayList<Booking> search( Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime ) {
+    public ArrayList<Flight> searchFlight(Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime) {
         ArrayList<Flight> results = new ArrayList<Flight>();      
         for (Flight flight : flights) {
             if (!(from == flight.getFrom())) {
@@ -184,9 +185,9 @@ public class BookingController extends Controller {
             if (!(arrivalTime == flight.getArrivalTime())) {
                 continue; 
             }
-        return results;
-
+            results.add(flight);
         }
+        return results;
     }
 
 }

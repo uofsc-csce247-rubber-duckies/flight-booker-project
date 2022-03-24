@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-import org.springframework.format.datetime.joda.LocalDateTimeParser;
-
 public class Flytr {
   
     private Flytr instance;
@@ -34,6 +32,7 @@ public class Flytr {
      * Runs application
      */
     public void run() {
+        bookingController.writeJSON();
         manageAccount();
         //TODO: run
     }
@@ -141,12 +140,12 @@ public class Flytr {
         //TODO Connect to Database and Display Available Results
 
         System.out.println("Enter your departure date(YYYY-MM-DD): ");
-        LocalDateTime userDate = keyboard.nextdat(); //TODO read DateTime
+        LocalDateTime userDate = convertStringToTime(keyboard.nextLine()); //TODO read DateTime
 
         //TODO store as Date and Time Object and move to controller
 
         System.out.println("Enter your return date(YYYY-MM-DD): ");
-        LocalDateTime returnDate = keyboard.nextLine(); //TODO read DateTime
+        LocalDateTime returnDate = convertStringToTime(keyboard.nextLine()); //TODO read DateTime
 
         //TODO store as Date and Time Object and move to controller
 

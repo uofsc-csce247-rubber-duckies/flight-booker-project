@@ -1,0 +1,9 @@
+{
+    "dogs": [
+        {
+            "name": "Kali",
+            "breed": "Black Labrodor Mix",
+            "weight": 30
+        }
+    ]
+}

@@ -139,20 +139,21 @@ public class BookingController extends Controller {
      * @return bookings results of search
      */
 
-    private void writeJSON() {
+    public void writeJSON() {
         writeFlightJSON();
+        writeHotelJSON();
     }
 
     private void writeFlightJSON() {
-
+        System.out.println("Writing Flight JSON to Database");
         for (Flight flight : flights) {
-            HashMap<String, Object> hashmapFlight = new HashMap<String, Object>();
-            hashmapFlight.put("id", flight.getID());
-            hashmapFlight.put("airport", flight.getAirport());
-            hashmapFlight.put("from", flight.getFrom().toString());
-            hashmapFlight.put("to", flight.getTo().toString());
-            hashmapFlight.put("departure", flight.getDepartureTime().toString());
-            hashmapFlight.put("arrival", flight.getArrivalTime().toString());
+            JSONObject jsonFlight = new JSONObject();
+            jsonFlight.put("id", flight.getID());
+            jsonFlight.put("airport", flight.getAirport());
+            jsonFlight.put("from", flight.getFrom().toString());
+            jsonFlight.put("to", flight.getTo().toString());
+            jsonFlight.put("departure", flight.getDepartureTime().toString());
+            jsonFlight.put("arrival", flight.getArrivalTime().toString());
 
             JSONArray seatsArray = new JSONArray();
             for (ArrayList<Boolean> seatRow : flight.getSeats()) {
@@ -162,12 +163,47 @@ public class BookingController extends Controller {
                 }
                 seatsArray.add(rowArray);
             }
-            hashmapFlight.put("seats", seatsArray);
-            hashmapFlight.put("allowsDogs", flight.getAllowsDogs());
+            jsonFlight.put("seats", seatsArray);
+            jsonFlight.put("allowsDogs", flight.getAllowsDogs());
 
-            JSONObject jsonFlight = new JSONObject(hashmapFlight);
-            writeJson(BOOKING_DATABASE + "/flights/" + flight.getID().substring(7) + ".json", jsonFlight);
+           
+            writeJson(BOOKING_DATABASE + "/flights/" + flight.getID() + ".json", jsonFlight);
+            System.out.println("Finished writing Flight JSON");
         }
+    }
+
+    private void writeHotelJSON() {
+        System.out.println("Writing Hotel JSON to Database");
+        for (Hotel hotel : hotels) {
+            String hotelID = hotel.getID();
+            String hotelFolder = BOOKING_DATABASE + "/hotels/" + hotelID;
+
+            JSONObject hotelData = new JSONObject();
+            hotelData.put("id", hotelID);
+            hotelData.put("name", hotel.getName());
+            hotelData.put("location", hotel.getLocation().toString());
+            writeJson(hotelFolder + "/data.json", hotelData);
+
+            for (HotelRoom room : hotel.getRooms()) {
+                writeHotelRoomJSON(room, hotelFolder + "/rooms/");
+            }
+        }
+        System.out.println("Finished writing Hotel JSON");
+        
+    }
+
+    private void writeHotelRoomJSON(HotelRoom room, String folder) {
+        HashMap<String, Object> dataMap = new HashMap<String, Object>();
+        dataMap.put("number", room.getNumber());
+        dataMap.put("capacity", room.getCapacity());
+        JSONArray takenDatesArray = new JSONArray();
+        for (LocalDateTime date : room.getTakenDates()) {
+            takenDatesArray.add(date.toString());
+        }
+        dataMap.put("takenDates", takenDatesArray);
+        JSONObject roomData = new JSONObject(dataMap);
+
+        writeJson(folder + room.getNumber() + ".json", roomData);
     }
 
     public ArrayList<Flight> searchFlight(Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime) {

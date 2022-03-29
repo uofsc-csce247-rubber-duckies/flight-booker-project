@@ -585,6 +585,7 @@ public class Flytr {
         System.out.println("Enter Passport ID:");
         String passportID = in.nextLine();
         UserData friend = new UserData(firstName, lastName, email, phoneNum, bday, address, passportID);
+        //TODO : link to main account
     }
 
 

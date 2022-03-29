@@ -2,6 +2,7 @@ package org.rubberduckies;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Flytr {
@@ -83,20 +84,25 @@ public class Flytr {
 
         System.out.println("Enter number of Travelers:");
         int travelers = keyboard.nextInt();
+        keyboard.nextLine();
 
         //TODO move to database
 
         System.out.println("Enter number of Pets:");
         int pets = keyboard.nextInt();
+        keyboard.nextLine();
 
         //TODO move to database 
 
         System.out.println("-----Flight Options-----");
 
-        //TODO return out the flight options
-
+        ArrayList<Flight> results = bookingController.searchFlight(from, to, departureTime, arrivalTime);
+        if(results.size() == 0) { 
+            System.out.print("There are no flights found. Search again!");
+        }
         System.out.println(" Enter your Flight Choice: ");
         int flightDecision = keyboard.nextInt();
+        keyboard.nextLine();
 
         if(travelers == 1) {
             System.out.println("Choose your seat: ");
@@ -152,6 +158,7 @@ public class Flytr {
 
         System.out.println("Enter number of Travelers:");
         int travelers = keyboard.nextInt();
+        keyboard.nextLine();
 
 
        // System.out.println("Enter number of Pets:");
@@ -165,6 +172,7 @@ public class Flytr {
 
         System.out.println(" Enter your Flight Choice: ");
         int flightDecision = keyboard.nextInt();
+        keyboard.nextLine();
 
         if(travelers == 1) {
             System.out.println("Choose your seat: ");
@@ -198,10 +206,6 @@ public class Flytr {
          
     } 
     
-
-
-
-
 
     /** 
      * Search for hotel

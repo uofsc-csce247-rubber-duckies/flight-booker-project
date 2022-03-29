@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class UserData {
     
-    private String id;
+    
     private String firstName;
     private String lastName;
     private String email;
@@ -19,8 +19,8 @@ public class UserData {
     }
 
 
-    public UserData(String id, String firstName, String lastName, String email, String phoneNumber, LocalDateTime birthDate, String passport, String address) {
-        this.id = id;
+    public UserData(String firstName, String lastName, String email, String phoneNumber, LocalDateTime birthDate, String passport, String address) {
+       
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -31,22 +31,7 @@ public class UserData {
     }
 
     
-    /** 
-     * Gets user data ID
-     * @return String user data ID
-     */
-    public String getId() {
-        return this.id;
-    }
-
     
-    /** 
-     * Sets user data ID 
-     * @param id user data ID
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
 
     
     /** 

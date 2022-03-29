@@ -63,14 +63,14 @@ public class Flytr {
         System.out.println("-----Departure Information-----");
         System.out.println("\n Enter your Departure Location: ");
         String loc1 = keyboard.nextLine();     //make variable names consistent throughout program
-        System.out.println("-----Results-----");
+        
 
         
 
         System.out.println("----- Destination Information -----");
         System.out.println("\n Enter your Destination Location: ");
         String loc2 = keyboard.nextLine();     //make variable names consistent throughout program
-        System.out.println("-----Results-----");
+        
 
        
 
@@ -119,12 +119,12 @@ public class Flytr {
         System.out.println("-----Departure Information-----");
         System.out.println("\n Enter your Departure Location: ");
         String loc1 = keyboard.nextLine();     //make variable names consistent throughout program
-        System.out.println("-----Results-----");
+    
 
         System.out.println("----- Destination Information -----");
         System.out.println("\n Enter your Destination Location: ");
         String loc2 = keyboard.nextLine();     //make variable names consistent throughout program
-        System.out.println("-----Results-----");
+        
 
         System.out.println("Enter your departure date(YYYY-MM-DD): ");
         LocalDateTime userDate = convertStringToTime(keyboard.nextLine()); //TODO read DateTime

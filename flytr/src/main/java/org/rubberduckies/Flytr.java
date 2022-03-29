@@ -32,9 +32,7 @@ public class Flytr {
      * Runs application
      */
     public void run() {
-        bookingController.writeJSON();
-        manageAccount();
-        //TODO: run
+        mainMenu();
     }
     
     /** 
@@ -67,41 +65,36 @@ public class Flytr {
         String loc1 = keyboard.nextLine();     //make variable names consistent throughout program
         System.out.println("-----Results-----");
 
-        //TODO Connect to Database and Display Available Results 
+        
 
         System.out.println("----- Destination Information -----");
         System.out.println("\n Enter your Destination Location: ");
         String loc2 = keyboard.nextLine();     //make variable names consistent throughout program
         System.out.println("-----Results-----");
 
-        //TODO Connect to Database and Display Available Results
+       
 
         System.out.println("Enter your departure date(YYYY-MM-DD): ");
         LocalDateTime userDate = convertStringToTime(keyboard.nextLine());
 
-        //TODO store as Date and Time Object and move to controller
+        
 
         System.out.println("Enter number of Travelers:");
         int travelers = keyboard.nextInt();
 
-        //TODO move to database
+       
 
         System.out.println("Enter number of Pets:");
         int pets = keyboard.nextInt();
 
-        //TODO move to database 
-
         System.out.println("-----Flight Options-----");
-
-        //TODO return out the flight options
 
         System.out.println(" Enter your Flight Choice: ");
         int flightDecision = keyboard.nextInt();
 
         if(travelers == 1) {
             System.out.println("Choose your seat: ");
-            String seat = keyboard.nextLine();
-            //TODO If seats dont exist and pull through database
+            String seat = keyboard.nextLine();     
         }
         else {
             System.out.println("Choose your seats: ");
@@ -116,10 +109,8 @@ public class Flytr {
         }
         else {
             System.out.println("What would you like to change?:");
-            String changes = keyboard.nextLine();
-            //TODO go back to instances of the ticket 
-        }
-            //TODO return back to the intial prompt class 
+            String changes = keyboard.nextLine(); 
+        } 
     } 
  /**
      * Created a class to book a round Trip Flight
@@ -130,39 +121,24 @@ public class Flytr {
         String loc1 = keyboard.nextLine();     //make variable names consistent throughout program
         System.out.println("-----Results-----");
 
-        //TODO Connect to Database and Display Available Results 
-
         System.out.println("----- Destination Information -----");
         System.out.println("\n Enter your Destination Location: ");
         String loc2 = keyboard.nextLine();     //make variable names consistent throughout program
         System.out.println("-----Results-----");
 
-        //TODO Connect to Database and Display Available Results
-
         System.out.println("Enter your departure date(YYYY-MM-DD): ");
         LocalDateTime userDate = convertStringToTime(keyboard.nextLine()); //TODO read DateTime
-
-        //TODO store as Date and Time Object and move to controller
 
         System.out.println("Enter your return date(YYYY-MM-DD): ");
         LocalDateTime returnDate = convertStringToTime(keyboard.nextLine()); //TODO read DateTime
 
-        //TODO store as Date and Time Object and move to controller
-
-
         System.out.println("Enter number of Travelers:");
         int travelers = keyboard.nextInt();
-
-        //TODO move to database
 
        // System.out.println("Enter number of Pets:");
         //int pets = keyboard.nextInt();
 
-        //TODO move to database 
-
-        System.out.println("-----Flight Options-----");
-
-        //TODO return out the flight options
+        System.out.println("-----Flight Options-----"); 
 
         System.out.println(" Enter your Flight Choice: ");
         int flightDecision = keyboard.nextInt();
@@ -170,18 +146,18 @@ public class Flytr {
         if(travelers == 1) {
             System.out.println("Choose your seat: ");
             String seat = keyboard.nextLine();
-            //TODO If seats dont exist and pull through database
+            
         }
         else {
             System.out.println("Choose your seats: ");
             String seat = keyboard.nextLine();
-            //TODO If seats dont exist and pull through database
+            
         }
         System.out.println("Confirm your flight?");
         String confirmation = keyboard.nextLine();
         if(confirmation.equalsIgnoreCase("yes")) {
             System.out.println("-----Your Ticket-----");
-            //Return Ticket
+           
             System.out.println("\n Would you like to share your ticket?");
             if(confirmation.equalsIgnoreCase("yes")) {
                 System.out.println("Who would you like to share your ticket with?");
@@ -193,17 +169,12 @@ public class Flytr {
         else {
             System.out.println("What would you like to change?:");
             String changes = keyboard.nextLine();
-            //TODO go back to instances of the ticket 
+             
         }
-            //TODO return back to the intial prompt class 
+            
          
     } 
     
-
-
-
-
-
     /** 
      * Search for hotel
      * @return 

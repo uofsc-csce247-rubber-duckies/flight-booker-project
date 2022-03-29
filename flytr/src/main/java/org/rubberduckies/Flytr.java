@@ -522,7 +522,7 @@ public class Flytr {
      */
     private void manageAccount()
     {
-        System.out.println("-----Welcome to Flytr!-----\n1.Create Account\n2.Login\n3.Update Account Information\n4.Return to Main Menu\nWhat would you like to do?");
+        System.out.println("-----Welcome to Flytr!-----\n1.Create Account\n2.Login\n3.Update Account Information\n4. Link Friend To Account\n5.Return to Main Menu\nWhat would you like to do?");
         Scanner in = new Scanner(System.in);
         int choice = in.nextInt();
         switch(choice)
@@ -537,6 +537,9 @@ public class Flytr {
             updateAccountInfo();
             break;
             case 4:
+            linkAccount();
+            break;
+            case 5:
             mainMenu();
             break;
         }
@@ -555,6 +558,11 @@ public class Flytr {
      * @return boolean successful checkout
      */
     private boolean checkout() {
+        
+        return true;
+    }
+    private void linkAccount()
+    {
         System.out.println("How many other people are you booking with?");
         Scanner in = new Scanner(System.in);
         int numppl = in.nextInt();
@@ -575,11 +583,10 @@ public class Flytr {
         String address = in.nextLine();
         System.out.println("Enter Passport ID:");
         String passportID = in.nextLine();
-        
-        
-        }
-        return true;
+        UserData friend = new UserData(firstName, lastName, email, phoneNum, birthday, address, passportID);
     }
+
+}
 
     
     /** 

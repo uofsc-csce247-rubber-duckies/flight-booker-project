@@ -570,17 +570,16 @@ public class Flytr {
 
     /**
      * Converts a formatted date string to a localdatetime object
-     * @param formattedDate date YYYY/MM/DD
+     * @param formattedDate date YYYY-MM-DD
      * @return local date time object
      */
     private LocalDateTime convertStringToTime(String formattedDate) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY/MM/DD");
-        LocalDateTime timeObject = LocalDateTime.parse(formattedDate, formatter);
+        LocalDateTime timeObject = LocalDateTime.parse(formattedDate + "T00:00:00");
         return timeObject;
     }
 
     /**
-     * Converts a date into a localdatetime object
+     * Converts a date into a localdatetime object1
      * @param year
      * @param month
      * @param day

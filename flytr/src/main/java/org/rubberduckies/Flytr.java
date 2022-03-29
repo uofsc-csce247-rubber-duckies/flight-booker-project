@@ -65,14 +65,14 @@ public class Flytr {
         System.out.println("-----Departure Information-----");
         System.out.println("\n Enter your Departure Location: ");
         String loc1 = keyboard.nextLine();     //make variable names consistent throughout program
-        System.out.println("-----Results-----");
+        
 
         //TODO Connect to Database and Display Available Results 
 
         System.out.println("----- Destination Information -----");
         System.out.println("\n Enter your Destination Location: ");
         String loc2 = keyboard.nextLine();     //make variable names consistent throughout program
-        System.out.println("-----Results-----");
+        
 
         //TODO Connect to Database and Display Available Results
 
@@ -128,14 +128,14 @@ public class Flytr {
         System.out.println("-----Departure Information-----");
         System.out.println("\n Enter your Departure Location: ");
         String loc1 = keyboard.nextLine();     //make variable names consistent throughout program
-        System.out.println("-----Results-----");
+    
 
         //TODO Connect to Database and Display Available Results 
 
         System.out.println("----- Destination Information -----");
         System.out.println("\n Enter your Destination Location: ");
         String loc2 = keyboard.nextLine();     //make variable names consistent throughout program
-        System.out.println("-----Results-----");
+        
 
         //TODO Connect to Database and Display Available Results
 

@@ -1,13 +1,15 @@
 package org.rubberduckies;
 
 import java.util.ArrayList;
-import java.util.UUID;
+import java.time.LocalDateTime;
 import org.json.simple.JSONObject;
 
-public class Hotel extends Booking {
+public class Hotel {
     
-    private UUID id;
+    private String id;
     private String name;
+    private boolean gym;
+    private boolean pool;
     private Location location;
     private ArrayList<HotelRoom> rooms;
 
@@ -17,30 +19,27 @@ public class Hotel extends Booking {
      * @param name hotel name
      * @param location hotel location
      * @param rooms hotel rooms
+     * @param gym Does the hotel have a gym
+     * @param pool does the hotel have a pool
      */
-    public Hotel(String name, Location location, ArrayList<HotelRoom> rooms) {
+    public Hotel(String name, Location location, ArrayList<HotelRoom> rooms, boolean gym, boolean pool) {
         this.name = name;
         this.location = location;
         this.rooms = rooms;
+        this.gym = gym;
+        this.pool = pool;
     }
 
-
+    //TODO add gym and
     public Hotel(JSONObject hotelData, ArrayList<HotelRoom> hotelRooms) {
-        this.id = UUID.fromString(hotelData.get("id").toString());
+        this.id = hotelData.get("id").toString();
         this.name = hotelData.get("name").toString();
         this.location = new Location(hotelData.get("location").toString());
         this.rooms = hotelRooms;
+        //this.gym = hotelData.get("gym").toString();
+        //this.pool = hotelData.get("pool").toString();
     }
-
-    public UUID getID() {
-        return this.id;
-    }
-
-    public void setID(UUID id) {
-        this.id = id;
-    }
-
-
+    
     /** 
      * Get hotel name
      * @return String hotel name
@@ -67,6 +66,21 @@ public class Hotel extends Booking {
         return this.location;
     }
 
+    /** 
+     * Gets gym availability
+     * @return boolean hotel gym
+     */
+    public boolean getGym() {
+        return this.gym;
+    }
+
+    /** 
+     * Get pool availability
+     * @return boolean hotel pool
+     */
+    public boolean getPool() {
+        return this.pool;
+    }
     
     /** 
      * Sets hotel location
@@ -96,11 +110,13 @@ public class Hotel extends Booking {
 
     
     /** 
-     * Removes a hotel room from available rooms
-     * @param roomNumber hotel room number 
+     * adds unavailable dates to a hotel room when it cannot be booked
+     * @param roomNumber hotel room number
+     * @param checkIn checkin date
+     * @param checkOut checkout date 
      */
-    private void bookRoom(int roomNumber) {
-        //TODO: implement
+    private void bookRoom(String roomNumber, LocalDateTime checkIn, LocalDateTime checkout) {
+        //TODO impliment
     }
 
     
@@ -108,8 +124,7 @@ public class Hotel extends Booking {
      * Makes a hotel room available again
      * @param roomNumber hotel room number
      */
-    private void readdRoom(int roomNumber) {
+    private void unbookRoom(int roomNumber, LocalDateTime checkIn, LocalDateTime checkout) {
         //TODO: implement
     }
-
 }

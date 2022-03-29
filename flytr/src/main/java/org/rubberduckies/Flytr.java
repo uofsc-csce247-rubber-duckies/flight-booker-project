@@ -117,52 +117,51 @@ public class Flytr {
         else {
             System.out.println("What would you like to change?:");
             String changes = keyboard.nextLine();
-            //TODO go back to instances of the ticket 
         }
-            //TODO return back to the intial prompt class 
-    } 
+}
+           
+           
  /**
      * Created a class to book a round Trip Flight
      */
     public void roundTrip() {
         System.out.println("-----Departure Information-----");
         System.out.println("\n Enter your Departure Location: ");
-        String loc1 = keyboard.nextLine();     //make variable names consistent throughout program
+        String loc1 = keyboard.nextLine();     
     
 
-        //TODO Connect to Database and Display Available Results 
+        
 
         System.out.println("----- Destination Information -----");
         System.out.println("\n Enter your Destination Location: ");
-        String loc2 = keyboard.nextLine();     //make variable names consistent throughout program
+        String loc2 = keyboard.nextLine();   
         
 
-        //TODO Connect to Database and Display Available Results
+        
 
         System.out.println("Enter your departure date(YYYY-MM-DD): ");
-        LocalDateTime userDate = convertStringToTime(keyboard.nextLine()); //TODO read DateTime
+        LocalDateTime userDate = convertStringToTime(keyboard.nextLine()); 
 
-        //TODO store as Date and Time Object and move to controller
+        
 
         System.out.println("Enter your return date(YYYY-MM-DD): ");
-        LocalDateTime returnDate = convertStringToTime(keyboard.nextLine()); //TODO read DateTime
+        LocalDateTime returnDate = convertStringToTime(keyboard.nextLine()); 
 
-        //TODO store as Date and Time Object and move to controller
+        
 
 
         System.out.println("Enter number of Travelers:");
         int travelers = keyboard.nextInt();
 
-        //TODO move to database
 
        // System.out.println("Enter number of Pets:");
         //int pets = keyboard.nextInt();
 
-        //TODO move to database 
+        
 
         System.out.println("-----Flight Options-----");
 
-        //TODO return out the flight options
+      
 
         System.out.println(" Enter your Flight Choice: ");
         int flightDecision = keyboard.nextInt();
@@ -170,12 +169,12 @@ public class Flytr {
         if(travelers == 1) {
             System.out.println("Choose your seat: ");
             String seat = keyboard.nextLine();
-            //TODO If seats dont exist and pull through database
+           
         }
         else {
             System.out.println("Choose your seats: ");
             String seat = keyboard.nextLine();
-            //TODO If seats dont exist and pull through database
+            
         }
         System.out.println("Confirm your flight?");
         String confirmation = keyboard.nextLine();
@@ -193,9 +192,9 @@ public class Flytr {
         else {
             System.out.println("What would you like to change?:");
             String changes = keyboard.nextLine();
-            //TODO go back to instances of the ticket 
+            
         }
-            //TODO return back to the intial prompt class 
+             
          
     } 
     

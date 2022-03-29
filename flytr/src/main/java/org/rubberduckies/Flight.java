@@ -13,6 +13,7 @@ import java.util.UUID;
  */
 public class Flight extends Booking {
 
+    private final static String[] SEAT_ROWS = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG" };
     private final static char AVAILABLE = '_';
     private final static char TAKEN = 'X';
 
@@ -86,13 +87,21 @@ public class Flight extends Booking {
      * NOTE: For debugging
      */
     public void displaySeats() {
-        for (ArrayList<Boolean> arr : seats) {
+        if (seats.size() <= 0) return;
+        System.out.print("   ");
+        for (int i = 0; i < seats.get(0).size(); i++) {
+            System.out.print((i + 1) + " ");
+        }
+        System.out.println("\n");
+        for (int i = 0; i < seats.size(); i++) {
+            ArrayList<Boolean> arr = seats.get(i);
+            System.out.print(SEAT_ROWS[i] + " ");
+            if (SEAT_ROWS[i].length() == 1) System.out.print(" ");
             for (boolean seat : arr) {
                 char c = seat ? AVAILABLE : TAKEN;
                 System.out.print(c + " ");
             }
-            System.out.println();
-            System.out.println();
+            System.out.println("\n");
         }
     }
 

@@ -63,14 +63,14 @@ public class Flytr {
         System.out.println("-----Departure Information-----");
         System.out.println("\n Enter your Departure Location: ");
         String loc1 = keyboard.nextLine();     //make variable names consistent throughout program
-        System.out.println("-----Results-----");
+        
 
         
 
         System.out.println("----- Destination Information -----");
         System.out.println("\n Enter your Destination Location: ");
         String loc2 = keyboard.nextLine();     //make variable names consistent throughout program
-        System.out.println("-----Results-----");
+        
 
        
 
@@ -119,12 +119,12 @@ public class Flytr {
         System.out.println("-----Departure Information-----");
         System.out.println("\n Enter your Departure Location: ");
         String loc1 = keyboard.nextLine();     //make variable names consistent throughout program
-        System.out.println("-----Results-----");
+    
 
         System.out.println("----- Destination Information -----");
         System.out.println("\n Enter your Destination Location: ");
         String loc2 = keyboard.nextLine();     //make variable names consistent throughout program
-        System.out.println("-----Results-----");
+        
 
         System.out.println("Enter your departure date(YYYY-MM-DD): ");
         LocalDateTime userDate = convertStringToTime(keyboard.nextLine()); //TODO read DateTime
@@ -592,17 +592,16 @@ public class Flytr {
 
     /**
      * Converts a formatted date string to a localdatetime object
-     * @param formattedDate date YYYY/MM/DD
+     * @param formattedDate date YYYY-MM-DD
      * @return local date time object
      */
     private LocalDateTime convertStringToTime(String formattedDate) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY/MM/DD");
-        LocalDateTime timeObject = LocalDateTime.parse(formattedDate, formatter);
+        LocalDateTime timeObject = LocalDateTime.parse(formattedDate + "T00:00:00");
         return timeObject;
     }
 
     /**
-     * Converts a date into a localdatetime object
+     * Converts a date into a localdatetime object1
      * @param year
      * @param month
      * @param day

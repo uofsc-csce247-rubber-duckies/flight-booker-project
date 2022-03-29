@@ -1,0 +1,12 @@
+1. Loop 1 : check if arrival locations match and arrival times match
+2. for each flight in this array:
+    - if departure locations match but time does not match - remove
+    - if departure locations match but time DOES match - add to results
+    - if departure locations DO NOT match but time matches - remove
+    - if departure locations DO NOT match but time DOES NOT MATCH - add to new transfer array list and pass to new search method
+3. search again:
+    - loop all flights
+    - if flight arrival location matches this departure location and arrival day matches departure day - add to arraylist of transfer - return
+    - if locations match but time is before desired departure time - return empty arraylist
+    - if locations match but time is after desired departure day - return empty arraylist
+    - if locations do not match, but time is after desired departure day - copy transfer arraylist and add to transfer array list and pass to search method

@@ -134,11 +134,6 @@ public class BookingController extends Controller {
         return null;
     }
 
-    /**
-     * Search booking for keyword
-     * @param search keyword
-     * @return bookings results of search
-     */
 
     public void writeJSON() {
         writeFlightJSON();
@@ -208,22 +203,36 @@ public class BookingController extends Controller {
         writeJson(folder + room.getNumber() + ".json", roomData);
     }
 
+
     public ArrayList<Flight> searchFlight(Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime) {
-        ArrayList<Flight> results = new ArrayList<Flight>();      
-        for (Flight flight : flights) {
-            if (!(from == flight.getFrom())) {
+        ArrayList<Flight> results = new ArrayList<Flight>(flights);      
+        for (Flight flight : results) {
+            // if (!(from == flight.getFrom())) {
+            //     continue; 
+            // }
+            if (!(to.equals(flight.getTo()) || arrivalTime.getDayOfYear() != flight.getArrivalTime().getDayOfYear())) {
+                results.remove(flight);
                 continue; 
             }
-            if (!(to == flight.getTo())) {
-                continue; 
+
+            if (from.equals(flight.getFrom()) && departureTime.getDayOfYear() < flight.getDepartureTime().getDayOfYear()) {
+                results.remove(flight);
+                continue;
             }
-            if (!(departureTime == flight.getDepartureTime())) {
-                continue; 
+
+            if (!(from.equals(flight.getFrom())) && departureTime.getDayOfYear() == flight.getDepartureTime().getDayOfYear()) {
+                results.remove(flight);
+                continue;
             }
-            if (!(arrivalTime == flight.getArrivalTime())) {
-                continue; 
-            }
-            results.add(flight);
+
+
+            // if (!(departureTime == flight.getDepartureTime())) {
+            //     continue; 
+            // }
+            // if (!(arrivalTime == flight.getArrivalTime())) {
+            //     continue; 
+            // }
+            // results.add(flight);
         }
         return results;
     }

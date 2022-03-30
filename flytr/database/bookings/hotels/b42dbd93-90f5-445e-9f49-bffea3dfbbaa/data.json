@@ -1,5 +1,7 @@
 {
     "id": "b42dbd93-90f5-445e-9f49-bffea3dfbbaa",
     "name": "The Big Enn(dian)",
-    "location": "Atlanta, GA"
+    "location": "Atlanta, GA",
+    "hasGym": true,
+    "hasPool": true
 }

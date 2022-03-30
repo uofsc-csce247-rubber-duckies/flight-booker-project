@@ -204,38 +204,135 @@ public class BookingController extends Controller {
     }
 
 
-    public ArrayList<Flight> searchFlight(Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime) {
-        ArrayList<Flight> results = new ArrayList<Flight>(flights);      
-        for (Flight flight : results) {
-            // if (!(from == flight.getFrom())) {
-            //     continue; 
-            // }
-            if (!(to.equals(flight.getTo()) || arrivalTime.getDayOfYear() != flight.getArrivalTime().getDayOfYear())) {
-                results.remove(flight);
+    public ArrayList<ArrayList<Flight>> searchFlight(Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime) {
+        ArrayList<ArrayList<Flight>> results = new ArrayList<ArrayList<Flight>>();
+        ArrayList<Flight> queue = new ArrayList<Flight>(flights);      
+        for (Flight flight : queue) {
+
+            // -------------- Get matching destination end-nodes -----------------
+            if (!(to.equals(flight.getTo()))) {
+                queue.remove(flight);
                 continue; 
             }
 
+            if (arrivalTime.getDayOfYear() != flight.getArrivalTime().getDayOfYear()) {
+                queue.remove(flight);
+                continue;
+            }
+
+            if (departureTime.getDayOfYear() > flight.getDepartureTime().getDayOfYear()) {
+                queue.remove(flight);
+                continue;
+            }
+
+            // ---------------------------------------------------------------------
+
+            // Direct flight match
+            if (from.equals(flight.getFrom()) && departureTime.getDayOfYear() == flight.getDepartureTime().getDayOfYear()) {
+                ArrayList<Flight> directFlight = new ArrayList<Flight>();
+                directFlight.add(flight);
+                results.add(directFlight);
+                queue.remove(flight);
+                continue;
+            }
+
+            // Correct departure location but not correct time
             if (from.equals(flight.getFrom()) && departureTime.getDayOfYear() < flight.getDepartureTime().getDayOfYear()) {
-                results.remove(flight);
+                queue.remove(flight);
                 continue;
             }
 
+            // Correct departure time but not correct location
             if (!(from.equals(flight.getFrom())) && departureTime.getDayOfYear() == flight.getDepartureTime().getDayOfYear()) {
-                results.remove(flight);
+                queue.remove(flight);
                 continue;
             }
 
+        }
 
-            // if (!(departureTime == flight.getDepartureTime())) {
-            //     continue; 
-            // }
-            // if (!(arrivalTime == flight.getArrivalTime())) {
-            //     continue; 
-            // }
-            // results.add(flight);
+        ArrayList<ArrayList<Flight>> transferLists = new ArrayList<ArrayList<Flight>>();
+        transferLists = transferSearch(from, to, departureTime, arrivalTime, queue);
+        for (ArrayList<Flight> transfer : transferLists) {
+            results.add(transfer);
         }
         return results;
     }
+
+
+    private ArrayList<ArrayList<Flight>> transferSearch(Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime, ArrayList<Flight> endNodes) {
+        if (endNodes.size() == 0) {
+            return null;
+        }
+        ArrayList<ArrayList<Flight>> transferPaths = new ArrayList<ArrayList<Flight>>();
+        for (Flight endNode : endNodes) {
+            ArrayList<Flight> transferLayer = getNextTransferLayer(from, to, departureTime, arrivalTime, endNode);
+            ArrayList<Flight> completeNodes = new ArrayList<Flight>();
+            for (int i = 0; i < transferLayer.indexOf(null); i++) {
+                completeNodes.add(transferLayer.get(i));
+            }
+            ArrayList<Flight> incompleteNodes = new ArrayList<Flight>();
+                for (int i = transferLayer.indexOf(null) + 1; i < transferLayer.size(); i++) {
+                    incompleteNodes.add(transferLayer.get(i));
+                }
+            ArrayList<ArrayList<Flight>> subPaths = transferSearch(from, to, departureTime, arrivalTime, incompleteNodes);
+
+            if (subPaths == null) {
+                if (completeNodes.size() == 0) {
+                    continue;
+                }
+                for (Flight completeNode : completeNodes) {
+                    ArrayList<Flight> completeList = new ArrayList<Flight>();
+                    completeList.add(completeNode);
+                    transferPaths.add(completeList);
+                }
+                continue;
+            }
+            for (int i = 0; i < subPaths.size(); i++) {
+                ArrayList<Flight> subPath = subPaths.get(i);
+                for (Flight transferFlight : transferLayer) {
+                    if (!(subPath.get(subPath.size() - 1).equals(transferFlight))) {
+                        continue;
+                    }
+                    subPath.add(endNode);
+                    subPaths.set(i, subPath);
+                }
+                transferPaths.add(subPath);
+            }
+        }
+        return transferPaths;
+    }
+
+    private ArrayList<Flight> getNextTransferLayer(Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime, Flight node) {
+        ArrayList<Flight> transferLayer = new ArrayList<Flight>();
+        transferLayer.add(null);
+        for (Flight flight : flights) {
+            if (completesTransfer(from, departureTime, node, flight)) {
+                    transferLayer.add(0, flight);
+            }
+            else if (isIncompleteTransfer(from, departureTime, node, flight)) {
+                transferLayer.add(flight);
+            }
+        }
+        return transferLayer;
+    }
+
+    // Vomit -- flight matches to fill tranfer chain
+    private boolean completesTransfer(Location from, LocalDateTime departureTime, Flight firstNode, Flight candidate) {
+        if (candidate.getFrom().equals(from) && candidate.getDepartureTime().getDayOfYear() == departureTime.getDayOfYear()  
+                && candidate.getTo().equals(firstNode.getFrom()) && candidate.getArrivalTime().getDayOfYear() == firstNode.getDepartureTime().getDayOfYear()) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isIncompleteTransfer(Location from, LocalDateTime departureTime, Flight firstNode, Flight candidate) {
+        if (candidate.getDepartureTime().getDayOfYear() > departureTime.getDayOfYear() && candidate.getTo().equals(firstNode.getFrom()) 
+                && candidate.getArrivalTime().getDayOfYear() == firstNode.getDepartureTime().getDayOfYear()) {
+            return true;
+        }
+        return false;
+    }
+
 
     public Booking getBookingByID(String bookingType, String id) {
         BookingType type = BookingType.valueOf(bookingType);

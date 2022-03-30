@@ -12,9 +12,6 @@ public class HotelRoom {
     private boolean smoking;
     private ArrayList<LocalDateTime> takenDates;
     private BedType bedType;
-    
-
-    //TODO: Make get available check a specific date if is taken
 
     public HotelRoom(int capacity, String number, BedType bedType){
         this.capacity = capacity;
@@ -22,7 +19,6 @@ public class HotelRoom {
         this.bedType = bedType;
     }
 
-    //TODO: add smoking to JSON
     public HotelRoom(JSONObject room) {
         this.number = (String)room.get("number");
         this.capacity = ((Long)room.get("capacity")).intValue();
@@ -83,10 +79,10 @@ public class HotelRoom {
      * @param checkOut LocalDateTime checkOut
      * @return boolean true/false, to see if the room was available to book.
      */
+    
     public boolean book(LocalDateTime checkIn, LocalDateTime checkOut){
         //TODO improve the logic that checks availability
         if(takenDates.contains(checkIn) || takenDates.contains(checkOut)){
-            System.out.println("That room is not available to book.");
             return false;
         }
         else{

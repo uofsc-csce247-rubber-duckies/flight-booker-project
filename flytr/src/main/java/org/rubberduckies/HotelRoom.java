@@ -77,55 +77,6 @@ public class HotelRoom {
         return this.bedType;
     }
 
-
-    /**
-     * Adds dates in between checking in and checking out (including check in but not check out) to takenDates
-     * @param checkIn LocalDateTime checkIn
-     * @param checkOut LocalDateTime checkOut
-     * @return boolean true/false, to see if the room was available to book.
-     */
-    public boolean book(LocalDateTime checkIn, LocalDateTime checkOut){
-        //TODO improve the logic that checks availability
-        if(takenDates.contains(checkIn) || takenDates.contains(checkOut)){
-            System.out.println("That room is not available to book.");
-            return false;
-        }
-        else{
-            LocalDateTime toAdd = checkIn;      //Temp variable to iterate through days between chackIn and checkOut
-            while(checkIn.equals(checkOut) == false){
-                takenDates.add(toAdd);
-                toAdd = toAdd.plusDays(1);
-            }
-            //TODO: Book receipt
-            return true;
-        }
-    }
-
-    /**
-     * Removes dates in between checking in and checking out (including check in but not check out) to takenDates
-     * @param checkIn LocalDateTime checkIn
-     * @param checkOut LocalDateTime checkOut
-     * @return boolean true/false, to see if the room was successfully unbooked.
-     */
-    public boolean unBook(LocalDateTime checkIn, LocalDateTime checkOut) {
-
-        LocalDateTime toRemove = checkIn;   //Temp variable to iterate through days while removing them.
-
-        while((toRemove.equals(checkOut) == false) && (takenDates.contains(toRemove))){
-            takenDates.remove(checkIn);
-            checkIn = checkIn.plusDays(1);
-            System.out.println("HotelRoom.unBook");
-        }
-
-        if(toRemove == checkIn){
-            return true;
-        }
-        else{        
-            System.out.println("Warning: The date "+ checkIn.toString() + " was already available.");
-            return false;
-        }
-    }
-
     public void addTakenDate(LocalDateTime date) {
         this.takenDates.add(date);
     }

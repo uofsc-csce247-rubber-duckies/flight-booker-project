@@ -32,9 +32,7 @@ public class Flytr {
      * Runs application
      */
     public void run() {
-        bookingController.writeJSON();
-        manageAccount();
-        //TODO: run
+        mainMenu();
     }
     
     /** 
@@ -65,43 +63,38 @@ public class Flytr {
         System.out.println("-----Departure Information-----");
         System.out.println("\n Enter your Departure Location: ");
         String loc1 = keyboard.nextLine();     //make variable names consistent throughout program
-        System.out.println("-----Results-----");
+        
 
-        //TODO Connect to Database and Display Available Results 
+        
 
         System.out.println("----- Destination Information -----");
         System.out.println("\n Enter your Destination Location: ");
         String loc2 = keyboard.nextLine();     //make variable names consistent throughout program
-        System.out.println("-----Results-----");
+        
 
-        //TODO Connect to Database and Display Available Results
+       
 
         System.out.println("Enter your departure date(YYYY-MM-DD): ");
         LocalDateTime userDate = convertStringToTime(keyboard.nextLine());
 
-        //TODO store as Date and Time Object and move to controller
+        
 
         System.out.println("Enter number of Travelers:");
         int travelers = keyboard.nextInt();
 
-        //TODO move to database
+       
 
         System.out.println("Enter number of Pets:");
         int pets = keyboard.nextInt();
 
-        //TODO move to database 
-
         System.out.println("-----Flight Options-----");
-
-        //TODO return out the flight options
 
         System.out.println(" Enter your Flight Choice: ");
         int flightDecision = keyboard.nextInt();
 
         if(travelers == 1) {
             System.out.println("Choose your seat: ");
-            String seat = keyboard.nextLine();
-            //TODO If seats dont exist and pull through database
+            String seat = keyboard.nextLine();     
         }
         else {
             System.out.println("Choose your seats: ");
@@ -116,10 +109,8 @@ public class Flytr {
         }
         else {
             System.out.println("What would you like to change?:");
-            String changes = keyboard.nextLine();
-            //TODO go back to instances of the ticket 
-        }
-            //TODO return back to the intial prompt class 
+            String changes = keyboard.nextLine(); 
+        } 
     } 
  /**
      * Created a class to book a round Trip Flight
@@ -128,41 +119,26 @@ public class Flytr {
         System.out.println("-----Departure Information-----");
         System.out.println("\n Enter your Departure Location: ");
         String loc1 = keyboard.nextLine();     //make variable names consistent throughout program
-        System.out.println("-----Results-----");
-
-        //TODO Connect to Database and Display Available Results 
+    
 
         System.out.println("----- Destination Information -----");
         System.out.println("\n Enter your Destination Location: ");
         String loc2 = keyboard.nextLine();     //make variable names consistent throughout program
-        System.out.println("-----Results-----");
-
-        //TODO Connect to Database and Display Available Results
+        
 
         System.out.println("Enter your departure date(YYYY-MM-DD): ");
         LocalDateTime userDate = convertStringToTime(keyboard.nextLine()); //TODO read DateTime
 
-        //TODO store as Date and Time Object and move to controller
-
         System.out.println("Enter your return date(YYYY-MM-DD): ");
         LocalDateTime returnDate = convertStringToTime(keyboard.nextLine()); //TODO read DateTime
-
-        //TODO store as Date and Time Object and move to controller
-
 
         System.out.println("Enter number of Travelers:");
         int travelers = keyboard.nextInt();
 
-        //TODO move to database
-
        // System.out.println("Enter number of Pets:");
         //int pets = keyboard.nextInt();
 
-        //TODO move to database 
-
-        System.out.println("-----Flight Options-----");
-
-        //TODO return out the flight options
+        System.out.println("-----Flight Options-----"); 
 
         System.out.println(" Enter your Flight Choice: ");
         int flightDecision = keyboard.nextInt();
@@ -170,18 +146,18 @@ public class Flytr {
         if(travelers == 1) {
             System.out.println("Choose your seat: ");
             String seat = keyboard.nextLine();
-            //TODO If seats dont exist and pull through database
+            
         }
         else {
             System.out.println("Choose your seats: ");
             String seat = keyboard.nextLine();
-            //TODO If seats dont exist and pull through database
+            
         }
         System.out.println("Confirm your flight?");
         String confirmation = keyboard.nextLine();
         if(confirmation.equalsIgnoreCase("yes")) {
             System.out.println("-----Your Ticket-----");
-            //Return Ticket
+           
             System.out.println("\n Would you like to share your ticket?");
             if(confirmation.equalsIgnoreCase("yes")) {
                 System.out.println("Who would you like to share your ticket with?");
@@ -193,14 +169,17 @@ public class Flytr {
         else {
             System.out.println("What would you like to change?:");
             String changes = keyboard.nextLine();
-            //TODO go back to instances of the ticket 
+             
         }
-            //TODO return back to the intial prompt class 
+            
          
     } 
     
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> main
     /** 
      * Search for hotel 
      * @return boolean successful search
@@ -379,18 +358,20 @@ public class Flytr {
         {
         System.out.println("Enter Password:");
         String pw = keyboard.nextLine();
-        //TODO Connect to database
-        // if(pw == )
-        // {
-        //     x = false;
-        //     mainMenu();
-        // }
-        // if(pw != )
-        // {
-        //     System.out.println("Wrong password, try again!");
-        
+        UserController controller = UserController.getController();
+        User user = controller.login(username, pw);
+        if(user != null)
+        {
+            System.out.println("Wrong password, try again!");
         }
-        return true;
+        else
+        {
+            d = false;
+            mainMenu();
+        }
+    }
+    return true;
+        
     }
 
     private void updateAccountInfo() {
@@ -492,7 +473,7 @@ public class Flytr {
      */
     private void mainMenu()
     {
-        System.out.println("-----Flytr Main Menu-----\n1. Search for Flights\n2. Search for Hotels\n3. User Account\n4. Settings\n5. Exit\n6. View Bookings\nWhat would you like to do?");
+        System.out.println("-----Flytr Main Menu-----\n1. Search for Flights\n2. Search for Hotels\n3. User Account\n4. Exit\n5. View Bookings\nWhat would you like to do?");
         int choice = 0;
         Scanner in = new Scanner(System.in);
         choice = in.nextInt();
@@ -508,13 +489,10 @@ public class Flytr {
             manageAccount();
             break;
             case 4:
-            //settings(); IDK what this is
-            break;
-            case 5:
             System.out.println("Thank you for choosing Flytr!");
             System.exit(0);
             break;
-            case 6:
+            case 5:
             //viewBookings();
             break;
             
@@ -525,7 +503,7 @@ public class Flytr {
      */
     private void manageAccount()
     {
-        System.out.println("-----Welcome to Flytr!-----\n1.Create Account\n2.Login\n3.Update Account Information\n4.Return to Main Menu\nWhat would you like to do?");
+        System.out.println("-----Welcome to Flytr!-----\n1.Create Account\n2.Login\n3.Update Account Information\n4. Link Friend To Account\n5.Return to Main Menu\nWhat would you like to do?");
         Scanner in = new Scanner(System.in);
         int choice = in.nextInt();
         switch(choice)
@@ -540,6 +518,9 @@ public class Flytr {
             updateAccountInfo();
             break;
             case 4:
+            linkAccount();
+            break;
+            case 5:
             mainMenu();
             break;
         }
@@ -558,8 +539,35 @@ public class Flytr {
      * @return boolean successful checkout
      */
     private boolean checkout() {
-        return false;
+        
+        return true;
     }
+    private void linkAccount()
+    {
+        System.out.println("How many other people are you booking with?");
+        Scanner in = new Scanner(System.in);
+        int numppl = in.nextInt();
+        int i = 0;
+        while(i < numppl)
+        {
+        System.out.println("-----Requesting friend's information-----\nEnter First Name:");
+        String firstName = in.nextLine();
+        System.out.println("Enter Last Name:");
+        String lastName = in.nextLine();
+        System.out.println("Enter email:");
+        String email = in.nextLine();
+        System.out.println("Enter Phone Number:");
+        String phoneNum = in.nextLine();
+        System.out.println("Enter Birthday (MM/DD/YYYY):");
+        String birthday = in.nextLine();
+        System.out.println("Enter Address:");
+        String address = in.nextLine();
+        System.out.println("Enter Passport ID:");
+        String passportID = in.nextLine();
+        UserData friend = new UserData(firstName, lastName, email, phoneNum, birthday, address, passportID);
+    }
+
+}
 
     
     /** 
@@ -567,22 +575,21 @@ public class Flytr {
      * @return boolean successful booking cancel
      */
     private boolean cancelBooking() {
-        return false;
+        return  false;
     }
 
     /**
      * Converts a formatted date string to a localdatetime object
-     * @param formattedDate date YYYY/MM/DD
+     * @param formattedDate date YYYY-MM-DD
      * @return local date time object
      */
     private LocalDateTime convertStringToTime(String formattedDate) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY/MM/DD");
-        LocalDateTime timeObject = LocalDateTime.parse(formattedDate, formatter);
+        LocalDateTime timeObject = LocalDateTime.parse(formattedDate + "T00:00:00");
         return timeObject;
     }
 
     /**
-     * Converts a date into a localdatetime object
+     * Converts a date into a localdatetime object1
      * @param year
      * @param month
      * @param day

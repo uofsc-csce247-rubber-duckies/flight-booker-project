@@ -228,6 +228,19 @@ public class BookingController extends Controller {
         return results;
     }
 
+    public ArrayList<Hotel> searchHotels(Location location){
+        ArrayList<Hotel> results = new ArrayList<Hotel>();
+
+        for(Hotel hotel : hotels)
+        {
+            if(!(location == hotel.getLocation())) {
+                continue; 
+            }
+            results.add(hotel);
+        }
+        return results;
+    }
+
     public Booking getBookingByID(String bookingType, String id) {
         BookingType type = BookingType.valueOf(bookingType);
         switch(type) {

@@ -1,5 +1,6 @@
 package org.rubberduckies;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 import org.json.simple.JSONObject;
@@ -13,6 +14,7 @@ import java.util.UUID;
  */
 public class Flight extends Booking {
 
+    private final static String[] SEAT_ROWS = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG" };
     private final static char AVAILABLE = '_';
     private final static char TAKEN = 'X';
 
@@ -86,13 +88,21 @@ public class Flight extends Booking {
      * NOTE: For debugging
      */
     public void displaySeats() {
-        for (ArrayList<Boolean> arr : seats) {
+        if (seats.size() <= 0) return;
+        System.out.print("   ");
+        for (int i = 0; i < seats.get(0).size(); i++) {
+            System.out.print((i + 1) + " ");
+        }
+        System.out.println("\n");
+        for (int i = 0; i < seats.size(); i++) {
+            ArrayList<Boolean> arr = seats.get(i);
+            System.out.print(SEAT_ROWS[i] + " ");
+            if (SEAT_ROWS[i].length() == 1) System.out.print(" ");
             for (boolean seat : arr) {
                 char c = seat ? AVAILABLE : TAKEN;
                 System.out.print(c + " ");
             }
-            System.out.println();
-            System.out.println();
+            System.out.println("\n");
         }
     }
 
@@ -119,14 +129,13 @@ public class Flight extends Booking {
      * @return String of flight information
      */
     public String toString() {
-        return "id: " + getID() +
-               "\nairport: " + airport +
-               "\nfrom: " + from.toString() +
-               "\nto: " + to.toString() +
-               "\ndepartureTime: " + departureTime.toString() +
-               "\narribalTime: " + arrivalTime.toString() +
-               "\nallowsDogs: " + allowsDogs +
-               "\nseats:\n" + seatDisplayString();
+        return "Airport: " + airport +
+               "\nDeparture Location: " + from.toString() +
+               "\nArrival Location: " + to.toString() +
+               "\nDeparture Time: " + departureTime.toString() +
+               "\nArrival Time: " + arrivalTime.toString() +
+               "\n Duration: " + getDuration() +
+               "\nSeats:\n" + seatDisplayString();
     }
 
 
@@ -248,6 +257,11 @@ public class Flight extends Booking {
 
     public ArrayList<ArrayList<Boolean>> getSeats() {
         return this.seats;
+    }
+
+    public String getDuration() {
+        Duration duration = Duration.between(this.departureTime, this.arrivalTime);
+        return String.format("%02d:%02d", duration.toHoursPart(), duration.toMinutesPart());
     }
 
 }

@@ -115,7 +115,7 @@ public class UserController extends Controller {
         for (JSONObject json : jsonObjects) {
             JSONObject dataJson = (JSONObject)json.get("data");
             UserData userData = new UserData(
-                    dataJson.get("id").toString(),
+                    
                     dataJson.get("firstName").toString(),
                     dataJson.get("lastName").toString(),
                     dataJson.get("email").toString(),

@@ -3,5 +3,6 @@
     "name": "The Big Enn(dian)",
     "location": "Atlanta, GA",
     "hasGym": true,
-    "hasPool": true
+    "hasPool": true,
+    "rating": 8
 }

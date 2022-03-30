@@ -13,6 +13,7 @@ public class Hotel extends Booking {
     private boolean hasPool;
     private Location location;
     private ArrayList<HotelRoom> rooms;
+    private int rating;
 
 
     /**
@@ -23,13 +24,14 @@ public class Hotel extends Booking {
      * @param gym Does the hotel have a gym
      * @param pool does the hotel have a pool
      */
-    public Hotel(String name, Location location, ArrayList<HotelRoom> rooms, boolean gym, boolean pool) {
+    public Hotel(String name, Location location, ArrayList<HotelRoom> rooms, boolean gym, boolean pool, int rating) {
         this.id = UUID.randomUUID();
         this.name = name;
         this.location = location;
         this.rooms = rooms;
         this.hasGym = gym;
         this.hasPool = pool;
+        this.rating = rating;
     }
 
     public Hotel(JSONObject hotelData, ArrayList<HotelRoom> hotelRooms) {
@@ -39,6 +41,7 @@ public class Hotel extends Booking {
         this.rooms = hotelRooms;
         this.hasGym = (Boolean) hotelData.get("hasGym");
         this.hasPool = (Boolean) hotelData.get("hasPool");
+        this.rating = Integer.parseInt(hotelData.get("rating").toString());
     }
     
 
@@ -116,6 +119,14 @@ public class Hotel extends Booking {
      */
     public void setRooms(ArrayList<HotelRoom> rooms) {
         this.rooms = rooms;
+    }
+
+    public int getRating() {
+        return this.rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     

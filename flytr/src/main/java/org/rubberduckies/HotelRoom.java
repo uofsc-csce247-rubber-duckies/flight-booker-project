@@ -64,10 +64,6 @@ public class HotelRoom {
         return smoking;
     }
 
-    public boolean isAvailable(){
-        return true;
-    }
-
     public ArrayList<LocalDateTime> getTakenDates() {
         return this.takenDates;
     }

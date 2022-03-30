@@ -1,5 +1,6 @@
 package org.rubberduckies;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -96,5 +97,13 @@ public class HotelRoom {
         else{
             System.out.println("Warning: The date "+ date.toString() + " was already available.");
         } 
+    }
+
+    public void addTakenDate(LocalDateTime date) {
+        this.takenDates.add(date);
+    }
+
+    public void removeTakenDate(LocalDateTime date) {
+        this.takenDates.remove(date);
     }
 }

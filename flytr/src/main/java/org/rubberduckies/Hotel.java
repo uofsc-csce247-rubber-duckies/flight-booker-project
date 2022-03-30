@@ -3,10 +3,11 @@ package org.rubberduckies;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import org.json.simple.JSONObject;
+import java.util.UUID;
 
-public class Hotel {
+public class Hotel extends Booking {
     
-    private String id;
+    private UUID id;
     private String name;
     private boolean gym;
     private boolean pool;
@@ -23,6 +24,7 @@ public class Hotel {
      * @param pool does the hotel have a pool
      */
     public Hotel(String name, Location location, ArrayList<HotelRoom> rooms, boolean gym, boolean pool) {
+        this.id = UUID.randomUUID();
         this.name = name;
         this.location = location;
         this.rooms = rooms;
@@ -30,16 +32,24 @@ public class Hotel {
         this.pool = pool;
     }
 
-    //TODO add gym and
     public Hotel(JSONObject hotelData, ArrayList<HotelRoom> hotelRooms) {
-        this.id = hotelData.get("id").toString();
+        this.id = UUID.fromString(hotelData.get("id").toString());
         this.name = hotelData.get("name").toString();
         this.location = new Location(hotelData.get("location").toString());
         this.rooms = hotelRooms;
-        //this.gym = hotelData.get("gym").toString();
-        //this.pool = hotelData.get("pool").toString();
+        this.gym = (Boolean) hotelData.get("gym");
+        this.pool = (Boolean) hotelData.get("pool");
     }
     
+
+    public UUID getID() {
+        return this.id;
+    }
+
+    public void setID(UUID id) {
+        this.id = id;
+    }
+
     /** 
      * Get hotel name
      * @return String hotel name
@@ -114,9 +124,25 @@ public class Hotel {
      * @param roomNumber hotel room number
      * @param checkIn checkin date
      * @param checkOut checkout date 
+     * @return if the room was successfully booked
      */
-    private void bookRoom(String roomNumber, LocalDateTime checkIn, LocalDateTime checkout) {
-        //TODO impliment
+    public boolean bookRoom(String roomNumber, LocalDateTime checkIn, LocalDateTime checkout) {
+        for (int i = 0; i < this.rooms.size(); i++) {
+            HotelRoom room = this.rooms.get(i);
+            if (room.getNumber().equals(roomNumber)) {
+                for (LocalDateTime takenDate : room.getTakenDates()) {
+                    if (takenDate.getDayOfYear() >= checkIn.getDayOfYear() && takenDate.getDayOfYear() < checkout.getDayOfYear()) {
+                        return false;
+                    }
+                }
+                for (LocalDateTime date = checkIn; date.isBefore(checkout); date.plusDays(1)) {
+                    room.addTakenDate(date);
+                }
+                this.rooms.set(i, room);
+                return true;
+            }
+        }
+        return false;
     }
 
     
@@ -124,7 +150,17 @@ public class Hotel {
      * Makes a hotel room available again
      * @param roomNumber hotel room number
      */
-    private void unbookRoom(int roomNumber, LocalDateTime checkIn, LocalDateTime checkout) {
-        //TODO: implement
+    public void unbookRoom(String roomNumber, LocalDateTime checkIn, LocalDateTime checkout) {
+        for (int i = 0; i < this.rooms.size(); i++) {
+            HotelRoom room = this.rooms.get(i);
+            if (room.getNumber().equals(roomNumber)) {
+                for (LocalDateTime date = checkIn; date.isBefore(checkout); date.plusDays(1)) {
+                    if (room.getTakenDates().contains(date)) {
+                        room.removeTakenDate(date);
+                    }
+                }
+                this.rooms.set(i, room);
+            }
+        }
     }
 }

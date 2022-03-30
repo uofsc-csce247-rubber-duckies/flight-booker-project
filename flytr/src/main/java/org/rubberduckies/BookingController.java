@@ -259,6 +259,21 @@ public class BookingController extends Controller {
     }
 
 
+    public ArrayList<Hotel> searchHotels(Location location){
+        ArrayList<Hotel> results = new ArrayList<Hotel>();
+
+        for(Hotel hotel : hotels)
+        {
+            if(!(location == hotel.getLocation())) {
+                continue; 
+            }
+            results.add(hotel);
+        }
+        return results;
+    }
+
+
+
     private ArrayList<ArrayList<Flight>> transferSearch(Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime, ArrayList<Flight> endNodes) {
         if (endNodes.size() == 0) {
             return null;

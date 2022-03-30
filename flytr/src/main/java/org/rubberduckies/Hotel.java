@@ -5,9 +5,9 @@ import java.time.LocalDateTime;
 import org.json.simple.JSONObject;
 import java.util.UUID;
 
-public class Hotel extends Booking {
+public class Hotel {
     
-    private UUID id;
+    private String id;
     private String name;
     private boolean hasGym;
     private boolean hasPool;
@@ -24,6 +24,7 @@ public class Hotel extends Booking {
      * @param gym Does the hotel have a gym
      * @param pool does the hotel have a pool
      */
+
     public Hotel(String name, Location location, ArrayList<HotelRoom> rooms, boolean gym, boolean pool, int rating) {
         this.id = UUID.randomUUID();
         this.name = name;
@@ -35,15 +36,14 @@ public class Hotel extends Booking {
     }
 
     public Hotel(JSONObject hotelData, ArrayList<HotelRoom> hotelRooms) {
-        this.id = UUID.fromString(hotelData.get("id").toString());
+        this.id = hotelData.get("id").toString();
         this.name = hotelData.get("name").toString();
         this.location = new Location(hotelData.get("location").toString());
         this.rooms = hotelRooms;
         this.hasGym = (Boolean) hotelData.get("hasGym");
         this.hasPool = (Boolean) hotelData.get("hasPool");
         this.rating = Integer.parseInt(hotelData.get("rating").toString());
-    }
-    
+    }   
 
     public UUID getID() {
         return this.id;
@@ -135,6 +135,8 @@ public class Hotel extends Booking {
      * @param roomNumber hotel room number
      * @param checkIn checkin date
      * @param checkOut checkout date 
+
+     */
      * @return if the room was successfully booked
      */
     public boolean bookRoom(String roomNumber, LocalDateTime checkIn, LocalDateTime checkout) {
@@ -174,4 +176,5 @@ public class Hotel extends Booking {
             }
         }
     }
+  
 }

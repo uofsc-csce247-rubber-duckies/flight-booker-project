@@ -134,6 +134,7 @@ public class Flight extends Booking {
                "\nArrival Location: " + to.toString() +
                "\nDeparture Time: " + departureTime.toString() +
                "\nArrival Time: " + arrivalTime.toString() +
+               "\n Duration: " + getDuration() +
                "\nSeats:\n" + seatDisplayString();
     }
 
@@ -258,8 +259,9 @@ public class Flight extends Booking {
         return this.seats;
     }
 
-    public Duration getDuration() {
-        return Duration.between(this.departureTime, this.arrivalTime);
+    public String getDuration() {
+        Duration duration = Duration.between(this.departureTime, this.arrivalTime);
+        return String.format("%02d:%02d", duration.toHoursPart(), duration.toMinutesPart());
     }
 
 }

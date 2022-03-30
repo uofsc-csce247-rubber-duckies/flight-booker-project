@@ -80,15 +80,28 @@ public class Flytr {
         LocalDateTime departureTime = convertStringToTime(keyboard.nextLine());
 
         
-        System.out.println("Enter your departure date(YYYY-MM-DD): ");
-        LocalDateTime arrivalTime = convertStringToTime(keyboard.nextLine());
+        // System.out.println("Enter your arrival date(YYYY-MM-DD): ");
+        // LocalDateTime arrivalTime = convertStringToTime(keyboard.nextLine());
 
         System.out.println("Enter number of Travelers:");
         int travelers = keyboard.nextInt();
         keyboard.nextLine();
 
-        ArrayList<ArrayList<Flight>> results = bookingController.searchFlight(departureLocation, arrivalLocation, departureTime, arrivalTime);
+        ArrayList<ArrayList<Flight>> results = bookingController.searchFlight(departureLocation, arrivalLocation, departureTime, null);
 
+        System.out.println("SIZE: " + results.size());
+
+        for (int i = 1; i < 11; i++) {
+            if (i > results.size()) {
+                break;
+            }
+            System.out.println("-------- Option " + i + " --------");
+            if (results.get(i - 1).size() == 1) {
+                System.out.println(results.get(i-1).get(0));
+                continue;
+            }
+            System.out.println(bookingController.transferToString(results.get(i-1)));
+        }
        
 
         // System.out.println("Enter number of Pets:");

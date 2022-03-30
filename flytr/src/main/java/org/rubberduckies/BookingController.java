@@ -213,7 +213,7 @@ public class BookingController extends Controller {
                 continue; 
             }
 
-            if (arrivalTime.getDayOfYear() != flight.getArrivalTime().getDayOfYear()) {
+            if (arrivalTime != null && arrivalTime.getDayOfYear() != flight.getArrivalTime().getDayOfYear()) {
                 queue.remove(flight);
                 continue;
             }
@@ -331,7 +331,6 @@ public class BookingController extends Controller {
         return false;
     }
 
-
     public Booking getBookingByID(String bookingType, String id) {
         BookingType type = BookingType.valueOf(bookingType);
         switch(type) {
@@ -347,11 +346,14 @@ public class BookingController extends Controller {
 
     private String getTransferDuration(ArrayList<Flight> transferList) {
         Duration duration = Duration.between(transferList.get(0).getDepartureTime(), transferList.get(transferList.size() - 1).getArrivalTime());
-        return String.format("%02dH:%02dM", duration.toHoursPart(), duration.toMinutesPart());
+        return String.format("%02d:%02d", duration.toHoursPart(), duration.toMinutesPart());
     }
 
     public String transferToString(ArrayList<Flight> transferList) {
-        
+        return "\nDeparture Location: " + transferList.get(0).getFrom() +
+               "\nArrival Location: " + transferList.get(transferList.size()-1).getTo() +
+               "\nNumber of Transfers: " + (transferList.size() - 1) +
+               "\nDuration: " + getTransferDuration(transferList);
     }
 
 }

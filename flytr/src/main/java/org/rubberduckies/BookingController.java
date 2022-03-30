@@ -1,5 +1,6 @@
 package org.rubberduckies;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,9 +16,6 @@ public class BookingController extends Controller {
     private static BookingController instance;
     private ArrayList<Flight> flights;
     private ArrayList<Hotel> hotels;
-
-    //TODO: Do we separate bookings into separate arraylists? they are stored separately in database. might make sense
-    // note from alex: probably
 
     /**
      * Creates booking controller and loads bookings from database
@@ -215,7 +213,7 @@ public class BookingController extends Controller {
                 continue; 
             }
 
-            if (arrivalTime.getDayOfYear() != flight.getArrivalTime().getDayOfYear()) {
+            if (arrivalTime != null && arrivalTime.getDayOfYear() != flight.getArrivalTime().getDayOfYear()) {
                 queue.remove(flight);
                 continue;
             }
@@ -333,7 +331,6 @@ public class BookingController extends Controller {
         return false;
     }
 
-
     public Booking getBookingByID(String bookingType, String id) {
         BookingType type = BookingType.valueOf(bookingType);
         switch(type) {
@@ -345,6 +342,18 @@ public class BookingController extends Controller {
                 return null;
         }
         
+    }
+
+    private String getTransferDuration(ArrayList<Flight> transferList) {
+        Duration duration = Duration.between(transferList.get(0).getDepartureTime(), transferList.get(transferList.size() - 1).getArrivalTime());
+        return String.format("%02d:%02d", duration.toHoursPart(), duration.toMinutesPart());
+    }
+
+    public String transferToString(ArrayList<Flight> transferList) {
+        return "\nDeparture Location: " + transferList.get(0).getFrom() +
+               "\nArrival Location: " + transferList.get(transferList.size()-1).getTo() +
+               "\nNumber of Transfers: " + (transferList.size() - 1) +
+               "\nDuration: " + getTransferDuration(transferList);
     }
 
 }

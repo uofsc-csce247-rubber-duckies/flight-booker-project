@@ -1,5 +1,6 @@
 package org.rubberduckies;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 import org.json.simple.JSONObject;
@@ -128,14 +129,12 @@ public class Flight extends Booking {
      * @return String of flight information
      */
     public String toString() {
-        return "id: " + getID() +
-               "\nairport: " + airport +
-               "\nfrom: " + from.toString() +
-               "\nto: " + to.toString() +
-               "\ndepartureTime: " + departureTime.toString() +
-               "\narribalTime: " + arrivalTime.toString() +
-               "\nallowsDogs: " + allowsDogs +
-               "\nseats:\n" + seatDisplayString();
+        return "Airport: " + airport +
+               "\nDeparture Location: " + from.toString() +
+               "\nArrival Location: " + to.toString() +
+               "\nDeparture Time: " + departureTime.toString() +
+               "\nArrival Time: " + arrivalTime.toString() +
+               "\nSeats:\n" + seatDisplayString();
     }
 
 
@@ -257,6 +256,10 @@ public class Flight extends Booking {
 
     public ArrayList<ArrayList<Boolean>> getSeats() {
         return this.seats;
+    }
+
+    public Duration getDuration() {
+        return Duration.between(this.departureTime, this.arrivalTime);
     }
 
 }

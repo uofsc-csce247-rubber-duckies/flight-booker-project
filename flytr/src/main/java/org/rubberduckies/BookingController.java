@@ -1,5 +1,6 @@
 package org.rubberduckies;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,9 +16,6 @@ public class BookingController extends Controller {
     private static BookingController instance;
     private ArrayList<Flight> flights;
     private ArrayList<Hotel> hotels;
-
-    //TODO: Do we separate bookings into separate arraylists? they are stored separately in database. might make sense
-    // note from alex: probably
 
     /**
      * Creates booking controller and loads bookings from database
@@ -344,6 +342,15 @@ public class BookingController extends Controller {
             default:
                 return null;
         }
+        
+    }
+
+    private String getTransferDuration(ArrayList<Flight> transferList) {
+        Duration duration = Duration.between(transferList.get(0).getDepartureTime(), transferList.get(transferList.size() - 1).getArrivalTime());
+        return String.format("%02dH:%02dM", duration.toHoursPart(), duration.toMinutesPart());
+    }
+
+    public String transferToString(ArrayList<Flight> transferList) {
         
     }
 

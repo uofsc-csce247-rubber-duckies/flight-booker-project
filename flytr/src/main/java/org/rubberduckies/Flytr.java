@@ -377,18 +377,20 @@ public class Flytr {
         {
         System.out.println("Enter Password:");
         String pw = keyboard.nextLine();
-        //TODO Connect to database
-        // if(pw == )
-        // {
-        //     x = false;
-        //     mainMenu();
-        // }
-        // if(pw != )
-        // {
-        //     System.out.println("Wrong password, try again!");
-        
+        UserController controller = UserController.getController();
+        User user = controller.login(username, pw);
+        if(user != null)
+        {
+            System.out.println("Wrong password, try again!");
         }
-        return true;
+        else
+        {
+            d = false;
+            mainMenu();
+        }
+    }
+    return true;
+        
     }
 
     private void updateAccountInfo() {
@@ -490,7 +492,7 @@ public class Flytr {
      */
     private void mainMenu()
     {
-        System.out.println("-----Flytr Main Menu-----\n1. Search for Flights\n2. Search for Hotels\n3. User Account\n4. Settings\n5. Exit\n6. View Bookings\nWhat would you like to do?");
+        System.out.println("-----Flytr Main Menu-----\n1. Search for Flights\n2. Search for Hotels\n3. User Account\n4. Exit\n5. View Bookings\nWhat would you like to do?");
         int choice = 0;
         Scanner in = new Scanner(System.in);
         choice = in.nextInt();
@@ -506,13 +508,10 @@ public class Flytr {
             manageAccount();
             break;
             case 4:
-            //settings(); IDK what this is
-            break;
-            case 5:
             System.out.println("Thank you for choosing Flytr!");
             System.exit(0);
             break;
-            case 6:
+            case 5:
             //viewBookings();
             break;
             
@@ -523,7 +522,7 @@ public class Flytr {
      */
     private void manageAccount()
     {
-        System.out.println("-----Welcome to Flytr!-----\n1.Create Account\n2.Login\n3.Update Account Information\n4.Return to Main Menu\nWhat would you like to do?");
+        System.out.println("-----Welcome to Flytr!-----\n1.Create Account\n2.Login\n3.Update Account Information\n4. Link Friend To Account\n5.Return to Main Menu\nWhat would you like to do?");
         Scanner in = new Scanner(System.in);
         int choice = in.nextInt();
         switch(choice)
@@ -538,6 +537,9 @@ public class Flytr {
             updateAccountInfo();
             break;
             case 4:
+            linkAccount();
+            break;
+            case 5:
             mainMenu();
             break;
         }
@@ -556,8 +558,38 @@ public class Flytr {
      * @return boolean successful checkout
      */
     private boolean checkout() {
-        return false;
+        
+        return true;
     }
+    private void linkAccount()
+    {
+        System.out.println("How many other people are you booking with?");
+        Scanner in = new Scanner(System.in);
+        int numppl = in.nextInt();
+        int i = 0;
+        while(i < numppl)
+        {
+        System.out.println("-----Requesting friend's information-----\nEnter First Name:");
+        String firstName = in.nextLine();
+        System.out.println("Enter Last Name:");
+        String lastName = in.nextLine();
+        System.out.println("Enter email:");
+        String email = in.nextLine();
+        System.out.println("Enter Phone Number:");
+        String phoneNum = in.nextLine();
+        System.out.println("Enter Birthday (MM/DD/YYYY):");
+        String birthday = in.nextLine();
+        LocalDateTime bday = convertStringToTime(birthday);
+        System.out.println("Enter Address:");
+        String address = in.nextLine();
+        System.out.println("Enter Passport ID:");
+        String passportID = in.nextLine();
+        UserData friend = new UserData(firstName, lastName, email, phoneNum, bday, address, passportID);
+        //TODO : link to main account
+    }
+
+
+}
 
     
     /** 
@@ -565,7 +597,7 @@ public class Flytr {
      * @return boolean successful booking cancel
      */
     private boolean cancelBooking() {
-        return false;
+        return  false;
     }
 
     /**

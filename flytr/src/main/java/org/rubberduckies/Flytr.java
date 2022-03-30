@@ -560,12 +560,15 @@ public class Flytr {
         String phoneNum = in.nextLine();
         System.out.println("Enter Birthday (MM/DD/YYYY):");
         String birthday = in.nextLine();
+        LocalDateTime bday = convertStringToTime(birthday);
         System.out.println("Enter Address:");
         String address = in.nextLine();
         System.out.println("Enter Passport ID:");
         String passportID = in.nextLine();
-        UserData friend = new UserData(firstName, lastName, email, phoneNum, birthday, address, passportID);
+        UserData friend = new UserData(firstName, lastName, email, phoneNum, bday, address, passportID);
+        //TODO : link to main account
     }
+
 
 }
 

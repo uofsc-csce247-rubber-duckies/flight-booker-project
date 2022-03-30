@@ -1,5 +1,6 @@
 package org.rubberduckies;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -79,7 +80,7 @@ public class HotelRoom {
      * @param checkOut LocalDateTime checkOut
      * @return boolean true/false, to see if the room was available to book.
      */
-    
+
     public boolean book(LocalDateTime checkIn, LocalDateTime checkOut){
         //TODO improve the logic that checks availability
         if(takenDates.contains(checkIn) || takenDates.contains(checkOut)){
@@ -119,5 +120,13 @@ public class HotelRoom {
             System.out.println("Warning: The date "+ checkIn.toString() + " was already available.");
             return false;
         }
+    }
+
+    public void addTakenDate(LocalDateTime date) {
+        this.takenDates.add(date);
+    }
+
+    public void removeTakenDate(LocalDateTime date) {
+        this.takenDates.remove(date);
     }
 }

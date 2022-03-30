@@ -41,5 +41,15 @@ public class Location {
         String location = city +", "+ state;
         return location;
     }
+
+    public boolean equals(Location location) {
+        if ((!this.city.equals(location.getCity()))) {
+            return false;
+        }
+        if (!(this.state.equals(location.getState()))) {
+            return false;
+        }
+        return true;
+    }
     
 }

@@ -175,13 +175,9 @@ public class Flytr {
          
     } 
     
-<<<<<<< HEAD
-
-
-=======
->>>>>>> main
     /** 
-     * Search for hotel 
+     * Search for hotel
+     * @return 
      * @return boolean successful search
      */
     public static void searchHotels() {
@@ -190,33 +186,56 @@ public class Flytr {
         String state;
         String checkIn;
         String checkOut;
+        boolean smoking;
         int numOfRooms;
         int numOfOccupants;
+        boolean searchAgain = true;
         Location cityResult;
         int userChoice;
+        String smokingChoice;
 
         System.out.println("");
         System.out.println("-----Search Hotels-----");
         
-        System.out.println("Please enter your desired destination. \n City:");
-        city = keyboard.nextLine();
+        while(searchAgain == true){
+            System.out.println("Please enter your desired destination. \n City:");
+            city = keyboard.nextLine();
 
-        System.out.println("State: ");
-        state = keyboard.nextLine();
-        //TODO Search locations
+            System.out.println("State: ");
+            state = keyboard.nextLine();
+            //TODO Search locations
 
-        System.out.println("Please select a Location: \n`-0: Search Again \n -1: " /* TODO fix this -- + searchResult.getLocation()*/);
-        System.out.println("Selected Option: ");
-        userChoice = keyboard.nextInt();
+            System.out.println("Please select a Location: \n`-0: Search Again \n -1: " /* TODO fix this -- + searchResult.getLocation()*/);
+            System.out.println("Selected Option: ");
+            userChoice = keyboard.nextInt();
 
+            switch(userChoice){
+                case 0:
+                System.out.println("-----Searching Again-----");
+                break;
+                case 1:
+                searchAgain = false;
+                break;
+            }
+        }
 
-
-        System.out.println("Enter your Check-In Date (YYYY-MM-DD): ");
+        System.out.println("Enter your Check-In Date (MM/DD): ");        //TODO Check Date Format
         checkIn = keyboard.nextLine();
-        System.out.println("Enter your Check-In Date (YYYY-MM-DD): ");
+        System.out.println("Enter your Check-In Date (MM/DD): ");
         checkOut = keyboard.nextLine();
-        //System.out.println("Enter the number of rooms you wish to book: ");
-        //numOfRooms = keyboard.nextInt();
+        System.out.println("Enter the number of rooms you wish to book: ");
+        numOfRooms = keyboard.nextInt();
+        System.out.println("Do you prefer a non smoking room? \n Y/n: ");
+         smokingChoice = keyboard.nextLine();
+        if(smokingChoice.equalsIgnoreCase("y")){
+            smoking = false;
+        }
+        else if(smokingChoice.equalsIgnoreCase("n")){
+            smoking = true;
+        }
+        else{
+            System.out.println("Invalid Choice.");//TODO loop until correct input is given
+        }
 
 
         //TODO search database

@@ -1,8 +1,11 @@
 {
     "id": "b42dbd93-90f5-445e-9f49-bffea3dfbbaa",
-    "name": "The Big Enn(dian)",
-    "location": "Atlanta, GA",
-    "hasGym": true,
-    "hasPool": true,
-    "rating": 8
+    "name": "Super 8 Motel",
+    "location": "Seattle, WA",
+    "hasGym": false,
+    "hasPool": false,
+    "rating": 5,
+    "kingbed": 99,
+    "queenbed": 89,
+    "doublebed": 79
 }

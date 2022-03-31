@@ -1,6 +1,7 @@
 package org.rubberduckies;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,13 +17,15 @@ public class BookingController extends Controller {
     private static BookingController instance;
     private ArrayList<Flight> flights;
     private ArrayList<Hotel> hotels;
+    private ArrayList<Booking> cart;
 
     /**
      * Creates booking controller and loads bookings from database
      */
     private BookingController() {
+        this.cart = new ArrayList<Booking>();
         System.out.println("---------------------------");
-        System.out.println("CREATING BOOKING CONTROLLER");
+        System.out.println("INITIALIZING BOOKING CONTROLLER");
         System.out.println("------------------------");
         System.out.println("---------------------------");
         System.out.println("Creating list of Flights");
@@ -97,16 +100,16 @@ public class BookingController extends Controller {
         return;
     }
 
-    public Flight getFlightByID(String id) {
+    public Flight getFlightByID(UUID id) {
         for (Flight flight : flights) {
-            if (flight.getID().equals(UUID.fromString(id))) return flight; 
+            if (flight.getID().equals(id)) return flight; 
         }
         return null;
     }
 
-    public Hotel getHotelByID(String id) {
+    public Hotel getHotelByID(UUID id) {
         for (Hotel hotel : hotels) {
-            if (hotel.getID().equals(UUID.fromString(id))) return hotel; 
+            if (hotel.getID().equals(id)) return hotel; 
         }
         return null;
     }
@@ -331,7 +334,7 @@ public class BookingController extends Controller {
         return false;
     }
 
-    public Booking getBookingByID(String bookingType, String id) {
+    public Booking getBookingByID(String bookingType, UUID id) {
         BookingType type = BookingType.valueOf(bookingType);
         switch(type) {
             case FLIGHT:
@@ -354,6 +357,27 @@ public class BookingController extends Controller {
                "\nArrival Location: " + transferList.get(transferList.size()-1).getTo() +
                "\nNumber of Transfers: " + (transferList.size() - 1) +
                "\nDuration: " + getTransferDuration(transferList);
+    }
+
+    public BookingReceipt bookFlight(User user, ArrayList<UserData> friends, Flight flight) {
+        Flight toReplace = getFlightByID(flight.getID());
+        this.flights.set(this.flights.indexOf(toReplace), flight);
+        BookingReceipt receipt = new BookingReceipt(flight, user, LocalDateTime.now(), friends);
+        return receipt;
+    }
+
+    public void addBookingToCart(Booking booking) {
+        this.cart.add(booking);
+    }
+
+    public ArrayList<BookingReceipt> checkoutCart(User user, ArrayList<UserData> bookees) {
+        ArrayList<BookingReceipt> receipts = new ArrayList<BookingReceipt>(); 
+        for (Booking booking : this.cart)
+        if (this.flights.contains(booking)) {
+            BookingReceipt receipt = new BookingReceipt(booking, user, LocalDateTime.now(), bookees);
+            receipts.add(receipt);
+        }
+        return receipts;
     }
 
 }

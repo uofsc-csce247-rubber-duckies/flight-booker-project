@@ -112,13 +112,27 @@ public class Flight extends Booking {
      * @return String seats display
      */
     public String seatDisplayString() {
-        String ret = "";
+        String ret = "  " + (seats.size() > 9 ? " " : "");
+        int width = 0;
         for (ArrayList<Boolean> arr : seats) {
+            width = Math.max(width, arr.size());
+        }
+
+        for (int i = 0; i < width; i ++) {
+            ret += (char)('A' + i);
+            ret += " ";
+        }
+        ret += "\n";
+
+        int row = 1;
+        for (ArrayList<Boolean> arr : seats) {
+            ret += row + (row > 9 ? " " : "  ");
             for (boolean seat : arr) {
                 char c = seat ? AVAILABLE : TAKEN;
                 ret += c + " ";
             }
-            ret += "\n\n";
+            ret += "\n";
+            row += 1;
         }
         return ret;
     }
@@ -134,8 +148,7 @@ public class Flight extends Booking {
                "\nArrival Location: " + to.toString() +
                "\nDeparture Time: " + departureTime.toString() +
                "\nArrival Time: " + arrivalTime.toString() +
-               "\n Duration: " + getDuration() +
-               "\nSeats:\n" + seatDisplayString();
+               "\nDuration: " + getDuration();
     }
 
 
@@ -262,6 +275,12 @@ public class Flight extends Booking {
     public String getDuration() {
         Duration duration = Duration.between(this.departureTime, this.arrivalTime);
         return String.format("%02d:%02d", duration.toHoursPart(), duration.toMinutesPart());
+    }
+
+    public void bookSeat(int row, int col) {
+        ArrayList<Boolean> seatRow = this.seats.get(row);
+        seatRow.set(col, true);
+        this.seats.set(row, seatRow);
     }
 
 }

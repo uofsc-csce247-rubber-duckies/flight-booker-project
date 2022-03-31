@@ -14,6 +14,9 @@ public class Hotel extends Booking {
     private Location location;
     private ArrayList<HotelRoom> rooms;
     private int rating;
+    private int kingPrice;
+    private int queenPrice;
+    private int doublesPrice;
 
 
     /**
@@ -23,8 +26,11 @@ public class Hotel extends Booking {
      * @param rooms hotel rooms
      * @param gym Does the hotel have a gym
      * @param pool does the hotel have a pool
+     * @param kingPrice price of a kingbed
+     * @param queenPrice price of a queen bed
+     * @param doublesPrice price of a double bed
      */
-    public Hotel(String name, Location location, ArrayList<HotelRoom> rooms, boolean gym, boolean pool, int rating) {
+    public Hotel(String name, Location location, ArrayList<HotelRoom> rooms, boolean gym, boolean pool, int rating, int kingPrice, int queenPrice, int doublesPrice) {
         this.id = UUID.randomUUID();
         this.name = name;
         this.location = location;
@@ -32,6 +38,9 @@ public class Hotel extends Booking {
         this.hasGym = gym;
         this.hasPool = pool;
         this.rating = rating;
+        this.kingPrice = kingPrice;
+        this.queenPrice = queenPrice;
+        this.doublesPrice = doublesPrice;
     }
 
     public Hotel(JSONObject hotelData, ArrayList<HotelRoom> hotelRooms) {
@@ -42,6 +51,9 @@ public class Hotel extends Booking {
         this.hasGym = (Boolean) hotelData.get("hasGym");
         this.hasPool = (Boolean) hotelData.get("hasPool");
         this.rating = Integer.parseInt(hotelData.get("rating").toString());
+        this.kingPrice = Integer.parseInt(hotelData.get("kingPrice").toString());
+        this.queenPrice = Integer.parseInt(hotelData.get("queenPrice").toString());
+        this.doublesPrice = Integer.parseInt(hotelData.get("doublesPrice").toString());
     }
     
 
@@ -129,6 +141,20 @@ public class Hotel extends Booking {
         this.rating = rating;
     }
 
+    public int getKingPrice(){
+        return kingPrice;
+    }
+
+    public int getQueenPrice(){
+        return queenPrice;
+    }
+
+
+    public int getDoublesPrice(){
+        return doublesPrice;
+    }
+
+
     
     /** 
      * adds unavailable dates to a hotel room when it cannot be booked
@@ -174,4 +200,31 @@ public class Hotel extends Booking {
             }
         }
     }
+
+
+    /**
+     * @returns void
+     * Prints hotel details to the console.
+     */
+    public void printHotel(){
+        System.out.println("Hotel Name: " + name + "\n");
+        System.out.println("Location: " + location.toString());
+        String amenities = "Amenities: \n";
+        if(hasGym == true){
+            amenities = amenities + "Gym \n";
+        }
+        if(hasPool == true){
+            amenities = amenities + "Pool \n";
+        }
+        if(hasGym == false && hasPool == false){
+            amenities = amenities + "None \n";
+        }
+        System.out.println(amenities);
+        double stars = rating/2;
+        System.out.println("Rating: " + stars + " stars.");
+        System.out.println("Room Price: ");
+        System.out.println("King Bed :$"+kingPrice);
+        System.out.println("Queen Bed :$"+queenPrice);
+        System.out.println("Double Beds :$"+doublesPrice);
+   }
 }

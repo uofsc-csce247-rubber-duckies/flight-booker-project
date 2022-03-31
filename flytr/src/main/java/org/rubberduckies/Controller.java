@@ -31,6 +31,7 @@ public abstract class Controller {
      * @return The JSONObject parsed from the file.
      */
     protected JSONObject readJson(String filename) {
+        System.out.println("READING: " + filename);
         try {
             JSONParser parser = new JSONParser();
             Object jsonObject = parser.parse(new FileReader(filename));

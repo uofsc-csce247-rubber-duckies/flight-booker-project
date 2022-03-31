@@ -284,6 +284,7 @@ public class Flytr {
 
             System.out.println("Please select an option by entering it's number or enter 0 to search again: ");
             userChoice = keyboard.nextInt();
+            keyboard.nextLine();
 
             if(userChoice == 0){
                 System.out.println("----- Searching Again -----\n");
@@ -293,10 +294,12 @@ public class Flytr {
                 hotelSelection = results.get(userChoice-1);
 
                 System.out.println("Enter your Check-In Date (YYYY-MM-DD): ");
-                LocalDateTime checkIn = convertStringToTime(keyboard.nextLine());
+                String checkInString = keyboard.nextLine();
+                LocalDateTime checkIn = convertStringToTime(checkInString);
 
-                System.out.println("Enter your Check-In Date (YYYY-MM-DD): ");
-                LocalDateTime checkOut = convertStringToTime(keyboard.nextLine());
+                System.out.println("Enter your Check-Out Date (YYYY-MM-DD): ");
+                String checkOutString = keyboard.nextLine();
+                LocalDateTime checkOut = convertStringToTime(checkOutString);
 
                 System.out.println("Please select a room (Numbers 1 - "+hotelSelection.getRooms().size()+" available): ");
                 roomSelection = keyboard.nextLine();
@@ -308,7 +311,7 @@ public class Flytr {
                 String shareBooking = keyboard.nextLine();
                 ArrayList<UserData> otherTravelers = new ArrayList<UserData>();
                 if(shareBooking.equalsIgnoreCase("Y")){
-                    System.out.println("Enter the number to share it with: ");
+                    System.out.println("Enter the number of people to share it with: ");
                     int travelers = keyboard.nextInt();
                     for (int i = 1; i < travelers; i++) {
                         System.out.println("-----Information for traveler " + (i+1) + "-----\nEnter First Name:");

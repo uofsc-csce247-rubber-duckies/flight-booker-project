@@ -68,26 +68,29 @@ public class Flytr {
         System.out.println("\n-----Departure Information-----");
         System.out.println("Enter your Departure Location: ");
         String loc1 = keyboard.nextLine();     //make variable names consistent throughout program
-        
+        Location departureLocation = new Location(loc1);
 
         
 
         System.out.println("\n----- Destination Information -----");
         System.out.println("Enter your Destination Location: ");
         String loc2 = keyboard.nextLine();     //make variable names consistent throughout program
-        
-        System.out.println("Enter your departure date(YYYY-MM-DD): ");
-        LocalDateTime userDate = convertStringToTime(keyboard.nextLine());
+        Location arrivalLocation = new Location(loc2);
+
+       
+
+        System.out.println("\nEnter your departure date (YYYY-MM-DD): ");
+        LocalDateTime departureTime = convertStringToTime(keyboard.nextLine());
 
         
+        // System.out.println("Enter your arrival date(YYYY-MM-DD): ");
+        // LocalDateTime arrivalTime = convertStringToTime(keyboard.nextLine());
 
         System.out.println("\nEnter number of Travelers:");
         int travelers = keyboard.nextInt();
+        keyboard.nextLine();
 
-        System.out.println("Enter number of Pets:");
-        int pets = keyboard.nextInt();
-
-        System.out.println("SIZE: " + results.size());
+        ArrayList<ArrayList<Flight>> results = bookingController.searchFlight(departureLocation, arrivalLocation, departureTime, null);
 
         if(results.size() == 0) { 
             System.out.print("There are no flights found. Search again!");

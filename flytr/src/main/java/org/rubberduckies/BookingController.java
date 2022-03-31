@@ -425,13 +425,6 @@ public class BookingController extends Controller {
         return receipt;
     }
 
-    public Hotel getHotelByID(UUID id) {
-        for (Hotel hotel : hotels) {
-            if (hotel.getID().equals(id)) return hotel; 
-        }
-        return null;
-    }
-
     public Booking getBookingByID(String bookingType, UUID id) {
         BookingType type = BookingType.valueOf(bookingType);
         switch(type) {

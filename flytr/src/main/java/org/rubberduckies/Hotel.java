@@ -225,4 +225,23 @@ public class Hotel extends Booking {
         System.out.println("Room Price: ");
         
    }
+
+   public String toString() {
+    String ret =  "Name: " + name + "\n";
+    ret += "Location: " + location.toString();
+    ret += "Amenities: \n";
+    if(hasGym == true){
+        ret += "Gym \n";
+    }
+    if(hasPool == true){
+        ret += "Pool \n";
+    }
+    if(hasGym == false && hasPool == false){
+        ret += "None \n";
+    }
+    double stars = rating/2;
+    ret += "Rating: " + stars + " stars.";
+    ret += "Room Price: ";
+    return ret;
+   }
 }

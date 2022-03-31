@@ -303,12 +303,12 @@ public class BookingController extends Controller {
 
         }
 
-        for (Flight flight : queue) {
-            System.out.println();
-            System.out.println("ENDNODE: " + flight);
-        }
+        // for (Flight flight : queue) {
+        //     System.out.println();
+        //     System.out.println("ENDNODE: " + flight);
+        // }
 
-        System.out.println(":SIZE:" + queue.size());
+        // System.out.println(":SIZE:" + queue.size());
 
 
         ArrayList<ArrayList<Flight>> transferLists = new ArrayList<ArrayList<Flight>>();

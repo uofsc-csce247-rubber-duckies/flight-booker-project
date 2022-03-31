@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.springframework.cglib.core.Local;
+import org.w3c.dom.html.HTMLDivElement;
 
 public class Flytr {
   
@@ -318,12 +319,13 @@ public class Flytr {
                 String checkOutString = keyboard.nextLine();
                 LocalDateTime checkOut = convertStringToTime(checkOutString);
 
+                int roomChoice;
                 boolean searchRoomsAgain = false;
                 do{
                 
                     System.out.println("Please enter the type of room: ");
                     System.out.println("-1: King bed \n-2: Queen bed\n-3: Double bed");
-                    int roomChoice = keyboard.nextInt();
+                    roomChoice = keyboard.nextInt();
                 
                     if(roomChoice == 1){
                         for(HotelRoom room : hotelSelection.getRooms()){
@@ -397,6 +399,27 @@ public class Flytr {
                 System.out.println("----- Your Hotel Booking Receipt -----");
                 hotelSelection.printHotel();
                 BookingReceipt receipt = bookingController.bookHotel(userController.getCurrentUser(), otherTravelers, hotelSelection);
+
+                int price;
+                if (roomChoice == 1) {
+                    price = hotelSelection.getKingPrice();
+                }
+                else if (roomChoice == 2) {
+                    price = hotelSelection.getQueenPrice();
+                }
+                else {
+                    price = hotelSelection.getDoublePrice();
+                }
+
+                try {
+                    FileWriter file = new FileWriter("./receipt_" + receipt.getBooking().getID() + ".txt");
+                    file.write(receipt.toString());
+                    file.flush();
+                    file.close();
+                } catch (Exception e) { 
+                    e.printStackTrace(); 
+                }
+
                 System.out.println("Returning to main menu");
 
                 searchAgain = false;

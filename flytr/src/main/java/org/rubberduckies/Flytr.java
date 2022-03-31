@@ -273,6 +273,9 @@ public class Flytr {
             for(int i=0; i<results.size(); i++){
                 System.out.println("----- Option "+ (i+1) +" -----\n");
                 results.get(i).printHotel();
+                System.out.println("King Bed :$"+results.get(i).getKingPrice());
+                System.out.println("Queen Bed :$"+results.get(i).getQueenPrice());
+                System.out.println("Double Beds :$"+results.get(i).getDoublePrice());
             }
 
         }
@@ -315,21 +318,58 @@ public class Flytr {
                 String checkOutString = keyboard.nextLine();
                 LocalDateTime checkOut = convertStringToTime(checkOutString);
 
-                System.out.println("Please select a room (Numbers 1 - "+hotelSelection.getRooms().size()+" available): ");
-                roomSelection = keyboard.nextLine();
-
-
-                hotelSelection.bookRoom(roomSelection, checkIn, checkOut);
-
+                boolean searchRoomsAgain = false;
+                do{
+                
+                    System.out.println("Please enter the type of room: ");
+                    System.out.println("-1: King bed \n-2: Queen bed\n-3: Double bed");
+                    int roomChoice = keyboard.nextInt();
+                
+                    if(roomChoice == 1){
+                        for(HotelRoom room : hotelSelection.getRooms()){
+                            if(room.getBedType().equals("kingBed")){
+                                hotelSelection.bookRoom(room.getNumber(), checkIn, checkOut);
+                                searchRoomsAgain = false;
+                                break;
+                            }
+                            
+                        }
+                    }
+                    else if(roomChoice == 2){
+                        for(HotelRoom room : hotelSelection.getRooms()){
+                            if(room.getBedType().equals("queenBed")){
+                                hotelSelection.bookRoom(room.getNumber(), checkIn, checkOut);
+                                searchRoomsAgain = false;
+                                break;
+                            }
+                            
+                        }
+                    }
+                    else if(roomChoice == 3){
+                        for(HotelRoom room : hotelSelection.getRooms()){
+                            if(room.getBedType().equals("doubleBed")){
+                                hotelSelection.bookRoom(room.getNumber(), checkIn, checkOut);
+                                searchRoomsAgain = false;
+                                break;
+                            }
+                        }
+                    }
+                    else{
+                        System.out.println("*****Invalid input. Please search again*****");
+                        searchRoomsAgain = true;
+                    }
+                }while(searchRoomsAgain == true);
+                keyboard.nextLine();
                 System.out.println("Would you like to share your booking? (Y/n): ");
                 String shareBooking = keyboard.nextLine();
                 ArrayList<UserData> otherTravelers = new ArrayList<UserData>();
                 if(shareBooking.equalsIgnoreCase("Y")){
                     System.out.println("Enter the number of people to share it with: ");
                     int travelers = keyboard.nextInt();
-                    for (int i = 1; i < travelers; i++) {
+                    for (int i = 0; i < travelers; i++) {
                         System.out.println("-----Information for traveler " + (i+1) + "-----\nEnter First Name:");
                         String firstName = keyboard.nextLine();
+                        keyboard.nextLine();
                         System.out.println("Enter Last Name:");
                         String lastName = keyboard.nextLine();
                         System.out.println("Enter email:");
@@ -354,10 +394,10 @@ public class Flytr {
                 else{
                     System.out.println("*****Invalid Input*****");
                 }
-                System.out.println("----- Your Hotel Booking -----");
+                System.out.println("----- Your Hotel Booking Receipt -----");
                 hotelSelection.printHotel();
                 BookingReceipt receipt = bookingController.bookHotel(userController.getCurrentUser(), otherTravelers, hotelSelection);
-
+                System.out.println("Returning to main menu");
 
                 searchAgain = false;
             }

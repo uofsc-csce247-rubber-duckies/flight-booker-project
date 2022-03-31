@@ -223,8 +223,6 @@ public class Hotel extends Booking {
         double stars = rating/2;
         System.out.println("Rating: " + stars + " stars.");
         System.out.println("Room Price: ");
-        System.out.println("King Bed :$"+kingPrice);
-        System.out.println("Queen Bed :$"+queenPrice);
-        System.out.println("Double Beds :$"+doublePrice);
+        
    }
 }

@@ -53,7 +53,7 @@ public class Hotel extends Booking {
         this.rating = Integer.parseInt(hotelData.get("rating").toString());
         this.kingPrice = Integer.parseInt(hotelData.get("kingPrice").toString());
         this.queenPrice = Integer.parseInt(hotelData.get("queenPrice").toString());
-        this.doublePrice = Integer.parseInt(hotelData.get("doublesPrice").toString());
+        this.doublePrice = Integer.parseInt(hotelData.get("doublePrice").toString());
     }
     
 

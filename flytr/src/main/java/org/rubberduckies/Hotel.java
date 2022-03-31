@@ -16,7 +16,7 @@ public class Hotel extends Booking {
     private int rating;
     private int kingPrice;
     private int queenPrice;
-    private int doublesPrice;
+    private int doublePrice;
 
 
     /**
@@ -28,7 +28,7 @@ public class Hotel extends Booking {
      * @param pool does the hotel have a pool
      * @param kingPrice price of a kingbed
      * @param queenPrice price of a queen bed
-     * @param doublesPrice price of a double bed
+     * @param doublePrice price of a double bed
      */
     public Hotel(String name, Location location, ArrayList<HotelRoom> rooms, boolean gym, boolean pool, int rating, int kingPrice, int queenPrice, int doublesPrice) {
         this.id = UUID.randomUUID();
@@ -40,7 +40,7 @@ public class Hotel extends Booking {
         this.rating = rating;
         this.kingPrice = kingPrice;
         this.queenPrice = queenPrice;
-        this.doublesPrice = doublesPrice;
+        this.doublePrice = doublesPrice;
     }
 
     public Hotel(JSONObject hotelData, ArrayList<HotelRoom> hotelRooms) {
@@ -53,7 +53,7 @@ public class Hotel extends Booking {
         this.rating = Integer.parseInt(hotelData.get("rating").toString());
         this.kingPrice = Integer.parseInt(hotelData.get("kingPrice").toString());
         this.queenPrice = Integer.parseInt(hotelData.get("queenPrice").toString());
-        this.doublesPrice = Integer.parseInt(hotelData.get("doublesPrice").toString());
+        this.doublePrice = Integer.parseInt(hotelData.get("doublesPrice").toString());
     }
     
 
@@ -150,8 +150,8 @@ public class Hotel extends Booking {
     }
 
 
-    public int getDoublesPrice(){
-        return doublesPrice;
+    public int getDoublePrice(){
+        return doublePrice;
     }
 
 
@@ -225,6 +225,6 @@ public class Hotel extends Booking {
         System.out.println("Room Price: ");
         System.out.println("King Bed :$"+kingPrice);
         System.out.println("Queen Bed :$"+queenPrice);
-        System.out.println("Double Beds :$"+doublesPrice);
+        System.out.println("Double Beds :$"+doublePrice);
    }
 }

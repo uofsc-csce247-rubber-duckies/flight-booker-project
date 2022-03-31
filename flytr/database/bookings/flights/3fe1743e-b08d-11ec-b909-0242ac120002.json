@@ -1,0 +1,23 @@
+{
+    "id": "3fe1743e-b08d-11ec-b909-0242ac120002",
+    "airport": "Los Angeles International Airport",
+    "from": "Los Angeles, CA",
+    "to": "Trenton, NJ",
+    "departure": "2022-04-05T13:00:00",
+    "arrival": "2022-04-05T14:00:00",
+    "seats": [
+        [false, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, false, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true]
+    ],
+    "allowsDogs": true
+}
+
+

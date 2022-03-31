@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 public class UserData {
     
-    
     private String firstName;
     private String lastName;
     private String email;
@@ -20,7 +19,6 @@ public class UserData {
 
 
     public UserData(String firstName, String lastName, String email, String phoneNumber, LocalDateTime birthDate, String passport, String address) {
-       
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -29,9 +27,6 @@ public class UserData {
         this.passport = passport;
         this.address = address;
     }
-
-    
-    
 
     
     /** 

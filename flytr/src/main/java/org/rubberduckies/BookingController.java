@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
+import java.io.FileWriter;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -135,12 +136,65 @@ public class BookingController extends Controller {
         return null;
     }
 
+    public boolean printBookingReceipt(BookingReceipt receipt) {
+        Booking receiptBooking = receipt.getBooking();
+        User receiptUser = receipt.getBookedBy();
+        String receiptText = 
+            "Receipt " + receiptBooking.getId() + 
+            " for " + receiptUser.getData().getFirstName() + 
+            " " + receiptUser.getData().getLastName() +
+            "\n";
+        receiptText += "Booked On " + receipt.getBookedOn().toString() + "\n\n";
+        receiptText += "ID: " + receiptBooking.getId() + "\n";
+        receiptText += "Type: " + receiptBooking.getType().toString() + "\n";
+        ArrayList<UserData> receiptUsers = receipt.getUsers();
+        receiptText += "Number of People: " + receiptUsers.size() + "\n";
+        for (UserData receiptUserData : receiptUsers) {
+            receiptText += 
+                "\t" + receiptUserData.getFirstName() + 
+                " " + receiptUserData.getLastName() + 
+                "\n";
+        }
+        receiptText += "\n";
+        if (receiptBooking.getType() == BookingType.FLIGHT) {
+            Flight receiptFlight = (Flight)receiptBooking;
+            receiptText += "Flight Information\n";
+            receiptText += "Airport: " + receiptFlight.getAirport() + "\n";
+            receiptText += 
+                "Departure: " + receiptFlight.getFrom().toString() + 
+                " " + receiptFlight.getDepartureTime().toString() +
+                "\n";
+            receiptText += 
+                "Arrival: " + receiptFlight.getTo().toString() + 
+                " " + receiptFlight.getArrivalTime().toString() +
+                "\n";
+        }
+        if (receiptBooking.getType() == BookingType.HOTEL) {
+            Hotel receiptHotel = (Hotel)receiptBooking;
+            receiptText += "Hotel Information\n";
+            receiptText += "Hotel: " + receiptHotel.getName() + "\n";
+            receiptText += "Location: " + receiptHotel.getLocation().toString() + "\n";
+            receiptText += "Rating: " + receiptHotel.getRating() + "\n";
+        }
+        try {
+            FileWriter file = new FileWriter("./receipt_" + receiptBooking.getId() + ".txt");
+            file.write(receiptText);
+            file.flush();
+            file.close();
+            return true;
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+            return false;
+        }
+    }
+
 
     public void writeJSON() {
         writeFlightJSON();
         writeHotelJSON();
     }
 
+    @SuppressWarnings("unchecked")
     private void writeFlightJSON() {
         System.out.println("Writing Flight JSON to Database");
         for (Flight flight : flights) {
@@ -358,6 +412,7 @@ public class BookingController extends Controller {
                "\nNumber of Transfers: " + (transferList.size() - 1) +
                "\nDuration: " + getTransferDuration(transferList);
     }
+
 
     public BookingReceipt bookFlight(User user, ArrayList<UserData> friends, Flight flight) {
         Flight toReplace = getFlightByID(flight.getID());

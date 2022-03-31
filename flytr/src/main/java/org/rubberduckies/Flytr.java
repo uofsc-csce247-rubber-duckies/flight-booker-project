@@ -89,7 +89,9 @@ public class Flytr {
 
         ArrayList<ArrayList<Flight>> results = bookingController.searchFlight(departureLocation, arrivalLocation, departureTime, null);
 
-        // System.out.println("SIZE: " + results.size());
+        if(results.size() == 0) { 
+            System.out.print("There are no flights found. Search again!");
+        }
 
         for (int i = 1; i < 11; i++) {
             if (i > results.size()) {
@@ -102,8 +104,7 @@ public class Flytr {
             }
             System.out.println(bookingController.transferToString(results.get(i-1)));
         }
-       
-
+      
         System.out.println("\n-----Flight Options-----");
 
         System.out.println("Enter your Flight Choice: ");
@@ -174,6 +175,7 @@ public class Flytr {
         }
         
     } 
+
  /**
      * Created a class to book a round Trip Flight
      */
@@ -196,19 +198,16 @@ public class Flytr {
 
         System.out.println("\nEnter number of Travelers:");
         int travelers = keyboard.nextInt();
-
-       // System.out.println("Enter number of Pets:");
-        //int pets = keyboard.nextInt();
+        keyboard.nextLine();
 
         System.out.println("-----Flight Options-----"); 
-
         System.out.println(" Enter your Flight Choice: ");
         int flightDecision = keyboard.nextInt();
+        keyboard.nextLine();
 
         if(travelers == 1) {
             System.out.println("Choose your seat: ");
             String seat = keyboard.nextLine();
-            
         }
         else {
             System.out.println("Choose your seats: ");
@@ -231,12 +230,11 @@ public class Flytr {
         else {
             System.out.println("What would you like to change?:");
             String changes = keyboard.nextLine();
-             
-        }
-            
+        }           
          
     } 
     
+
     /** 
      * Search for hotel
      * @return 

@@ -1,5 +1,6 @@
 package org.rubberduckies;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -9,10 +10,11 @@ import org.json.simple.JSONObject;
 public class HotelRoom {
     private int capacity;
     private String number;
-    private boolean available;
     private boolean smoking;
     private ArrayList<LocalDateTime> takenDates;
     private BedType bedType;
+    
+
     //TODO: Make get available check a specific date if is taken
 
     public HotelRoom(int capacity, String number, BedType bedType){
@@ -63,10 +65,6 @@ public class HotelRoom {
         return smoking;
     }
 
-    public boolean isAvailable(){
-        return true;
-    }
-
     public ArrayList<LocalDateTime> getTakenDates() {
         return this.takenDates;
     }
@@ -79,22 +77,11 @@ public class HotelRoom {
         return this.bedType;
     }
 
-    public void book(LocalDateTime date){
-        if(takenDates.contains(date)){
-            System.out.println("The date "+ date.toString() + " is not available to book.");
-        }
-        else{
-            takenDates.add(date);
-            //TODO: Book receipt
-        }
+    public void addTakenDate(LocalDateTime date) {
+        this.takenDates.add(date);
     }
 
-    public void unBook(LocalDateTime date) {
-        if(takenDates.contains(date)) {
-            takenDates.remove(date);
-        }
-        else{
-            System.out.println("Warning: The date "+ date.toString() + " was already available.");
-        } 
+    public void removeTakenDate(LocalDateTime date) {
+        this.takenDates.remove(date);
     }
 }

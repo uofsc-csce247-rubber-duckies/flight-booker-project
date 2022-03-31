@@ -1,9 +1,12 @@
 package org.rubberduckies;
 
+import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
+import java.io.FileWriter;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -15,16 +18,15 @@ public class BookingController extends Controller {
     private static BookingController instance;
     private ArrayList<Flight> flights;
     private ArrayList<Hotel> hotels;
-
-    //TODO: Do we separate bookings into separate arraylists? they are stored separately in database. might make sense
-    // note from alex: probably
+    private ArrayList<Booking> cart;
 
     /**
      * Creates booking controller and loads bookings from database
      */
     private BookingController() {
+        this.cart = new ArrayList<Booking>();
         System.out.println("---------------------------");
-        System.out.println("CREATING BOOKING CONTROLLER");
+        System.out.println("INITIALIZING BOOKING CONTROLLER");
         System.out.println("------------------------");
         System.out.println("---------------------------");
         System.out.println("Creating list of Flights");
@@ -99,16 +101,16 @@ public class BookingController extends Controller {
         return;
     }
 
-    public Flight getFlightByID(String id) {
+    public Flight getFlightByID(UUID id) {
         for (Flight flight : flights) {
-            if (flight.getID().equals(UUID.fromString(id))) return flight; 
+            if (flight.getID().equals(id)) return flight; 
         }
         return null;
     }
 
-    public Hotel getHotelByID(String id) {
+    public Hotel getHotelByID(UUID id) {
         for (Hotel hotel : hotels) {
-            if (hotel.getID().equals(UUID.fromString(id))) return hotel; 
+            if (hotel.getID().equals(id)) return hotel; 
         }
         return null;
     }
@@ -134,17 +136,65 @@ public class BookingController extends Controller {
         return null;
     }
 
-    /**
-     * Search booking for keyword
-     * @param search keyword
-     * @return bookings results of search
-     */
+    public boolean printBookingReceipt(BookingReceipt receipt) {
+        Booking receiptBooking = receipt.getBooking();
+        User receiptUser = receipt.getBookedBy();
+        String receiptText = 
+            "Receipt " + receiptBooking.getId() + 
+            " for " + receiptUser.getData().getFirstName() + 
+            " " + receiptUser.getData().getLastName() +
+            "\n";
+        receiptText += "Booked On " + receipt.getBookedOn().toString() + "\n\n";
+        receiptText += "ID: " + receiptBooking.getId() + "\n";
+        receiptText += "Type: " + receiptBooking.getType().toString() + "\n";
+        ArrayList<UserData> receiptUsers = receipt.getUsers();
+        receiptText += "Number of People: " + receiptUsers.size() + "\n";
+        for (UserData receiptUserData : receiptUsers) {
+            receiptText += 
+                "\t" + receiptUserData.getFirstName() + 
+                " " + receiptUserData.getLastName() + 
+                "\n";
+        }
+        receiptText += "\n";
+        if (receiptBooking.getType() == BookingType.FLIGHT) {
+            Flight receiptFlight = (Flight)receiptBooking;
+            receiptText += "Flight Information\n";
+            receiptText += "Airport: " + receiptFlight.getAirport() + "\n";
+            receiptText += 
+                "Departure: " + receiptFlight.getFrom().toString() + 
+                " " + receiptFlight.getDepartureTime().toString() +
+                "\n";
+            receiptText += 
+                "Arrival: " + receiptFlight.getTo().toString() + 
+                " " + receiptFlight.getArrivalTime().toString() +
+                "\n";
+        }
+        if (receiptBooking.getType() == BookingType.HOTEL) {
+            Hotel receiptHotel = (Hotel)receiptBooking;
+            receiptText += "Hotel Information\n";
+            receiptText += "Hotel: " + receiptHotel.getName() + "\n";
+            receiptText += "Location: " + receiptHotel.getLocation().toString() + "\n";
+            receiptText += "Rating: " + receiptHotel.getRating() + "\n";
+        }
+        try {
+            FileWriter file = new FileWriter("./receipt_" + receiptBooking.getId() + ".txt");
+            file.write(receiptText);
+            file.flush();
+            file.close();
+            return true;
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+            return false;
+        }
+    }
+
 
     public void writeJSON() {
         writeFlightJSON();
         writeHotelJSON();
     }
 
+    @SuppressWarnings("unchecked")
     private void writeFlightJSON() {
         System.out.println("Writing Flight JSON to Database");
         for (Flight flight : flights) {
@@ -208,27 +258,137 @@ public class BookingController extends Controller {
         writeJson(folder + room.getNumber() + ".json", roomData);
     }
 
-    public ArrayList<Flight> searchFlight(Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime) {
-        ArrayList<Flight> results = new ArrayList<Flight>();      
-        for (Flight flight : flights) {
-            if (!(from == flight.getFrom())) {
+
+    public ArrayList<ArrayList<Flight>> searchFlight(Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime) {
+        ArrayList<ArrayList<Flight>> results = new ArrayList<ArrayList<Flight>>();
+        ArrayList<Flight> queue = new ArrayList<Flight>(flights);      
+        for (Flight flight : queue) {
+
+            // -------------- Get matching destination end-nodes -----------------
+            if (!(to.equals(flight.getTo()))) {
+                queue.remove(flight);
                 continue; 
             }
-            if (!(to == flight.getTo())) {
-                continue; 
+
+            if (arrivalTime != null && arrivalTime.getDayOfYear() != flight.getArrivalTime().getDayOfYear()) {
+                queue.remove(flight);
+                continue;
             }
-            if (!(departureTime == flight.getDepartureTime())) {
-                continue; 
+
+            if (departureTime.getDayOfYear() > flight.getDepartureTime().getDayOfYear()) {
+                queue.remove(flight);
+                continue;
             }
-            if (!(arrivalTime == flight.getArrivalTime())) {
-                continue; 
+
+            // ---------------------------------------------------------------------
+
+            // Direct flight match
+            if (from.equals(flight.getFrom()) && departureTime.getDayOfYear() == flight.getDepartureTime().getDayOfYear()) {
+                ArrayList<Flight> directFlight = new ArrayList<Flight>();
+                directFlight.add(flight);
+                results.add(directFlight);
+                queue.remove(flight);
+                continue;
             }
-            results.add(flight);
+
+            // Correct departure location but not correct time
+            if (from.equals(flight.getFrom()) && departureTime.getDayOfYear() < flight.getDepartureTime().getDayOfYear()) {
+                queue.remove(flight);
+                continue;
+            }
+
+            // Correct departure time but not correct location
+            if (!(from.equals(flight.getFrom())) && departureTime.getDayOfYear() == flight.getDepartureTime().getDayOfYear()) {
+                queue.remove(flight);
+                continue;
+            }
+
+        }
+
+        ArrayList<ArrayList<Flight>> transferLists = new ArrayList<ArrayList<Flight>>();
+        transferLists = transferSearch(from, to, departureTime, arrivalTime, queue);
+        for (ArrayList<Flight> transfer : transferLists) {
+            results.add(transfer);
         }
         return results;
     }
 
-    public Booking getBookingByID(String bookingType, String id) {
+
+    private ArrayList<ArrayList<Flight>> transferSearch(Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime, ArrayList<Flight> endNodes) {
+        if (endNodes.size() == 0) {
+            return null;
+        }
+        ArrayList<ArrayList<Flight>> transferPaths = new ArrayList<ArrayList<Flight>>();
+        for (Flight endNode : endNodes) {
+            ArrayList<Flight> transferLayer = getNextTransferLayer(from, to, departureTime, arrivalTime, endNode);
+            ArrayList<Flight> completeNodes = new ArrayList<Flight>();
+            for (int i = 0; i < transferLayer.indexOf(null); i++) {
+                completeNodes.add(transferLayer.get(i));
+            }
+            ArrayList<Flight> incompleteNodes = new ArrayList<Flight>();
+                for (int i = transferLayer.indexOf(null) + 1; i < transferLayer.size(); i++) {
+                    incompleteNodes.add(transferLayer.get(i));
+                }
+            ArrayList<ArrayList<Flight>> subPaths = transferSearch(from, to, departureTime, arrivalTime, incompleteNodes);
+
+            if (subPaths == null) {
+                if (completeNodes.size() == 0) {
+                    continue;
+                }
+                for (Flight completeNode : completeNodes) {
+                    ArrayList<Flight> completeList = new ArrayList<Flight>();
+                    completeList.add(completeNode);
+                    transferPaths.add(completeList);
+                }
+                continue;
+            }
+            for (int i = 0; i < subPaths.size(); i++) {
+                ArrayList<Flight> subPath = subPaths.get(i);
+                for (Flight transferFlight : transferLayer) {
+                    if (!(subPath.get(subPath.size() - 1).equals(transferFlight))) {
+                        continue;
+                    }
+                    subPath.add(endNode);
+                    subPaths.set(i, subPath);
+                }
+                transferPaths.add(subPath);
+            }
+        }
+        return transferPaths;
+    }
+
+    private ArrayList<Flight> getNextTransferLayer(Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime, Flight node) {
+        ArrayList<Flight> transferLayer = new ArrayList<Flight>();
+        transferLayer.add(null);
+        for (Flight flight : flights) {
+            if (completesTransfer(from, departureTime, node, flight)) {
+                    transferLayer.add(0, flight);
+            }
+            else if (isIncompleteTransfer(from, departureTime, node, flight)) {
+                transferLayer.add(flight);
+            }
+        }
+        return transferLayer;
+    }
+
+    // Vomit -- flight matches to fill tranfer chain
+    private boolean completesTransfer(Location from, LocalDateTime departureTime, Flight firstNode, Flight candidate) {
+        if (candidate.getFrom().equals(from) && candidate.getDepartureTime().getDayOfYear() == departureTime.getDayOfYear()  
+                && candidate.getTo().equals(firstNode.getFrom()) && candidate.getArrivalTime().getDayOfYear() == firstNode.getDepartureTime().getDayOfYear()) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isIncompleteTransfer(Location from, LocalDateTime departureTime, Flight firstNode, Flight candidate) {
+        if (candidate.getDepartureTime().getDayOfYear() > departureTime.getDayOfYear() && candidate.getTo().equals(firstNode.getFrom()) 
+                && candidate.getArrivalTime().getDayOfYear() == firstNode.getDepartureTime().getDayOfYear()) {
+            return true;
+        }
+        return false;
+    }
+
+    public Booking getBookingByID(String bookingType, UUID id) {
         BookingType type = BookingType.valueOf(bookingType);
         switch(type) {
             case FLIGHT:
@@ -239,6 +399,40 @@ public class BookingController extends Controller {
                 return null;
         }
         
+    }
+
+    private String getTransferDuration(ArrayList<Flight> transferList) {
+        Duration duration = Duration.between(transferList.get(0).getDepartureTime(), transferList.get(transferList.size() - 1).getArrivalTime());
+        return String.format("%02d:%02d", duration.toHoursPart(), duration.toMinutesPart());
+    }
+
+    public String transferToString(ArrayList<Flight> transferList) {
+        return "\nDeparture Location: " + transferList.get(0).getFrom() +
+               "\nArrival Location: " + transferList.get(transferList.size()-1).getTo() +
+               "\nNumber of Transfers: " + (transferList.size() - 1) +
+               "\nDuration: " + getTransferDuration(transferList);
+    }
+
+
+    public BookingReceipt bookFlight(User user, ArrayList<UserData> friends, Flight flight) {
+        Flight toReplace = getFlightByID(flight.getID());
+        this.flights.set(this.flights.indexOf(toReplace), flight);
+        BookingReceipt receipt = new BookingReceipt(flight, user, LocalDateTime.now(), friends);
+        return receipt;
+    }
+
+    public void addBookingToCart(Booking booking) {
+        this.cart.add(booking);
+    }
+
+    public ArrayList<BookingReceipt> checkoutCart(User user, ArrayList<UserData> bookees) {
+        ArrayList<BookingReceipt> receipts = new ArrayList<BookingReceipt>(); 
+        for (Booking booking : this.cart)
+        if (this.flights.contains(booking)) {
+            BookingReceipt receipt = new BookingReceipt(booking, user, LocalDateTime.now(), bookees);
+            receipts.add(receipt);
+        }
+        return receipts;
     }
 
 }

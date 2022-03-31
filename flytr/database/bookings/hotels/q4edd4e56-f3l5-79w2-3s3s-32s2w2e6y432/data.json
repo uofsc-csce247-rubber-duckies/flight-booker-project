@@ -1,0 +1,11 @@
+{
+    "id": "j32cc3w83-2ds3-77tt-s85s-s33iod45cc37",
+    "name": "The Courtyard Inn",
+    "location": "Seattle, WA",
+    "hasGym": true,
+    "hasPool": true,
+    "rating": 7.5,
+    "kingsize" : 115,
+    "queensize" : 100,
+    "doublesize" : 90 
+}

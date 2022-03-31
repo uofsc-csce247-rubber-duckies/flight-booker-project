@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
@@ -16,11 +17,13 @@ public class UserController extends Controller {
     private static UserController instance;
     private BookingController bookingController;
     private ArrayList<User> users;
+    private User currentUser;
 
     /**
      * Creates a new user controller
      */
     private UserController() {
+        this.currentUser = null;
         System.out.println("----------------------------");
         System.out.println("INITIALIZING USER CONTROLLER");
         System.out.println("----------------------------");
@@ -154,12 +157,15 @@ public class UserController extends Controller {
      *
      * @return The authenticated User or null.
      */
-    public User login(String username, String password){
+    public boolean login(String username, String password){
         for (User user : users) {
             // if (BCrypt.checkpw(password, user.getPassword())) return user;
-            if (password.equals(user.getPassword())) return user;
+            if (password.equals(user.getPassword())) {
+                this.currentUser = user;
+                return true;
+            }
         }
-        return null;
+        return false;
     }
 
     public UserData dataFor(String username) {
@@ -323,7 +329,8 @@ public class UserController extends Controller {
                     receiptUsers.add(historyUserData);
                 }
             }
-            Booking booking = bookingController.getBookingByID(historyJson.get("bookingType").toString(), historyJson.get("booking").toString());
+
+            Booking booking = bookingController.getBookingByID(historyJson.get("bookingType").toString(), UUID.fromString(historyJson.get("booking").toString()));
             userHistory.add(new BookingReceipt(booking, user, LocalDateTime.parse(historyJson.get("bookedAt").toString()), receiptUsers));
         }
     }
@@ -349,5 +356,9 @@ public class UserController extends Controller {
      */
     private String hash(String plainText){
         return BCrypt.hashpw(plainText, BCrypt.gensalt());
+    }
+
+    public User getCurrentUser() {
+        return this.currentUser;
     }
 }

@@ -5,7 +5,7 @@
     "hasGym": true,
     "hasPool": true,
     "rating": 6,
-    "kingsize" : 115,
-    "queensize" : 100,
-    "doublesize" : 90 
+    "kingPrice" : 115,
+    "queenPrice" : 100,
+    "doublePrice" : 90 
 }

@@ -7,6 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import org.springframework.cglib.core.Local;
+
 public class Flytr {
   
     private Flytr instance;
@@ -66,29 +68,24 @@ public class Flytr {
         System.out.println("\n-----Departure Information-----");
         System.out.println("Enter your Departure Location: ");
         String loc1 = keyboard.nextLine();     //make variable names consistent throughout program
-        Location departureLocation = new Location(loc1);
+        
 
         
 
         System.out.println("\n----- Destination Information -----");
         System.out.println("Enter your Destination Location: ");
         String loc2 = keyboard.nextLine();     //make variable names consistent throughout program
-        Location arrivalLocation = new Location(loc2);
-
-       
-
-        System.out.println("\nEnter your departure date (YYYY-MM-DD): ");
-        LocalDateTime departureTime = convertStringToTime(keyboard.nextLine());
+        
+        System.out.println("Enter your departure date(YYYY-MM-DD): ");
+        LocalDateTime userDate = convertStringToTime(keyboard.nextLine());
 
         
-        // System.out.println("Enter your arrival date(YYYY-MM-DD): ");
-        // LocalDateTime arrivalTime = convertStringToTime(keyboard.nextLine());
 
         System.out.println("\nEnter number of Travelers:");
         int travelers = keyboard.nextInt();
-        keyboard.nextLine();
 
-        ArrayList<ArrayList<Flight>> results = bookingController.searchFlight(departureLocation, arrivalLocation, departureTime, null);
+        System.out.println("Enter number of Pets:");
+        int pets = keyboard.nextInt();
 
         System.out.println("SIZE: " + results.size());
 
@@ -247,70 +244,125 @@ public class Flytr {
     
 
     /** 
-     * Search for hotel
-     * @return 
-     * @return boolean successful search
+     * Created a method that books a hotel.
      */
-    public static void searchHotels() {
-        
-        String city;
-        String state;
-        String checkIn;
-        String checkOut;
-        boolean smoking;
-        int numOfRooms;
-        int numOfOccupants;
-        boolean searchAgain = true;
-        Location cityResult;
-        int userChoice;
-        String smokingChoice;
+    public void searchHotels() {
 
-        System.out.println("");
+        Location location = new Location();
+        int userChoice;
+        Hotel hotelSelection;
+        String roomSelection;
+
         System.out.println("-----Search Hotels-----");
         
-        while(searchAgain == true){
-            System.out.println("Please enter your desired destination. \n Destination City:");
-            city = keyboard.nextLine();
+        System.out.println("Please enter your desired destination. \n City:");
+        location.setCity(keyboard.nextLine());
 
-            System.out.println("State: ");
-            state = keyboard.nextLine();
-            //TODO Search locations
+        System.out.println("State: ");
+        location.setState(keyboard.nextLine());
 
-            System.out.println("Please select a Location: \n`-0: Search Again \n -1: " /* TODO fix this -- + searchResult.getLocation()*/);
-            System.out.println("Selected Option: ");
-            userChoice = keyboard.nextInt();
+        ArrayList<Hotel> results =  new ArrayList<Hotel>();
+        results = bookingController.searchHotels(location);
+    
+        if(results.size() > 1){
 
-            switch(userChoice){
-                case 0:
-                System.out.println("-----Searching Again-----");
-                break;
-                case 1:
-                searchAgain = false;
-                break;
+            System.out.println("Please select an option by entering it's number or enter 0 to search again: ");
+            for(int i=0; i<results.size(); i++){
+                System.out.println("----- Option "+ (i+1) +" -----\n");
+                results.get(i).printHotel();
             }
-        }
 
-        System.out.println("Enter your Check-In Date (MM/DD): ");        //TODO Check Date Format
-        checkIn = keyboard.nextLine();
-        System.out.println("Enter your Check-In Date (MM/DD): ");
-        checkOut = keyboard.nextLine();
-        System.out.println("Enter the number of rooms you wish to book: ");
-        numOfRooms = keyboard.nextInt();
-        System.out.println("Do you prefer a non smoking room? \n Y/n: ");
-         smokingChoice = keyboard.nextLine();
-        if(smokingChoice.equalsIgnoreCase("y")){
-            smoking = false;
-        }
-        else if(smokingChoice.equalsIgnoreCase("n")){
-            smoking = true;
         }
         else{
-            System.out.println("Invalid Choice.");//TODO loop until correct input is given
+
+            System.out.println("There are no available hotels at that location.");
+            System.out.println("Would you like to search locations again? (Y/n): ");
+            String again = keyboard.nextLine();
+
+            do{
+                if(again.equalsIgnoreCase("y")){
+                    searchHotels();
+                }
+                else if(again.equalsIgnoreCase("n")){
+                    System.out.println("----- No hotel selected. Returning to the previous menu -----");
+                    return;
+                }
+            }while(!again.equalsIgnoreCase("y") && !again.equalsIgnoreCase("n"));
         }
 
+        boolean searchAgain = true;
+        while(searchAgain == true){
 
-        //TODO search database
-}
+            System.out.println("Please select an option by entering it's number or enter 0 to search again: ");
+            userChoice = keyboard.nextInt();
+            keyboard.nextLine();
+
+            if(userChoice == 0){
+                System.out.println("----- Searching Again -----\n");
+            }
+            else if(userChoice > 0 && userChoice <= results.size()){
+
+                hotelSelection = results.get(userChoice-1);
+
+                System.out.println("Enter your Check-In Date (YYYY-MM-DD): ");
+                String checkInString = keyboard.nextLine();
+                LocalDateTime checkIn = convertStringToTime(checkInString);
+
+                System.out.println("Enter your Check-Out Date (YYYY-MM-DD): ");
+                String checkOutString = keyboard.nextLine();
+                LocalDateTime checkOut = convertStringToTime(checkOutString);
+
+                System.out.println("Please select a room (Numbers 1 - "+hotelSelection.getRooms().size()+" available): ");
+                roomSelection = keyboard.nextLine();
+
+
+                hotelSelection.bookRoom(roomSelection, checkIn, checkOut);
+
+                System.out.println("Would you like to share your booking? (Y/n): ");
+                String shareBooking = keyboard.nextLine();
+                ArrayList<UserData> otherTravelers = new ArrayList<UserData>();
+                if(shareBooking.equalsIgnoreCase("Y")){
+                    System.out.println("Enter the number of people to share it with: ");
+                    int travelers = keyboard.nextInt();
+                    for (int i = 1; i < travelers; i++) {
+                        System.out.println("-----Information for traveler " + (i+1) + "-----\nEnter First Name:");
+                        String firstName = keyboard.nextLine();
+                        System.out.println("Enter Last Name:");
+                        String lastName = keyboard.nextLine();
+                        System.out.println("Enter email:");
+                        String email = keyboard.nextLine();
+                        System.out.println("Enter Phone Number:");
+                        String phoneNum = keyboard.nextLine();
+                        System.out.println("Enter Birthday (YYYY-MM-DD):");
+                        String birthday = keyboard.nextLine();
+                        LocalDateTime bday = convertStringToTime(birthday);
+                        System.out.println("Enter Address:");
+                        String address = keyboard.nextLine();
+                        System.out.println("Enter Passport ID:");
+                        String passportID = keyboard.nextLine();
+                        UserData friend = new UserData(firstName, lastName, email, phoneNum, bday, address, passportID);
+                        otherTravelers.add(friend);
+                    }
+                    
+                }
+                else if(shareBooking.equalsIgnoreCase("n")){
+
+                }
+                else{
+                    System.out.println("*****Invalid Input*****");
+                }
+                System.out.println("----- Your Hotel Booking -----");
+                hotelSelection.printHotel();
+                BookingReceipt receipt = bookingController.bookHotel(userController.getCurrentUser(), otherTravelers, hotelSelection);
+
+
+                searchAgain = false;
+            }
+            else{
+                System.out.println("----- Input not valid. Searching again -----\n");
+            }
+        }
+    }
 
     
     /** 
@@ -353,79 +405,79 @@ public class Flytr {
         boolean y = true;
         while(y)
         {
-            System.out.println("Would you like to add a child?(y/n)");
-            String choice = in.nextLine();
-            if(choice.equalsIgnoreCase("y"))
-            {
-                System.out.println("-----Adding Child---");
-                System.out.println("Enter First Name:");
-                String cFirstName = in.nextLine();
-                System.out.println("Enter Last Name:");
-                String cLastName = in.nextLine();
-                System.out.println("Enter Birthday:");
-                //LocalDateTime cBirthday = TODO
-                System.out.println("Enter PassportID:");
-                String cPassportID = in.nextLine();
-                System.out.println("Enter Address:");
-                String cAddress = in.nextLine();
-                //CREATE CHILD OBJECT
-                System.out.println("Child added!");
-            }
-            else
-            {
-                y = false;
-            }
+        System.out.println("Would you like to add a child?(y/n)");
+        String choice = in.nextLine();
+        if(choice.equalsIgnoreCase("y"))
+        {
+            System.out.println("-----Adding Child---");
+            System.out.println("Enter First Name:");
+            String cFirstName = in.nextLine();
+            System.out.println("Enter Last Name:");
+            String cLastName = in.nextLine();
+            System.out.println("Enter Birthday:");
+            //LocalDateTime cBirthday = TODO
+            System.out.println("Enter PassportID:");
+            String cPassportID = in.nextLine();
+            System.out.println("Enter Address:");
+            String cAddress = in.nextLine();
+            //CREATE CHILD OBJECT
+            System.out.println("Child added!");
         }
+        else
+        {
+            y = false;
+        }
+    }
         boolean z = true;
         while(z)
         {
-            System.out.println("Would you like to add a dog?(y/n)");
-            String choice = in.nextLine();
-            if(choice.equalsIgnoreCase("y"))
-            {
-                System.out.println("-----Adding Dog-----");
-                System.out.println("Enter Name:");
-                String name = in.nextLine();
-                System.out.println("Enter Breed:");
-                String breed = in.nextLine();
-                System.out.println("Enter Weight:");
-                int weight = in.nextInt();
-                //CREATE DOG OBJECT
-                System.out.println("Dog Added!");
-            }
-            
-            else
-            {
-                z = false;
-            }
+        System.out.println("Would you like to add a dog?(y/n)");
+        String choice = in.nextLine();
+        if(choice.equalsIgnoreCase("y"))
+        {
+            System.out.println("-----Adding Dog-----");
+            System.out.println("Enter Name:");
+            String name = in.nextLine();
+            System.out.println("Enter Breed:");
+            String breed = in.nextLine();
+            System.out.println("Enter Weight:");
+            int weight = in.nextInt();
+            //CREATE DOG OBJECT
+            System.out.println("Dog Added!");
         }
+        
+        else
+        {
+            z = false;
+        }
+    }
         boolean b = true;
         while(b)
         {
-            System.out.println("Would you like to link an account?(y/n)");
-            String choice2 = in.nextLine();
-            if(choice2.equalsIgnoreCase("y"))
-            {
-                boolean a = true;
-                while(a)
-                {
-                    System.out.println("Enter username:");
-                    String username = in.nextLine();
-                    System.out.println("Enter password:");
-                    String pw = in.nextLine();
-                    /*
-                    if username doesnt exist
-                    System.out.println("ERROR: Account with username " + username + " does not exist.\nTry Again?(y/n)");
-                    else
-                    System.out.println("Account " + username + " linked successfully!");
-                    a = false;
-                    */
-                }
-            }
+        System.out.println("Would you like to link an account?(y/n)");
+        String choice2 = in.nextLine();
+        if(choice2.equalsIgnoreCase("y"))
+        {
+        boolean a = true;
+        while(a)
+        {
+            System.out.println("Enter username:");
+            String username = in.nextLine();
+            System.out.println("Enter password:");
+            String pw = in.nextLine();
+            /*
+            if username doesnt exist
+            System.out.println("ERROR: Account with username " + username + " does not exist.\nTry Again?(y/n)");
             else
-            {
-                b = false;
-            }
+            System.out.println("Account " + username + " linked successfully!");
+            a = false;
+            */
+        }
+        }
+        else
+        {
+            b = false;
+        }
         }
         System.out.println("Account Created Successfully!");
         manageAccount();

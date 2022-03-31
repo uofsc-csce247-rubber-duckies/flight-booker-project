@@ -4,7 +4,7 @@
     "from": "Atlanta, GA",
     "to": "Seattle, WA",
     "departure": "2022-04-03T10:50:00",
-    "arrival": "2022-04-03T1:43:00",
+    "arrival": "2022-04-03T11:43:00",
     "seats": [
         [true, true, true, true, true, true],
         [true, true, true, true, true, true],

@@ -9,6 +9,7 @@ public class BookingReceipt {
     private User bookedBy;
     private LocalDateTime bookedOn;
     private ArrayList<UserData> users;
+    int numTravelers;
 
     public BookingReceipt(Booking booking, User bookedBy, LocalDateTime bookedOn, ArrayList<UserData> users)
     {
@@ -16,6 +17,7 @@ public class BookingReceipt {
         this.bookedBy = bookedBy;
         this.bookedOn = bookedOn;
         this.users = users;
+        this.numTravelers = 1 + users.size();
     }
     public Booking getBooking()
     {
@@ -48,6 +50,23 @@ public class BookingReceipt {
     public void setUsers(ArrayList<UserData> users)
     {
         this.users = users;
+    }
+
+    public String toString() {
+        String ret = "-------------- Booking --------------\n" + this.booking +
+         "\nBooking For: " + this.bookedBy.getData().getFirstName() + " " + this.bookedBy.getData().getLastName() +
+        "\nBooked On: " + this.bookedOn + "\n" +
+        "-------------------------------------\n\n";
+
+        for (UserData data : users) {
+            ret += "-------------- Booking --------------\n" + this.booking + 
+             "\nBooking For: " + data.getFirstName() + " " + data.getLastName() +
+            "\nBooked On: " + this.bookedOn + "\n" +
+            "-------------------------------------\n\n";;
+        }
+
+        return ret;
+            
     }
 
 }

@@ -1,9 +1,11 @@
 package org.rubberduckies;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
+import java.io.FileWriter;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -15,6 +17,7 @@ public class BookingController extends Controller {
     private static BookingController instance;
     private ArrayList<Flight> flights;
     private ArrayList<Hotel> hotels;
+    private ArrayList<Booking> cart;
 
     //TODO: Do we separate bookings into separate arraylists? they are stored separately in database. might make sense
     // note from alex: probably
@@ -23,8 +26,9 @@ public class BookingController extends Controller {
      * Creates booking controller and loads bookings from database
      */
     private BookingController() {
+        this.cart = new ArrayList<Booking>();
         System.out.println("---------------------------");
-        System.out.println("CREATING BOOKING CONTROLLER");
+        System.out.println("INITIALIZING BOOKING CONTROLLER");
         System.out.println("------------------------");
         System.out.println("---------------------------");
         System.out.println("Creating list of Flights");
@@ -99,16 +103,16 @@ public class BookingController extends Controller {
         return;
     }
 
-    public Flight getFlightByID(String id) {
+    public Flight getFlightByID(UUID id) {
         for (Flight flight : flights) {
-            if (flight.getID().equals(UUID.fromString(id))) return flight; 
+            if (flight.getID().equals(id)) return flight; 
         }
         return null;
     }
 
-    public Hotel getHotelByID(String id) {
+    public Hotel getHotelByID(UUID id) {
         for (Hotel hotel : hotels) {
-            if (hotel.getID().equals(UUID.fromString(id))) return hotel; 
+            if (hotel.getID().equals(id)) return hotel; 
         }
         return null;
     }
@@ -134,12 +138,65 @@ public class BookingController extends Controller {
         return null;
     }
 
+    public boolean printBookingReceipt(BookingReceipt receipt) {
+        Booking receiptBooking = receipt.getBooking();
+        User receiptUser = receipt.getBookedBy();
+        String receiptText = 
+            "Receipt " + receiptBooking.getId() + 
+            " for " + receiptUser.getData().getFirstName() + 
+            " " + receiptUser.getData().getLastName() +
+            "\n";
+        receiptText += "Booked On " + receipt.getBookedOn().toString() + "\n\n";
+        receiptText += "ID: " + receiptBooking.getId() + "\n";
+        receiptText += "Type: " + receiptBooking.getType().toString() + "\n";
+        ArrayList<UserData> receiptUsers = receipt.getUsers();
+        receiptText += "Number of People: " + receiptUsers.size() + "\n";
+        for (UserData receiptUserData : receiptUsers) {
+            receiptText += 
+                "\t" + receiptUserData.getFirstName() + 
+                " " + receiptUserData.getLastName() + 
+                "\n";
+        }
+        receiptText += "\n";
+        if (receiptBooking.getType() == BookingType.FLIGHT) {
+            Flight receiptFlight = (Flight)receiptBooking;
+            receiptText += "Flight Information\n";
+            receiptText += "Airport: " + receiptFlight.getAirport() + "\n";
+            receiptText += 
+                "Departure: " + receiptFlight.getFrom().toString() + 
+                " " + receiptFlight.getDepartureTime().toString() +
+                "\n";
+            receiptText += 
+                "Arrival: " + receiptFlight.getTo().toString() + 
+                " " + receiptFlight.getArrivalTime().toString() +
+                "\n";
+        }
+        if (receiptBooking.getType() == BookingType.HOTEL) {
+            Hotel receiptHotel = (Hotel)receiptBooking;
+            receiptText += "Hotel Information\n";
+            receiptText += "Hotel: " + receiptHotel.getName() + "\n";
+            receiptText += "Location: " + receiptHotel.getLocation().toString() + "\n";
+            receiptText += "Rating: " + receiptHotel.getRating() + "\n";
+        }
+        try {
+            FileWriter file = new FileWriter("./receipt_" + receiptBooking.getId() + ".txt");
+            file.write(receiptText);
+            file.flush();
+            file.close();
+            return true;
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+            return false;
+        }
+    }
+
 
     public void writeJSON() {
         writeFlightJSON();
         writeHotelJSON();
     }
 
+    @SuppressWarnings("unchecked")
     private void writeFlightJSON() {
         System.out.println("Writing Flight JSON to Database");
         for (Flight flight : flights) {
@@ -359,7 +416,7 @@ public class BookingController extends Controller {
         return null;
     }
 
-    public Booking getBookingByID(String bookingType, String id) {
+    public Booking getBookingByID(String bookingType, UUID id) {
         BookingType type = BookingType.valueOf(bookingType);
         switch(type) {
             case FLIGHT:
@@ -370,6 +427,40 @@ public class BookingController extends Controller {
                 return null;
         }
         
+    }
+
+    private String getTransferDuration(ArrayList<Flight> transferList) {
+        Duration duration = Duration.between(transferList.get(0).getDepartureTime(), transferList.get(transferList.size() - 1).getArrivalTime());
+        return String.format("%02d:%02d", duration.toHoursPart(), duration.toMinutesPart());
+    }
+
+    public String transferToString(ArrayList<Flight> transferList) {
+        return "\nDeparture Location: " + transferList.get(0).getFrom() +
+               "\nArrival Location: " + transferList.get(transferList.size()-1).getTo() +
+               "\nNumber of Transfers: " + (transferList.size() - 1) +
+               "\nDuration: " + getTransferDuration(transferList);
+    }
+
+
+    public BookingReceipt bookFlight(User user, ArrayList<UserData> friends, Flight flight) {
+        Flight toReplace = getFlightByID(flight.getID());
+        this.flights.set(this.flights.indexOf(toReplace), flight);
+        BookingReceipt receipt = new BookingReceipt(flight, user, LocalDateTime.now(), friends);
+        return receipt;
+    }
+
+    public void addBookingToCart(Booking booking) {
+        this.cart.add(booking);
+    }
+
+    public ArrayList<BookingReceipt> checkoutCart(User user, ArrayList<UserData> bookees) {
+        ArrayList<BookingReceipt> receipts = new ArrayList<BookingReceipt>(); 
+        for (Booking booking : this.cart)
+        if (this.flights.contains(booking)) {
+            BookingReceipt receipt = new BookingReceipt(booking, user, LocalDateTime.now(), bookees);
+            receipts.add(receipt);
+        }
+        return receipts;
     }
 
 }

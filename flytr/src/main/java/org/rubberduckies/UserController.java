@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
@@ -16,11 +17,13 @@ public class UserController extends Controller {
     private static UserController instance;
     private BookingController bookingController;
     private ArrayList<User> users;
+    private User currentUser;
 
     /**
      * Creates a new user controller
      */
     private UserController() {
+        this.currentUser = null;
         System.out.println("----------------------------");
         System.out.println("INITIALIZING USER CONTROLLER");
         System.out.println("----------------------------");
@@ -58,6 +61,91 @@ public class UserController extends Controller {
         return instance;
     }
 
+    @SuppressWarnings("unchecked")
+    public void save(User user) {
+
+        // writing userData file
+        UserData userData = user.getData();
+        JSONObject userDataJson = new JSONObject();
+        userDataJson.put("role", user.getRole());
+        userDataJson.put("username", user.getUsername());
+        userDataJson.put("password", user.getPassword());
+        userDataJson.put("firstName", userData.getFirstName());
+        userDataJson.put("lastName", userData.getLastName());
+        userDataJson.put("birthDate", userData.getBirthDate());
+        userDataJson.put("phone", userData.getPhoneNumber());
+        userDataJson.put("email", userData.getEmail());
+        userDataJson.put("passport", userData.getPassport());
+        userDataJson.put("address", userData.getAddress());
+        JSONArray linkedAccountsJson = new JSONArray();
+        for (User linkedUser : user.getLinkedAccounts()) {
+            linkedAccountsJson.add(linkedUser.getUsername());
+        }
+        userDataJson.put("linkedAccounts", linkedAccountsJson);
+        userDataJson.put("frequentFlyer", user.isFrequentFlyer());
+        writeJson(USER_DATABASE + "/" + user.getUsername() + "/data.json", userDataJson);
+
+        // writing user dogs file
+        JSONObject userDogJsonWrapper = new JSONObject();
+        JSONArray userDogJson = new JSONArray();
+        for (Dog dog : user.getDogs()) {
+            JSONObject dogJson = new JSONObject();
+            dogJson.put("name", dog.getName());
+            dogJson.put("breed", dog.getBreed());
+            dogJson.put("weight", dog.getWeight());
+            userDogJson.add(dogJson);
+        }
+        userDogJsonWrapper.put("dogs", userDogJson);
+        writeJson(USER_DATABASE + "/" + user.getUsername() + "/dogs.json", userDogJsonWrapper);
+
+        // writing user preferences
+        // TODO
+        JSONObject userPrefJson = new JSONObject();
+
+        // writing user saved_people
+        JSONObject userSavedPeopleJson = new JSONObject();
+        JSONArray userSavedPeopleArray = new JSONArray();
+        for (UserData savedUserData : user.getSavedPeople()) {
+            JSONObject savedPersonJson = new JSONObject();
+            savedPersonJson.put("firstName", savedUserData.getFirstName());
+            savedPersonJson.put("lastName", savedUserData.getLastName());
+            savedPersonJson.put("email", savedUserData.getEmail());
+            savedPersonJson.put("phone", savedUserData.getPhoneNumber());
+            savedPersonJson.put("birthDate", savedUserData.getBirthDate().toString());
+            savedPersonJson.put("passport", savedUserData.getPassport());
+            savedPersonJson.put("address", savedUserData.getAddress());
+            userSavedPeopleArray.add(savedPersonJson);
+        }
+        userSavedPeopleJson.put("savedPeople", userSavedPeopleArray);
+        writeJson(USER_DATABASE + "/" + user.getUsername() + "/saved_people.json", userSavedPeopleJson);
+
+        // writing history
+        for (BookingReceipt receiptObject : user.getHistory()) {
+            JSONObject receiptJson = new JSONObject();
+            Booking receiptBooking = receiptObject.getBooking();
+            receiptJson.put("id", receiptBooking.getId());
+            switch (receiptBooking.getType()) {
+                case FLIGHT:
+                    receiptJson.put("bookingType", "FLIGHT");
+                    break;
+                case HOTEL:
+                    receiptJson.put("bookingType", "HOTEL");
+                    break;
+                default: 
+                    receiptJson.put("bookingType", "NULL");
+                    break;
+            }
+            receiptJson.put("booking", receiptBooking.getId());
+            receiptJson.put("bookedAt", receiptObject.getBookedOn().toString());
+            JSONArray usersJsonArray = new JSONArray();
+            for (UserData receiptUserData : receiptObject.getUsers()) {
+                usersJsonArray.add(receiptUserData.getFirstName() + " " + receiptUserData.getLastName());
+            }
+            receiptJson.put("users", usersJsonArray);
+            writeJson(USER_DATABASE + "/" + user.getUsername() + "/history/" + receiptBooking.getId() + ".json", receiptJson);
+        }
+
+    }
     
     /** 
      * Takes in User credentials and returns the User
@@ -69,12 +157,15 @@ public class UserController extends Controller {
      *
      * @return The authenticated User or null.
      */
-    public User login(String username, String password){
+    public boolean login(String username, String password){
         for (User user : users) {
             // if (BCrypt.checkpw(password, user.getPassword())) return user;
-            if (password.equals(user.getPassword())) return user;
+            if (password.equals(user.getPassword())) {
+                this.currentUser = user;
+                return true;
+            }
         }
-        return null;
+        return false;
     }
 
     public UserData dataFor(String username) {
@@ -115,7 +206,6 @@ public class UserController extends Controller {
         for (JSONObject json : jsonObjects) {
             JSONObject dataJson = (JSONObject)json.get("data");
             UserData userData = new UserData(
-                    
                     dataJson.get("firstName").toString(),
                     dataJson.get("lastName").toString(),
                     dataJson.get("email").toString(),
@@ -181,6 +271,7 @@ public class UserController extends Controller {
      * @param userDir The directory of the user.
      * @return The JSONObject of the User.
     */
+    @SuppressWarnings("unchecked")
     private JSONObject parseUserDir(String userDir) {
         JSONObject ret = new JSONObject();
         // concat all parts of User json files into one
@@ -238,11 +329,9 @@ public class UserController extends Controller {
                     receiptUsers.add(historyUserData);
                 }
             }
-            // FIXME
-            // This can't be changed until the BookingController loads all bookings into memory.
-            Booking booking = bookingController.getBookingByID(historyJson.get("bookingType").toString(), historyJson.get("booking").toString());
+
+            Booking booking = bookingController.getBookingByID(historyJson.get("bookingType").toString(), UUID.fromString(historyJson.get("booking").toString()));
             userHistory.add(new BookingReceipt(booking, user, LocalDateTime.parse(historyJson.get("bookedAt").toString()), receiptUsers));
-            // userHistory.add(new BookingReceipt(null, user, LocalDateTime.parse(historyJson.get("bookedAt").toString()), receiptUsers));
         }
     }
 
@@ -267,5 +356,9 @@ public class UserController extends Controller {
      */
     private String hash(String plainText){
         return BCrypt.hashpw(plainText, BCrypt.gensalt());
+    }
+
+    public User getCurrentUser() {
+        return this.currentUser;
     }
 }

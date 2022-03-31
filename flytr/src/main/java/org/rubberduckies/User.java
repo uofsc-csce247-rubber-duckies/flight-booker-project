@@ -61,7 +61,6 @@ public class User {
         this.isFrequentFlyer = isFrequentFlyer;
     }
 
-
     public String getUsername() {
         return this.username;
     }
@@ -84,6 +83,10 @@ public class User {
 
     public void setRole(UserRole role) {
         this.role = role;
+    }
+
+    public boolean isFrequentFlyer() {
+        return this.isFrequentFlyer;
     }
 
     public UserData getData() {

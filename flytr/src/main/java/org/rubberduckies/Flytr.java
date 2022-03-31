@@ -89,8 +89,10 @@ public class Flytr {
 
         ArrayList<ArrayList<Flight>> results = bookingController.searchFlight(departureLocation, arrivalLocation, departureTime, null);
 
-        System.out.println("SIZE: " + results.size());
-
+        if(results.size() == 0) { 
+            System.out.print("There are no flights found. Search again!");
+        }
+      
         for (int i = 1; i < 11; i++) {
             if (i > results.size()) {
                 break;
@@ -102,15 +104,10 @@ public class Flytr {
             }
             System.out.println(bookingController.transferToString(results.get(i-1)));
         }
-       
-
-        // System.out.println("Enter number of Pets:");
-        // int pets = keyboard.nextInt();
-
-        System.out.println("-----Flight Options-----");
 
         System.out.println(" Enter your Flight Choice: ");
         int flightDecision = keyboard.nextInt();
+        keyboard.nextLine();
 
         if(travelers == 1) {
             System.out.println("Choose your seat: ");
@@ -132,41 +129,37 @@ public class Flytr {
             String changes = keyboard.nextLine(); 
         } 
     } 
+
  /**
      * Created a class to book a round Trip Flight
      */
     public void roundTrip() {
         System.out.println("-----Departure Information-----");
         System.out.println("\n Enter your Departure Location: ");
-        String loc1 = keyboard.nextLine();     //make variable names consistent throughout program
+        String loc1 = keyboard.nextLine();     
     
-
         System.out.println("----- Destination Information -----");
         System.out.println("\n Enter your Destination Location: ");
-        String loc2 = keyboard.nextLine();     //make variable names consistent throughout program
+        String loc2 = keyboard.nextLine();   
         
-
         System.out.println("Enter your departure date(YYYY-MM-DD): ");
-        LocalDateTime userDate = convertStringToTime(keyboard.nextLine()); //TODO read DateTime
+        LocalDateTime userDate = convertStringToTime(keyboard.nextLine()); 
 
         System.out.println("Enter your return date(YYYY-MM-DD): ");
-        LocalDateTime returnDate = convertStringToTime(keyboard.nextLine()); //TODO read DateTime
+        LocalDateTime returnDate = convertStringToTime(keyboard.nextLine()); 
 
         System.out.println("Enter number of Travelers:");
         int travelers = keyboard.nextInt();
-
-       // System.out.println("Enter number of Pets:");
-        //int pets = keyboard.nextInt();
+        keyboard.nextLine();
 
         System.out.println("-----Flight Options-----"); 
-
         System.out.println(" Enter your Flight Choice: ");
         int flightDecision = keyboard.nextInt();
+        keyboard.nextLine();
 
         if(travelers == 1) {
             System.out.println("Choose your seat: ");
             String seat = keyboard.nextLine();
-            
         }
         else {
             System.out.println("Choose your seats: ");
@@ -189,12 +182,11 @@ public class Flytr {
         else {
             System.out.println("What would you like to change?:");
             String changes = keyboard.nextLine();
-             
-        }
-            
+        }           
          
     } 
     
+
     /** 
      * Search for hotel
      * @return 

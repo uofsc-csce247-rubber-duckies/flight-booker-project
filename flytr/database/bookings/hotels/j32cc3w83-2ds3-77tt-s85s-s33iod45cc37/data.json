@@ -1,0 +1,11 @@
+{
+    "id": "j32cc3w83-2ds3-77tt-s85s-s33iod45cc37",
+    "name": "The Marriott Grande",
+    "location": "Seattle, WA",
+    "hasGym": true,
+    "hasPool": true,
+    "rating": 9,
+    "kingsize" : 140,
+    "queensize" : 120,
+    "doublesize" : 90 
+}

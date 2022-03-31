@@ -1,0 +1,6 @@
+{
+    "number": "010",
+    "capacity": 2,
+    "takenDates": ["2022-05-01T00:00:00", "2022-05-02T00:00:00"],
+    "bedType": "DOUBLES"
+}

@@ -1,7 +1,6 @@
 package org.rubberduckies;
 
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +18,9 @@ public class BookingController extends Controller {
     private ArrayList<Flight> flights;
     private ArrayList<Hotel> hotels;
     private ArrayList<Booking> cart;
+
+    //TODO: Do we separate bookings into separate arraylists? they are stored separately in database. might make sense
+    // note from alex: probably
 
     /**
      * Creates booking controller and loads bookings from database
@@ -270,7 +272,7 @@ public class BookingController extends Controller {
                 continue; 
             }
 
-            if (arrivalTime != null && arrivalTime.getDayOfYear() != flight.getArrivalTime().getDayOfYear()) {
+            if (arrivalTime.getDayOfYear() != flight.getArrivalTime().getDayOfYear()) {
                 queue.remove(flight);
                 continue;
             }
@@ -386,6 +388,32 @@ public class BookingController extends Controller {
             return true;
         }
         return false;
+    }
+
+    public ArrayList<Hotel> searchHotels(Location location){
+        ArrayList<Hotel> results = new ArrayList<Hotel>();
+
+        for(Hotel hotel : hotels){
+            if(location.equals(hotel.getLocation())){
+                results.add(hotel);
+            }
+        }
+
+        return results;
+    }
+
+    public BookingReceipt bookHotel(User user, ArrayList<UserData> friends, Hotel hotel) {
+        Hotel toReplace = getHotelByID(hotel.getID());
+        this.hotels.set(this.hotels.indexOf(toReplace), hotel);
+        BookingReceipt receipt = new BookingReceipt(hotel, user, LocalDateTime.now(), friends);
+        return receipt;
+    }
+
+    public Hotel getHotelByID(UUID id) {
+        for (Hotel hotel : hotels) {
+            if (hotel.getID().equals(id)) return hotel; 
+        }
+        return null;
     }
 
     public Booking getBookingByID(String bookingType, UUID id) {

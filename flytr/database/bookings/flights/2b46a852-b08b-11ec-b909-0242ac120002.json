@@ -1,0 +1,21 @@
+{
+    "id": "2b46a852-b08b-11ec-b909-0242ac120002",
+    "airport": "Columbia Metropolitan Airport",
+    "from": "Columbia, SC",
+    "to": "Chicago, IL",
+    "departure": "2022-04-05T13:00:00",
+    "arrival": "2022-04-05T14:00:00",
+    "seats": [
+        [false, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, false, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true],
+        [true, true, true, true, true, true]
+    ],
+    "allowsDogs": true
+}

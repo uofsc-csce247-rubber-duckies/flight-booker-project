@@ -1,5 +1,7 @@
 package org.rubberduckies;
 
+import java.util.UUID;
+
 public abstract class Booking {
     private String id;
     private BookingType type;
@@ -8,9 +10,7 @@ public abstract class Booking {
      * An Accessor for the ID 
      * @return Booking UUID
      */
-    public String getId() {
-        return id;
-    }
+    public abstract UUID getID();
     
     /**
      * Sets the Booking ID

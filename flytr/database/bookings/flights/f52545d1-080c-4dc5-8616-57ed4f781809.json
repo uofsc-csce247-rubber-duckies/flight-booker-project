@@ -15,5 +15,6 @@
         [true, false, true, true],
         [true, true, true, true]
     ],
-    "allowsDogs": true
+    "allowsDogs": true,
+    "price": 90
 }

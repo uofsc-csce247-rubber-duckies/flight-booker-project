@@ -3,8 +3,8 @@
     "airport": "Columbia Metropolitan Airport",
     "from": "Columbia, SC",
     "to": "Chicago, IL",
-    "departure": "2022-04-05T13:00:00",
-    "arrival": "2022-04-05T14:00:00",
+    "departure": "2022-04-03T13:00:00",
+    "arrival": "2022-04-03T14:00:00",
     "seats": [
         [false, true, true, true, true, true],
         [true, true, true, true, true, true],
@@ -17,5 +17,6 @@
         [true, true, true, true, true, true],
         [true, true, true, true, true, true]
     ],
-    "allowsDogs": true
+    "allowsDogs": true,
+    "price": 68
 }

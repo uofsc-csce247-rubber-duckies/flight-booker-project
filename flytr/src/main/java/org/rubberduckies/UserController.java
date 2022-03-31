@@ -123,7 +123,7 @@ public class UserController extends Controller {
         for (BookingReceipt receiptObject : user.getHistory()) {
             JSONObject receiptJson = new JSONObject();
             Booking receiptBooking = receiptObject.getBooking();
-            receiptJson.put("id", receiptBooking.getId());
+            receiptJson.put("id", receiptBooking.getID());
             switch (receiptBooking.getType()) {
                 case FLIGHT:
                     receiptJson.put("bookingType", "FLIGHT");
@@ -135,14 +135,14 @@ public class UserController extends Controller {
                     receiptJson.put("bookingType", "NULL");
                     break;
             }
-            receiptJson.put("booking", receiptBooking.getId());
+            receiptJson.put("booking", receiptBooking.getID());
             receiptJson.put("bookedAt", receiptObject.getBookedOn().toString());
             JSONArray usersJsonArray = new JSONArray();
             for (UserData receiptUserData : receiptObject.getUsers()) {
                 usersJsonArray.add(receiptUserData.getFirstName() + " " + receiptUserData.getLastName());
             }
             receiptJson.put("users", usersJsonArray);
-            writeJson(USER_DATABASE + "/" + user.getUsername() + "/history/" + receiptBooking.getId() + ".json", receiptJson);
+            writeJson(USER_DATABASE + "/" + user.getUsername() + "/history/" + receiptBooking.getID() + ".json", receiptJson);
         }
 
     }

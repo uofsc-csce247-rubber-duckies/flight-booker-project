@@ -140,12 +140,12 @@ public class BookingController extends Controller {
         Booking receiptBooking = receipt.getBooking();
         User receiptUser = receipt.getBookedBy();
         String receiptText = 
-            "Receipt " + receiptBooking.getId() + 
+            "Receipt " + receiptBooking.getID() + 
             " for " + receiptUser.getData().getFirstName() + 
             " " + receiptUser.getData().getLastName() +
             "\n";
         receiptText += "Booked On " + receipt.getBookedOn().toString() + "\n\n";
-        receiptText += "ID: " + receiptBooking.getId() + "\n";
+        receiptText += "ID: " + receiptBooking.getID() + "\n";
         receiptText += "Type: " + receiptBooking.getType().toString() + "\n";
         ArrayList<UserData> receiptUsers = receipt.getUsers();
         receiptText += "Number of People: " + receiptUsers.size() + "\n";
@@ -177,7 +177,7 @@ public class BookingController extends Controller {
             receiptText += "Rating: " + receiptHotel.getRating() + "\n";
         }
         try {
-            FileWriter file = new FileWriter("./receipt_" + receiptBooking.getId() + ".txt");
+            FileWriter file = new FileWriter("./receipt_" + receiptBooking.getID() + ".txt");
             file.write(receiptText);
             file.flush();
             file.close();
@@ -261,18 +261,14 @@ public class BookingController extends Controller {
 
     public ArrayList<ArrayList<Flight>> searchFlight(Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime) {
         ArrayList<ArrayList<Flight>> results = new ArrayList<ArrayList<Flight>>();
-        ArrayList<Flight> queue = new ArrayList<Flight>(flights);      
-        for (Flight flight : queue) {
+        ArrayList<Flight> queue = new ArrayList<Flight>(flights);
+        ArrayList<Flight> copy_queue = new ArrayList<Flight>(queue);      
+        for (Flight flight : copy_queue) {
 
             // -------------- Get matching destination end-nodes -----------------
             if (!(to.equals(flight.getTo()))) {
                 queue.remove(flight);
                 continue; 
-            }
-
-            if (arrivalTime != null && arrivalTime.getDayOfYear() != flight.getArrivalTime().getDayOfYear()) {
-                queue.remove(flight);
-                continue;
             }
 
             if (departureTime.getDayOfYear() > flight.getDepartureTime().getDayOfYear()) {
@@ -283,7 +279,7 @@ public class BookingController extends Controller {
             // ---------------------------------------------------------------------
 
             // Direct flight match
-            if (from.equals(flight.getFrom()) && departureTime.getDayOfYear() == flight.getDepartureTime().getDayOfYear()) {
+            if (from.equals(flight.getFrom()) && departureTime.getDayOfYear() == flight.getDepartureTime().getDayOfYear() && to.equals(flight.getTo())) {
                 ArrayList<Flight> directFlight = new ArrayList<Flight>();
                 directFlight.add(flight);
                 results.add(directFlight);
@@ -291,19 +287,27 @@ public class BookingController extends Controller {
                 continue;
             }
 
-            // Correct departure location but not correct time
-            if (from.equals(flight.getFrom()) && departureTime.getDayOfYear() < flight.getDepartureTime().getDayOfYear()) {
-                queue.remove(flight);
-                continue;
-            }
+            // // Correct departure location but not correct time
+            // if (from.equals(flight.getFrom()) && departureTime.getDayOfYear() < flight.getDepartureTime().getDayOfYear()) {
+            //     queue.remove(flight);
+            //     continue;
+            // }
 
-            // Correct departure time but not correct location
-            if (!(from.equals(flight.getFrom())) && departureTime.getDayOfYear() == flight.getDepartureTime().getDayOfYear()) {
-                queue.remove(flight);
-                continue;
-            }
+            // // Correct departure time but not correct location
+            // if (!(from.equals(flight.getFrom())) && departureTime.getDayOfYear() == flight.getDepartureTime().getDayOfYear()) {
+            //     queue.remove(flight);
+            //     continue;
+            // }
 
         }
+
+        for (Flight flight : queue) {
+            System.out.println();
+            System.out.println("ENDNODE: " + flight);
+        }
+
+        System.out.println(":SIZE:" + queue.size());
+
 
         ArrayList<ArrayList<Flight>> transferLists = new ArrayList<ArrayList<Flight>>();
         transferLists = transferSearch(from, to, departureTime, arrivalTime, queue);
@@ -325,21 +329,23 @@ public class BookingController extends Controller {
             for (int i = 0; i < transferLayer.indexOf(null); i++) {
                 completeNodes.add(transferLayer.get(i));
             }
+
             ArrayList<Flight> incompleteNodes = new ArrayList<Flight>();
-                for (int i = transferLayer.indexOf(null) + 1; i < transferLayer.size(); i++) {
-                    incompleteNodes.add(transferLayer.get(i));
-                }
+            for (int i = transferLayer.indexOf(null) + 1; i < transferLayer.size(); i++) {
+                incompleteNodes.add(transferLayer.get(i));
+            }
             ArrayList<ArrayList<Flight>> subPaths = transferSearch(from, to, departureTime, arrivalTime, incompleteNodes);
 
             if (subPaths == null) {
                 if (completeNodes.size() == 0) {
                     continue;
                 }
+                ArrayList<Flight> completeList = new ArrayList<Flight>();
                 for (Flight completeNode : completeNodes) {
-                    ArrayList<Flight> completeList = new ArrayList<Flight>();
                     completeList.add(completeNode);
-                    transferPaths.add(completeList);
                 }
+                completeList.add(endNode);
+                transferPaths.add(completeList);
                 continue;
             }
             for (int i = 0; i < subPaths.size(); i++) {
@@ -358,16 +364,21 @@ public class BookingController extends Controller {
     }
 
     private ArrayList<Flight> getNextTransferLayer(Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime, Flight node) {
+        // System.out.println("SOURCE: " + node);
         ArrayList<Flight> transferLayer = new ArrayList<Flight>();
         transferLayer.add(null);
         for (Flight flight : flights) {
             if (completesTransfer(from, departureTime, node, flight)) {
-                    transferLayer.add(0, flight);
+                transferLayer.add(0, flight);
             }
             else if (isIncompleteTransfer(from, departureTime, node, flight)) {
                 transferLayer.add(flight);
             }
         }
+        
+        // for (Flight flight : transferLayer) {
+        //     System.out.println("FLIGHT: " + flight);
+        // }
         return transferLayer;
     }
 
@@ -377,12 +388,17 @@ public class BookingController extends Controller {
                 && candidate.getTo().equals(firstNode.getFrom()) && candidate.getArrivalTime().getDayOfYear() == firstNode.getDepartureTime().getDayOfYear()) {
             return true;
         }
+        // System.out.println("From: " + candidate.getFrom() + " " + from);
+        // System.out.println("To: " + candidate.getTo() + " " + firstNode.getFrom());
+        // System.out.println("DEPTIME: " + candidate.getDepartureTime().getDayOfYear() + " " + departureTime.getDayOfYear());
+        // System.out.println("ARRIA: " + candidate.getArrivalTime().getDayOfYear() + " " + firstNode.getDepartureTime().getDayOfYear());
         return false;
     }
 
     private boolean isIncompleteTransfer(Location from, LocalDateTime departureTime, Flight firstNode, Flight candidate) {
-        if (candidate.getDepartureTime().getDayOfYear() > departureTime.getDayOfYear() && candidate.getTo().equals(firstNode.getFrom()) 
+        if (candidate.getDepartureTime().getDayOfYear() >= departureTime.getDayOfYear() && candidate.getTo().equals(firstNode.getFrom()) 
                 && candidate.getArrivalTime().getDayOfYear() == firstNode.getDepartureTime().getDayOfYear()) {
+            // System.out.println("INCOMPLETE: " + candidate);
             return true;
         }
         return false;
@@ -407,10 +423,24 @@ public class BookingController extends Controller {
     }
 
     public String transferToString(ArrayList<Flight> transferList) {
-        return "\nDeparture Location: " + transferList.get(0).getFrom() +
+        String ret = "\nDeparture Location: " + transferList.get(0).getFrom() +
                "\nArrival Location: " + transferList.get(transferList.size()-1).getTo() +
-               "\nNumber of Transfers: " + (transferList.size() - 1) +
-               "\nDuration: " + getTransferDuration(transferList);
+               "\nNumber of Transfers: " + (transferList.size() - 1) + "\nTransfers: ";
+
+        for (Flight flight : transferList) {
+            ret += "\n    " + flight.getFrom() + " --> " + flight.getTo();
+        }
+        ret += "\nDuration: " + getTransferDuration(transferList);
+        ret += "\nPrice: $" + getTransferPrice(transferList);
+        return ret;
+    }
+
+    private int getTransferPrice(ArrayList<Flight> transferList) {
+        int sum = 0;
+        for (Flight flight : transferList) {
+            sum += flight.getPrice();
+        }
+        return sum / transferList.size();
     }
 
 

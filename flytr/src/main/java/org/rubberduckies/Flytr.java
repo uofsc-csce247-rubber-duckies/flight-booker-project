@@ -1,6 +1,7 @@
 package org.rubberduckies;
 
-import java.time.LocalDate;
+import java.io.FileWriter;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -86,6 +87,8 @@ public class Flytr {
         System.out.println("Enter number of Pets:");
         int pets = keyboard.nextInt();
 
+        System.out.println("SIZE: " + results.size());
+
         if(results.size() == 0) { 
             System.out.print("There are no flights found. Search again!");
         }
@@ -168,7 +171,15 @@ public class Flytr {
 
         for (Flight flight : selection) {
             BookingReceipt receipt = bookingController.bookFlight(userController.getCurrentUser(), otherTravelers, flight);
-            System.out.println(receipt);
+            // System.out.println(receipt);
+            try {
+                FileWriter file = new FileWriter("./receipt_" + receipt.getBooking().getID() + ".txt");
+                file.write(receipt.toString());
+                file.flush();
+                file.close();
+            } catch (Exception e) { 
+                e.printStackTrace(); 
+            }
         }
         
     } 

@@ -26,6 +26,7 @@ public class Flight extends Booking {
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
     private boolean allowsDogs;
+    private int price;
 
     /**
      * Creates a new Flight object
@@ -59,6 +60,7 @@ public class Flight extends Booking {
         this.arrivalTime = LocalDateTime.parse(flight.get("arrival").toString());
         this.seats = convertJSONArraytoBooleanArray((JSONArray)flight.get("seats"));
         this.allowsDogs = (Boolean) flight.get("allowsDogs");
+        this.price = Integer.parseInt(flight.get("price").toString());
     }
 
     private ArrayList<ArrayList<Boolean>> convertJSONArraytoBooleanArray(JSONArray array) {
@@ -148,7 +150,8 @@ public class Flight extends Booking {
                "\nArrival Location: " + to.toString() +
                "\nDeparture Time: " + departureTime.toString() +
                "\nArrival Time: " + arrivalTime.toString() +
-               "\nDuration: " + getDuration();
+               "\nDuration: " + getDuration() +
+               "\nPrice: $" + this.price;
     }
 
 
@@ -281,6 +284,10 @@ public class Flight extends Booking {
         ArrayList<Boolean> seatRow = this.seats.get(row);
         seatRow.set(col, true);
         this.seats.set(row, seatRow);
+    }
+
+    public int getPrice() {
+        return this.price;
     }
 
 }

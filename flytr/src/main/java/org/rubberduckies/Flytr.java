@@ -260,7 +260,7 @@ public class Flytr {
         System.out.println("-----Search Hotels-----");
         
         while(searchAgain == true){
-            System.out.println("Please enter your desired destination. \n City:");
+            System.out.println("Please enter your desired destination. \n Destination City:");
             city = keyboard.nextLine();
 
             System.out.println("State: ");

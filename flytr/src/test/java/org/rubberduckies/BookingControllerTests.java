@@ -234,4 +234,20 @@ public class BookingControllerTests {
         ArrayList<ArrayList<Flight>> results = controller.transferSearch(from, to, departure, arrival, endNodes);
         assertTrue(results.size() == 3);
     }
+
+    @Test
+    public void testHotelSearchFromInvalidLocation() {
+        BookingController controller = BookingController.getController();
+        Location location = new Location("Orlando, FL");
+        ArrayList<Hotel> results = controller.searchHotels(location);
+        assertTrue(results.size() == 0);
+    }
+    @Test
+    public void testHotelSearchFromNull() {
+        BookingController controller = BookingController.getController();
+        Location location = null;
+        ArrayList<Hotel> results = controller.searchHotels(location);
+        assertTrue(results.size() == 0);
+    }
+
 }

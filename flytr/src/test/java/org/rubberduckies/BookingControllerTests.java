@@ -258,5 +258,12 @@ public class BookingControllerTests {
         ArrayList<Hotel> results = controller.searchHotels(location);
         assertTrue(results.size() == 0);
     }
+
+    @Test
+    public void testHotelIDNotMatching() {
+        BookingController controller = BookingController.getController();
+        Hotel hotel = controller.getHotelByID(null);
+        assertNull(hotel);
+    }
     
 }

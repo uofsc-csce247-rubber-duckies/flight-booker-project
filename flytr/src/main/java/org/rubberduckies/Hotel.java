@@ -187,18 +187,21 @@ public class Hotel extends Booking {
      * Makes a hotel room available again
      * @param roomNumber hotel room number
      */
-    public void unbookRoom(String roomNumber, LocalDateTime checkIn, LocalDateTime checkout) {
+    public boolean unbookRoom(String roomNumber, LocalDateTime checkIn, LocalDateTime checkout) {
+        boolean ret = false;
         for (int i = 0; i < this.rooms.size(); i++) {
             HotelRoom room = this.rooms.get(i);
             if (room.getNumber().equals(roomNumber)) {
                 for (LocalDateTime date = checkIn; date.isBefore(checkout); date.plusDays(1)) {
                     if (room.getTakenDates().contains(date)) {
                         room.removeTakenDate(date);
+                        ret = true;
                     }
                 }
                 this.rooms.set(i, room);
             }
         }
+        return ret;
     }
 
 

@@ -59,3 +59,8 @@
     - Description: The login() method for the UserController returns the incorrect user occasionally when multiple users share the same password.
     - Test Case: loginValidUserSamePassword
     - Location of Error: UserController, login() method
+    
+12. HotelRoom Returns Invalid ArrayList with Incorrect Dates
+    - Description: The getTakenDates() method for the HotelRoom returns an invalid arraylist when the checkIn date comes  before the checkOut date on a calendar.
+    - Test Case: testAddTakenDate_InvalidDates
+    - Location of Error: HotelRoom, getTakenDates method

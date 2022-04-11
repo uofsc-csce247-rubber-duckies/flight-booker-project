@@ -454,19 +454,19 @@ public class BookingController extends Controller {
         return receipt;
     }
 
-    public void addBookingToCart(Booking booking) {
-        this.cart.add(booking);
-    }
+    // public void addBookingToCart(Booking booking) {
+    //     this.cart.add(booking);
+    // }
 
-    public ArrayList<BookingReceipt> checkoutCart(User user, ArrayList<UserData> bookees) {
-        ArrayList<BookingReceipt> receipts = new ArrayList<BookingReceipt>(); 
-        for (Booking booking : this.cart)
-        if (this.flights.contains(booking)) {
-            BookingReceipt receipt = new BookingReceipt(booking, user, LocalDateTime.now(), bookees);
-            receipts.add(receipt);
-        }
-        return receipts;
-    }
+    // public ArrayList<BookingReceipt> checkoutCart(User user, ArrayList<UserData> bookees) {
+    //     ArrayList<BookingReceipt> receipts = new ArrayList<BookingReceipt>(); 
+    //     for (Booking booking : this.cart)
+    //     if (this.flights.contains(booking)) {
+    //         BookingReceipt receipt = new BookingReceipt(booking, user, LocalDateTime.now(), bookees);
+    //         receipts.add(receipt);
+    //     }
+    //     return receipts;
+    // }
 
     public void backupDatabase() {
         this.backupFlights = new ArrayList<Flight>();

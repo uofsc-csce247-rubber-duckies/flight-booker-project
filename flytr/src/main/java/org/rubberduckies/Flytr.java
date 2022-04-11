@@ -131,7 +131,7 @@ public class Flytr {
                 bookedFlight.bookSeat(Integer.parseInt(rowSelection) - 1, (int)(colSelection - 'A'));
                 selection.set(i, bookedFlight);
             }
-            bookingController.addBookingToCart(selection.get(i));
+            // bookingController.addBookingToCart(selection.get(i));
         }
 
         while (userController.getCurrentUser() == null) {

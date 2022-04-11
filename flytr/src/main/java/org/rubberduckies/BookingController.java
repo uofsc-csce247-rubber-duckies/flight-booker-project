@@ -388,11 +388,16 @@ public class BookingController extends Controller {
         return false;
     }
 
-    public ArrayList<Hotel> searchHotels(Location location){
+    public ArrayList<Hotel> searchHotels(Location location, HotelRoom rooms){
         ArrayList<Hotel> results = new ArrayList<Hotel>();
 
         for(Hotel hotel : hotels){
             if(location.equals(hotel.getLocation())){
+                results.add(hotel);
+            }
+        }
+        for(Hotel hotel : hotels){
+            if(rooms.equals(rooms.getBedType())){
                 results.add(hotel);
             }
         }

@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import org.json.simple.JSONObject;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -239,15 +240,48 @@ public class BookingControllerTests {
     public void testHotelSearchFromInvalidLocation() {
         BookingController controller = BookingController.getController();
         Location location = new Location("Orlando, FL");
-        ArrayList<Hotel> results = controller.searchHotels(location);
+        HotelRoom rooms = null;
+        ArrayList<Hotel> results = controller.searchHotels(location, rooms);
         assertTrue(results.size() == 0);
     }
     @Test
     public void testHotelSearchFromNull() {
         BookingController controller = BookingController.getController();
         Location location = null;
-        ArrayList<Hotel> results = controller.searchHotels(location);
+        HotelRoom rooms = null; 
+        ArrayList<Hotel> results = controller.searchHotels(location,rooms);
         assertTrue(results.size() == 0);
     }
-
+    public void testHotelSearchLocationNonexistent() {
+        BookingController controller = BookingController.getController();
+        Location location = new Location("New York,NY");
+        HotelRoom rooms = new HotelRoom(3, "three", BedType.KING);
+        ArrayList<Hotel> results = controller.searchHotels(location,rooms);
+        assertTrue(results.size() == 0);
+    }
+    @Test
+    public void testHotelSearchRoomsNull () {
+        BookingController controller = BookingController.getController();
+        Location location = new Location("Atlanta, GA");
+        HotelRoom rooms = null;
+        ArrayList<Hotel> results = controller.searchHotels(location, rooms);
+        assertTrue(results.size() == 0);  
+    }
+    @Test
+    public void testHotelSearchValid() {
+        BookingController controller = BookingController.getController();
+        Location location = new Location("Seattle, WA");
+        HotelRoom rooms = new HotelRoom(3, "three", BedType.KING);
+        ArrayList<Hotel> results = controller.searchHotels(location, rooms);
+        assertTrue(results.size() == 4);
+    }
+    @Test
+    public void testHotelSearchRoomsNonexistent() {
+        BookingController controller = BookingController.getController();
+        Location location = new Location("Seattle, WA");
+        HotelRoom rooms = new HotelRoom(3, "three", BedType.SINGLE);
+        ArrayList<Hotel> results = controller.searchHotels(location, rooms);
+        assertTrue(results.size() == 4);
+    }
+    
 }

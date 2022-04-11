@@ -241,6 +241,7 @@ public class BookingControllerTests {
         Location location = new Location("Seattle, WA");
         ArrayList<Hotel> results = controller.searchHotels(location);
         assertTrue(results.size() == 4);
+    }
 
     @Test
     public void testFlightTransferSearchFromInvalidLocation() {

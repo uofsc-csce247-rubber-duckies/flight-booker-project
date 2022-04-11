@@ -1,13 +1,10 @@
 package org.rubberduckies;
 
-// import org.rubberduckies.BookingController;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
-
-import javax.swing.TransferHandler.TransferSupport;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -417,5 +414,21 @@ public class BookingControllerTests {
         Flight origin = controller.getFlightByID(UUID.fromString("a310f77c-fa15-4624-b118-7531476c3051"));
         boolean isIncompleteTransfer = controller.isIncompleteTransfer(from, departure, endNode, origin);
         assertFalse(isIncompleteTransfer);
+    }
+
+    @Test
+    public void testHotelSearchFromInvalidLocation() {
+        BookingController controller = BookingController.getController();
+        Location location = new Location("Orlando, FL");
+        ArrayList<Hotel> results = controller.searchHotels(location);
+        assertTrue(results.size() == 0);
+    }
+
+    @Test
+    public void testHotelSearchFromNull() {
+        BookingController controller = BookingController.getController();
+        Location location = null;
+        ArrayList<Hotel> results = controller.searchHotels(location);
+        assertTrue(results.size() == 0);
     }
 }

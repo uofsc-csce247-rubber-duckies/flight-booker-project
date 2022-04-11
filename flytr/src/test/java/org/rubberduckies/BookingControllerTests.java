@@ -1,6 +1,5 @@
 package org.rubberduckies;
 
-// import org.rubberduckies.BookingController;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDateTime;
@@ -242,6 +241,187 @@ public class BookingControllerTests {
         Location location = new Location("Seattle, WA");
         ArrayList<Hotel> results = controller.searchHotels(location);
         assertTrue(results.size() == 4);
+
+    @Test
+    public void testFlightTransferSearchFromInvalidLocation() {
+        BookingController controller = BookingController.getController();
+        Location from = new Location("Charlotte, NC");
+        Location to = new Location("Seattle, WA");
+        LocalDateTime departure = LocalDateTime.parse("2022-04-03T13:00:00");
+        LocalDateTime arrival = LocalDateTime.parse("2022-04-03T14:00:00");
+        ArrayList<Flight> endNodes = controller.getTransferEndNodes(from, to, departure, arrival);
+        ArrayList<ArrayList<Flight>> results = controller.transferSearch(from, to, departure, arrival, endNodes);
+        assertNull(results);
+    }
+
+    @Test
+    public void testFlightTransferSearchToInvalidLocation() {
+        BookingController controller = BookingController.getController();
+        Location from = new Location("Columbia, SC");
+        Location to = new Location("Cincinatti, OH");
+        LocalDateTime departure = LocalDateTime.parse("2022-04-03T13:00:00");
+        LocalDateTime arrival = LocalDateTime.parse("2022-04-03T14:00:00");
+        ArrayList<Flight> endNodes = controller.getTransferEndNodes(from, to, departure, arrival);
+        ArrayList<ArrayList<Flight>> results = controller.transferSearch(from, to, departure, arrival, endNodes);
+        assertNull(results);
+    }
+
+    @Test
+    public void testFlightTransferSearchInvalidDepartureTime() {
+        BookingController controller = BookingController.getController();
+        Location from = new Location("Columbia, SC");
+        Location to = new Location("Seattle, WA");
+        LocalDateTime departure = LocalDateTime.parse("2022-04-01T13:00:00");
+        LocalDateTime arrival = LocalDateTime.parse("2022-04-03T14:00:00");
+        ArrayList<Flight> endNodes = controller.getTransferEndNodes(from, to, departure, arrival);
+        ArrayList<ArrayList<Flight>> results = controller.transferSearch(from, to, departure, arrival, endNodes);
+        assertNull(results);
+    }
+
+    @Test
+    public void testFlightTransferSearchInvalidArrivalTime() {
+        BookingController controller = BookingController.getController();
+        Location from = new Location("Columbia, SC");
+        Location to = new Location("Seattle, WA");
+        LocalDateTime departure = LocalDateTime.parse("2022-04-03T13:00:00");
+        LocalDateTime arrival = LocalDateTime.parse("2022-04-01T14:00:00");
+        ArrayList<Flight> endNodes = controller.getTransferEndNodes(from, to, departure, arrival);
+        ArrayList<ArrayList<Flight>> results = controller.transferSearch(from, to, departure, arrival, endNodes);
+            assertNull(results);
+    }
+
+    @Test
+    public void testFlightTransferLayerCompleteMatch() {
+        BookingController controller = BookingController.getController();
+        Location from = new Location("Columbia, SC");
+        Location to = new Location("Seattle, WA");
+        LocalDateTime departure = LocalDateTime.parse("2022-04-03T13:00:00");
+        LocalDateTime arrival = LocalDateTime.parse("2022-04-03T14:00:00");
+        ArrayList<Flight> endNodes = controller.getTransferEndNodes(from, to, departure, arrival);
+        ArrayList<Flight> transferLayer = controller.getNextTransferLayer(from, to, departure, arrival, endNodes.get(0));
+        assertTrue(transferLayer.indexOf(null) == 1 && transferLayer.size() == 2);
+    }
+
+    @Test
+    public void testFlightTransferLayerIncompleteMatch() {
+        BookingController controller = BookingController.getController();
+        Location from = new Location("Columbia, SC");
+        Location to = new Location("Seattle, WA");
+        LocalDateTime departure = LocalDateTime.parse("2022-04-03T13:00:00");
+        LocalDateTime arrival = LocalDateTime.parse("2022-04-03T14:00:00");
+        ArrayList<Flight> endNodes = controller.getTransferEndNodes(from, to, departure, arrival);
+        ArrayList<Flight> transferLayer = controller.getNextTransferLayer(from, to, departure, arrival, endNodes.get(1));
+        assertTrue(transferLayer.indexOf(null) == 0 && transferLayer.size() == 2);
+    }
+
+    @Test
+    public void testFlightTransferLayerNoMatch() {
+        BookingController controller = BookingController.getController();
+        Location from = new Location("Columbia, SC");
+        Location to = new Location("Seattle, WA");
+        LocalDateTime departure = LocalDateTime.parse("2022-04-03T13:00:00");
+        LocalDateTime arrival = LocalDateTime.parse("2022-04-03T14:00:00");
+        ArrayList<Flight> transferLayer = controller.getNextTransferLayer(from, to, departure, arrival, controller.getFlightsDB().get(0));
+        assertTrue(transferLayer.indexOf(null) == 0 && transferLayer.size() == 1);
+    }
+
+    @Test
+    public void testFlightCompletesTransferValid() {
+        BookingController controller = BookingController.getController();
+        Location from = new Location("Columbia, SC");
+        LocalDateTime departure = LocalDateTime.parse("2022-04-03T13:00:00");
+        Flight endNode = controller.getFlightByID(UUID.fromString("3fe1743e-b08d-11ec-b909-0242ac120002"));
+        Flight origin = controller.getFlightByID(UUID.fromString("2b46a852-b08b-11ec-b909-0242ac120002"));
+        boolean completesTransfer = controller.completesTransfer(from, departure, endNode, origin);
+        assertTrue(completesTransfer);
+    }
+
+    @Test
+    public void testFlightCompletesTransferInvalidSourceNode() {
+        BookingController controller = BookingController.getController();
+        Location from = new Location("Columbia, SC");
+        LocalDateTime departure = LocalDateTime.parse("2022-04-03T13:00:00");
+        Flight endNode = controller.getFlightByID(UUID.fromString("3fe1743e-b08d-11ec-b909-0242ac120002"));
+        Flight origin = controller.getFlightByID(UUID.fromString("f310f77c-fa15-4624-b118-7531476c3051"));
+        boolean completesTransfer = controller.completesTransfer(from, departure, endNode, origin);
+        assertFalse(completesTransfer);
+    }
+
+    @Test
+    public void testFlightCompletesTransferFromInvalidLocation() {
+        BookingController controller = BookingController.getController();
+        Location from = new Location("Charlotte, NC");
+        LocalDateTime departure = LocalDateTime.parse("2022-04-03T13:00:00");
+        Flight endNode = controller.getFlightByID(UUID.fromString("3fe1743e-b08d-11ec-b909-0242ac120002"));
+        Flight origin = controller.getFlightByID(UUID.fromString("2b46a852-b08b-11ec-b909-0242ac120002"));
+        boolean completesTransfer = controller.completesTransfer(from, departure, endNode, origin);
+        assertFalse(completesTransfer);
+    }
+
+    @Test
+    public void testFlightCompletesTransferInvalidDepartureTime() {
+        BookingController controller = BookingController.getController();
+        Location from = new Location("Columbia, SC");
+        LocalDateTime departure = LocalDateTime.parse("2022-04-01T13:00:00");
+        Flight endNode = controller.getFlightByID(UUID.fromString("3fe1743e-b08d-11ec-b909-0242ac120002"));
+        Flight origin = controller.getFlightByID(UUID.fromString("2b46a852-b08b-11ec-b909-0242ac120002"));
+        boolean completesTransfer = controller.completesTransfer(from, departure, endNode, origin);
+        assertFalse(completesTransfer);
+    }
+
+    @Test
+    public void testFlightIncompleteTransferValid() {
+        BookingController controller = BookingController.getController();
+        Location from = new Location("Columbia, SC");
+        LocalDateTime departure = LocalDateTime.parse("2022-04-03T13:00:00");
+        Flight endNode = controller.getFlightByID(UUID.fromString("a310f77c-fa15-4624-b118-7531476c3051"));
+        Flight origin = controller.getFlightByID(UUID.fromString("f310f77c-fa15-4624-b118-7531476c3051"));
+        boolean isIncompleteTransfer = controller.isIncompleteTransfer(from, departure, endNode, origin);
+        assertTrue(isIncompleteTransfer);
+    }
+
+    @Test
+    public void testFlightIncompleteTransferCompletesTransfer() {
+        BookingController controller = BookingController.getController();
+        Location from = new Location("Columbia, SC");
+        LocalDateTime departure = LocalDateTime.parse("2022-04-03T13:00:00");
+        Flight endNode = controller.getFlightByID(UUID.fromString("3fe1743e-b08d-11ec-b909-0242ac120002"));
+        Flight origin = controller.getFlightByID(UUID.fromString("2b46a852-b08b-11ec-b909-0242ac120002"));
+        boolean isIncompleteTransfer = controller.isIncompleteTransfer(from, departure, endNode, origin);
+        assertFalse(isIncompleteTransfer);
+    }
+
+    @Test
+    public void testFlightIncompleteTransferFromInvalidLocation() {
+        BookingController controller = BookingController.getController();
+        Location from = new Location("Austin, TX");
+        LocalDateTime departure = LocalDateTime.parse("2022-04-03T13:00:00");
+        Flight endNode = controller.getFlightByID(UUID.fromString("a310f77c-fa15-4624-b118-7531476c3051"));
+        Flight origin = controller.getFlightByID(UUID.fromString("f310f77c-fa15-4624-b118-7531476c3051"));
+        boolean isIncompleteTransfer = controller.isIncompleteTransfer(from, departure, endNode, origin);
+        assertFalse(isIncompleteTransfer);
+    }
+
+    @Test
+    public void testFlightIncompleteTransferInvalidDepartureTime() {
+        BookingController controller = BookingController.getController();
+        Location from = new Location("Columbia, SC");
+        LocalDateTime departure = LocalDateTime.parse("2022-04-06T13:00:00");
+        Flight endNode = controller.getFlightByID(UUID.fromString("a310f77c-fa15-4624-b118-7531476c3051"));
+        Flight origin = controller.getFlightByID(UUID.fromString("f310f77c-fa15-4624-b118-7531476c3051"));
+        boolean isIncompleteTransfer = controller.isIncompleteTransfer(from, departure, endNode, origin);
+        assertFalse(isIncompleteTransfer);
+    }
+
+    @Test
+    public void testFlightIncompleteTransferSameFlight() {
+        BookingController controller = BookingController.getController();
+        Location from = new Location("Columbia, SC");
+        LocalDateTime departure = LocalDateTime.parse("2022-04-06T13:00:00");
+        Flight endNode = controller.getFlightByID(UUID.fromString("a310f77c-fa15-4624-b118-7531476c3051"));
+        Flight origin = controller.getFlightByID(UUID.fromString("a310f77c-fa15-4624-b118-7531476c3051"));
+        boolean isIncompleteTransfer = controller.isIncompleteTransfer(from, departure, endNode, origin);
+        assertFalse(isIncompleteTransfer);
     }
 
     @Test
@@ -251,6 +431,7 @@ public class BookingControllerTests {
         ArrayList<Hotel> results = controller.searchHotels(location);
         assertTrue(results.size() == 0);
     }
+
     @Test
     public void testHotelSearchFromNull() {
         BookingController controller = BookingController.getController();

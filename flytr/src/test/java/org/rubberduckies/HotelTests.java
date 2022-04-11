@@ -28,7 +28,7 @@ public class BookingControllerTests {
     @Before
     public static void setup() {
         BookingController controller = BookingController.getController();
-        //controller.backupDatabase();
+        controller.backupDatabase();
         loadBookings();
         UUID id = "b42dbd93-90f5-445e-9f49-bffea3dfbbaa";
         Hotel hotel = BookingController.getHotelByID(id);
@@ -38,7 +38,7 @@ public class BookingControllerTests {
     @After
     public static void tearDown() {
         BookingController controller = BookingController.getController();
-        //controller.restoreDatabase();
+        controller.restoreDatabase();
     }
 
     // Runs after last test

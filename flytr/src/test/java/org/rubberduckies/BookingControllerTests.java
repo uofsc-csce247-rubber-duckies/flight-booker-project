@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import org.json.simple.JSONObject;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -235,6 +236,13 @@ public class BookingControllerTests {
     }
 
     @Test
+    public void testHotelSearchValid() {
+        BookingController controller = BookingController.getController();
+        Location location = new Location("Seattle, WA");
+        ArrayList<Hotel> results = controller.searchHotels(location);
+        assertTrue(results.size() == 4);
+
+    @Test
     public void testFlightTransferSearchFromInvalidLocation() {
         BookingController controller = BookingController.getController();
         Location from = new Location("Charlotte, NC");
@@ -431,4 +439,12 @@ public class BookingControllerTests {
         ArrayList<Hotel> results = controller.searchHotels(location);
         assertTrue(results.size() == 0);
     }
+
+    @Test
+    public void testHotelIDNotMatching() {
+        BookingController controller = BookingController.getController();
+        Hotel hotel = controller.getHotelByID(null);
+        assertNull(hotel);
+    }
+    
 }

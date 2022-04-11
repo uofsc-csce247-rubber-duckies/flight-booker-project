@@ -43,12 +43,5 @@ public class FlytrTester {
         assertNotNull(flytr);
     }
 
-    @Test
-    public void 
-    {
-
-    }
-
-
 }
 

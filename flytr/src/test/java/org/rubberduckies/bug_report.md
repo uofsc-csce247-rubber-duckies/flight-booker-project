@@ -1,4 +1,4 @@
-# Bugs
+# Bug Report
 
 1. Null Flight Transfer Lists
 	- Description: When there are only direct flight results, the transfer flight results come back as null.
@@ -54,3 +54,8 @@
 		the search departure location and time. See (#9) for related issue.
 	- Test Case: testFlightIncompleteTransferFromInvalidLocation
 	- Location of Error: BookingController class, isIncompleteTransfer method
+
+11. UserController Returns Incorrect User when Logging In
+    - Description: The login() method for the UserController returns the incorrect user occasionally when multiple users share the same password.
+    - Test Case: loginValidUserSamePassword
+    - Location of Error: UserController, login() method

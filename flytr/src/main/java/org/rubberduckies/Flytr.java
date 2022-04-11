@@ -12,12 +12,12 @@ import org.w3c.dom.html.HTMLDivElement;
 
 public class Flytr {
   
-    private Flytr instance;
+    public static Flytr instance;
     private BookingController bookingController;
     private UserController userController;
     public static Scanner keyboard = new Scanner(System.in);
 
-    public Flytr() {
+    private Flytr() {
         bookingController = BookingController.getController();
         userController = UserController.getController();
     }
@@ -27,11 +27,9 @@ public class Flytr {
      *
      * @return Flytr application
      */
-    public Flytr getInstance() {
-        if (instance == null) {
-            this.instance = new Flytr();
-        }
-        return this.instance;
+    public static Flytr getInstance() {
+        if (instance == null) instance = new Flytr();
+        return instance;
     }
 
     /**
@@ -797,7 +795,7 @@ public class Flytr {
     }
 
     public static void main(String[] args) {
-        Flytr flytr = new Flytr();
+        Flytr flytr = Flytr.getInstance();
         flytr.run();
     }
 

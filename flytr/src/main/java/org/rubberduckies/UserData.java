@@ -12,11 +12,6 @@ public class UserData {
     private String passport;
     private String address;
 
-    
-    public UserData() {
-
-    }
-
 
     public UserData(String firstName, String lastName, String email, String phoneNumber, LocalDateTime birthDate, String passport, String address) {
         this.firstName = firstName;

@@ -349,6 +349,7 @@ public class UserController extends Controller {
      *
      * Helper method that hashes a plain text password
      * and returns the message digest using Bcrypt.
+     * 
      *
      * @param plainText The plain text to hash.
      *
@@ -361,4 +362,32 @@ public class UserController extends Controller {
     public User getCurrentUser() {
         return this.currentUser;
     }
+
+    /**
+     * TEST PURPOSES ONLY
+     *
+     * @param user
+    */
+    public void _addUser(User user) {
+        this.users.add(user);
+    }
+
+    /**
+     * TEST PURPOSES ONLY
+     *
+     * @return
+    */
+    public int _getNumberOfUsers() {
+        return users.size();
+    }
+
+    /**
+     * TEST PURPOSES ONLY
+     *
+     * @return
+    */
+    public int _getNumberOfUserDirs() {
+        return getFilesFromDirectory(USER_DATABASE).length;
+    }
+
 }

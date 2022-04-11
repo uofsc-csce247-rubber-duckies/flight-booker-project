@@ -26,3 +26,31 @@
 	- Description: The search method is unable to get the day of year from a null object.
 	- Test Case: testFlightSearchArrivalTimeNull
 	- Location of Error: BookingController class, searchFlight method
+
+6. Flight Transfer Search From Non-Matching Location
+	- Description: The transfer search method returns an empty arraylist instead of null.
+		While the method functions, "no results" should be standardized -- either null or empty.
+	- Test Case: testFlightTransferSearchFromInvalidLocation
+	- Location of Error: BookingController class, transferSearch method
+
+7. Flight Transfer Search Non-Matching Departure Time
+	- Description: The transfer search method returns an empty arraylist instead of null.
+		While the method functions, "no results" should be standardized -- either null or empty.
+	- Test Case: testFlightTransferSearchInvalidDepartureTime
+	- Location of Error: BookingController class, transferSearch method
+
+8. Flight Transfer Search Non-Matching Arrival Time
+	- Description: The transfer search method results as if arrival time was correct when it was not 
+	- Test Case: testFlightTransferSearchInvalidArrivalTime
+	- Location of Error: BookingController class, transferSearch method
+
+9. Flight Incomplete Transfer Matching Complete Transfers
+	- Description: The isIncompleteTransfer method returns true for complete transfers
+	- Test Case: testFlightIncompleteTransferCompletesTransfer
+	- Location of Error: BookingController class, isIncompleteTransfer method
+
+10. Flight Incomplete Transfer Departure Location Matching Search Departure Location
+	- Description: The isIncompleteTransfer method returns true when the departure location and time match
+		the search departure location and time. See (#9) for related issue.
+	- Test Case: testFlightIncompleteTransferFromInvalidLocation
+	- Location of Error: BookingController class, isIncompleteTransfer method

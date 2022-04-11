@@ -17,6 +17,8 @@ public class BookingController extends Controller {
     private static BookingController instance;
     private ArrayList<Flight> flights;
     private ArrayList<Hotel> hotels;
+    private ArrayList<Flight> backupFlights;
+    private ArrayList<Hotel> backupHotels;
     private ArrayList<Booking> cart;
 
     //TODO: Do we separate bookings into separate arraylists? they are stored separately in database. might make sense
@@ -27,6 +29,8 @@ public class BookingController extends Controller {
      */
     private BookingController() {
         this.cart = new ArrayList<Booking>();
+        this.backupFlights = new ArrayList<Flight>();
+        this.backupHotels = new ArrayList<Hotel>();
         System.out.println("---------------------------");
         System.out.println("INITIALIZING BOOKING CONTROLLER");
         System.out.println("------------------------");
@@ -94,15 +98,6 @@ public class BookingController extends Controller {
         return hotelRooms;
     }
 
-    /**
-     * Parses JSON object
-     * @param jsonObject json object to parse
-     */
-    protected void parse(JSONObject jsonObject) {
-        //TODO: implement
-        return;
-    }
-
     public Flight getFlightByID(UUID id) {
         for (Flight flight : flights) {
             if (flight.getID().equals(id)) return flight; 
@@ -114,27 +109,6 @@ public class BookingController extends Controller {
         for (Hotel hotel : hotels) {
             if (hotel.getID().equals(id)) return hotel; 
         }
-        return null;
-    }
-
-    /**
-     * Books a desired booking
-     * @param booking booking to book
-     * @param user user to book booking for
-     * @return Booking Receipt for booking
-     */
-    public BookingReceipt book(Booking booking, User user) {
-        return null;
-    }
-
-    /**
-     * Books a desired booking
-     * @param booking to book
-     * @param user to book booking for
-     * @param users other users to book for
-     * @return Booking Receipt for booking
-     */
-    public BookingReceipt book(Booking booking, User user, ArrayList<UserData> users) {
         return null;
     }
 
@@ -260,6 +234,33 @@ public class BookingController extends Controller {
         writeJson(folder + room.getNumber() + ".json", roomData);
     }
 
+    public ArrayList<Flight> getTransferEndNodes(Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime) {
+        ArrayList<Flight> queue = new ArrayList<Flight>(flights);
+        ArrayList<Flight> copy_queue = new ArrayList<Flight>(queue);      
+        for (Flight flight : copy_queue) {
+
+            // -------------- Get matching destination end-nodes -----------------
+            if (!(to.equals(flight.getTo()))) {
+                queue.remove(flight);
+                continue; 
+            }
+
+            if (departureTime.getDayOfYear() > flight.getDepartureTime().getDayOfYear()) {
+                queue.remove(flight);
+                continue;
+            }
+
+            // ---------------------------------------------------------------------
+
+            // Direct flight match
+            if (from.equals(flight.getFrom()) && departureTime.getDayOfYear() == flight.getDepartureTime().getDayOfYear() && to.equals(flight.getTo())) {
+                queue.remove(flight);
+                continue;
+            }
+
+        }
+        return queue;
+    }
 
     public ArrayList<ArrayList<Flight>> searchFlight(Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime) {
         ArrayList<ArrayList<Flight>> results = new ArrayList<ArrayList<Flight>>();
@@ -289,26 +290,7 @@ public class BookingController extends Controller {
                 continue;
             }
 
-            // // Correct departure location but not correct time
-            // if (from.equals(flight.getFrom()) && departureTime.getDayOfYear() < flight.getDepartureTime().getDayOfYear()) {
-            //     queue.remove(flight);
-            //     continue;
-            // }
-
-            // // Correct departure time but not correct location
-            // if (!(from.equals(flight.getFrom())) && departureTime.getDayOfYear() == flight.getDepartureTime().getDayOfYear()) {
-            //     queue.remove(flight);
-            //     continue;
-            // }
-
         }
-
-        // for (Flight flight : queue) {
-        //     System.out.println();
-        //     System.out.println("ENDNODE: " + flight);
-        // }
-
-        // System.out.println(":SIZE:" + queue.size());
 
 
         ArrayList<ArrayList<Flight>> transferLists = new ArrayList<ArrayList<Flight>>();
@@ -320,7 +302,7 @@ public class BookingController extends Controller {
     }
 
 
-    private ArrayList<ArrayList<Flight>> transferSearch(Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime, ArrayList<Flight> endNodes) {
+    public ArrayList<ArrayList<Flight>> transferSearch(Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime, ArrayList<Flight> endNodes) {
         if (endNodes.size() == 0) {
             return null;
         }
@@ -365,7 +347,7 @@ public class BookingController extends Controller {
         return transferPaths;
     }
 
-    private ArrayList<Flight> getNextTransferLayer(Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime, Flight node) {
+    public ArrayList<Flight> getNextTransferLayer(Location from, Location to, LocalDateTime departureTime, LocalDateTime arrivalTime, Flight node) {
         // System.out.println("SOURCE: " + node);
         ArrayList<Flight> transferLayer = new ArrayList<Flight>();
         transferLayer.add(null);
@@ -385,7 +367,7 @@ public class BookingController extends Controller {
     }
 
     // Vomit -- flight matches to fill tranfer chain
-    private boolean completesTransfer(Location from, LocalDateTime departureTime, Flight firstNode, Flight candidate) {
+    public boolean completesTransfer(Location from, LocalDateTime departureTime, Flight firstNode, Flight candidate) {
         if (candidate.getFrom().equals(from) && candidate.getDepartureTime().getDayOfYear() == departureTime.getDayOfYear()  
                 && candidate.getTo().equals(firstNode.getFrom()) && candidate.getArrivalTime().getDayOfYear() == firstNode.getDepartureTime().getDayOfYear()) {
             return true;
@@ -397,7 +379,7 @@ public class BookingController extends Controller {
         return false;
     }
 
-    private boolean isIncompleteTransfer(Location from, LocalDateTime departureTime, Flight firstNode, Flight candidate) {
+    public boolean isIncompleteTransfer(Location from, LocalDateTime departureTime, Flight firstNode, Flight candidate) {
         if (candidate.getDepartureTime().getDayOfYear() >= departureTime.getDayOfYear() && candidate.getTo().equals(firstNode.getFrom()) 
                 && candidate.getArrivalTime().getDayOfYear() == firstNode.getDepartureTime().getDayOfYear()) {
             // System.out.println("INCOMPLETE: " + candidate);
@@ -472,18 +454,50 @@ public class BookingController extends Controller {
         return receipt;
     }
 
-    public void addBookingToCart(Booking booking) {
-        this.cart.add(booking);
+    // public void addBookingToCart(Booking booking) {
+    //     this.cart.add(booking);
+    // }
+
+    // public ArrayList<BookingReceipt> checkoutCart(User user, ArrayList<UserData> bookees) {
+    //     ArrayList<BookingReceipt> receipts = new ArrayList<BookingReceipt>(); 
+    //     for (Booking booking : this.cart)
+    //     if (this.flights.contains(booking)) {
+    //         BookingReceipt receipt = new BookingReceipt(booking, user, LocalDateTime.now(), bookees);
+    //         receipts.add(receipt);
+    //     }
+    //     return receipts;
+    // }
+
+    public void backupDatabase() {
+        this.backupFlights = new ArrayList<Flight>();
+        this.backupHotels = new ArrayList<Hotel>();
+        this.backupFlights.addAll(this.flights);
+        this.backupHotels.addAll(this.hotels);
     }
 
-    public ArrayList<BookingReceipt> checkoutCart(User user, ArrayList<UserData> bookees) {
-        ArrayList<BookingReceipt> receipts = new ArrayList<BookingReceipt>(); 
-        for (Booking booking : this.cart)
-        if (this.flights.contains(booking)) {
-            BookingReceipt receipt = new BookingReceipt(booking, user, LocalDateTime.now(), bookees);
-            receipts.add(receipt);
+    public void restoreDatabase() {
+        if (this.backupFlights != this.flights) {
+            this.flights = this.backupFlights;
         }
-        return receipts;
+        if (this.backupHotels != this.hotels) {
+            this.hotels = this.backupHotels;
+        }
+    }
+
+    public ArrayList<Flight> getFlightsDB() {
+        return this.flights;
+    }
+
+    public ArrayList<Hotel> getHotelsDB() {
+        return this.hotels;
+    }
+
+    public ArrayList<Flight> getBackupFlightsDB() {
+        return this.backupFlights;
+    }
+
+    public ArrayList<Hotel> getBackupHotelDB() {
+        return this.backupHotels;
     }
 
 }
